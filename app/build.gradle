@@ -33,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -100,6 +104,9 @@ dependencies {
 
     //timber
     implementation "com.jakewharton.timber:timber:$versions.timber_version"
+
+    // Circle Image View
+    implementation "de.hdodenhof:circleimageview:$versions.circle_iv_version"
 
     //viewpager
     implementation "androidx.viewpager2:viewpager2:$versions.viewpager_version"
