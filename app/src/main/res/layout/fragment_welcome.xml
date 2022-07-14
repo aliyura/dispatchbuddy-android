@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/width_200dp"
+        android:layout_height="@dimen/height_200dp"
         android:src="@drawable/ic_logo"
         android:layout_marginTop="@dimen/margin_40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,35 +53,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/fragment_welcome_user_btn"
+            style="@style/DefaultButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_48dp"
-            android:layout_marginHorizontal="@dimen/margin_20dp"
-            android:background="@color/secondary_color"
-            android:text="User?"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textAllCaps="false"
+            android:text="@string/user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/fragment_welcome_rider_btn"
+            style="@style/DefaultButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_48dp"
-            android:layout_marginHorizontal="@dimen/margin_20dp"
             android:layout_marginTop="@dimen/margin_40dp"
-            android:background="@color/secondary_color"
-            android:text="Rider?"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:text="@string/rider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
