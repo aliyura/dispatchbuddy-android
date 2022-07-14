@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">Dispatch Buddy</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="your_trusted_delivery_partner">Your trusted delivery partner</string>
+    <string name="company_description">We are flexible and dedicated logistics delivery service. Experience the fastest delivery service to your doorstep</string>
+    <string name="for_users">For Users</string>
+    <string name="delivery_solutions_just_for_you">Delivery Solutions just for you</string>
+    <string name="delivery_solutions_desc">Quickly get a list of dispatch riders for your day to day delivery service</string>
+    <string name="pick_up">Pick Up</string>
+    <string name="enter_pick_up_location">Enter pick up location</string>
+    <string name="delivery_destination">Delivery Destination</string>
+    <string name="enter_delivery_destination">Enter delivery destination</string>
+    <string name="find_riders">Find Riders</string>
+    <string name="select_from_the_list_of_dispatch_riders">Select from the list of \nDispatch Riders</string>
+    <string name="we_have_them_all_just_for_you_select_a_dispatch_rider">We have them all just for you. Select a dispatch rider</string>
+    <string name="contact_rider">Contact Rider</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to_dispatchbuddy">Welcome to DispatchBuddy</string>
     <string name="rider">Rider</string>

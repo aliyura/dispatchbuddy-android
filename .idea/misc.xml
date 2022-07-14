@@ -3,6 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable/location_input_bg.xml" value="0.299" />
+        <entry key="app/src/main/res/drawable/rider_item_bg.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/riders_list_title_bg.xml" value="0.143" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.2953125" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_pnone_number_verification.xml" value="0.2953125" />
+        <entry key="app/src/main/res/layout/fragment_riders.xml" value="0.2953125" />
+        <entry key="app/src/main/res/layout/riders_list_rv_item.xml" value="0.2953125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
         <entry key="app/src/main/res/drawable-v24/back_button.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable-v24/outlinedEditTextBackground.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.1095" />

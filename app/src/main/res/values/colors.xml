@@ -7,9 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primaryColor">#580AFF</color>
+    <color name="textColor">#1A1A1A</color>
+    <color name="black_24">#3D000000</color>
+    <color name="delivery_details_layout">#0D101828</color>
+    <color name="black_8">#14000000</color>
     <color name="secondary_color">#580AFF</color>
     <color name="primary_color">#F5F5F5</color>
     <color name="accent_color">#21334F</color>
     <color name="accent_variant_color">#1A1A1A</color>
     <color name="hint_text_color">#C4C4C4</color>
+    <color name="create_account_blue_color">#17A1FA</color>
 </resources>

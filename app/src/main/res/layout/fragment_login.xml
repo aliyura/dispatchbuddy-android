@@ -56,6 +56,7 @@
                     android:text="@string/dispatchbuddy"
                     android:layout_gravity="center_vertical"
                     android:textSize="@dimen/text_size_14sp"
+                    android:fontFamily="@font/inter_bold"
                     android:textStyle="bold"
                     android:textColor="@color/accent_variant_color"
                     />
@@ -73,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/login"
-                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/inter_bold"
                     android:textSize="@dimen/text_size_18sp"
                     android:textStyle="bold"
                     android:textColor="@color/accent_variant_color"
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/email"
                     android:layout_marginTop="@dimen/margin_40dp"
-                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
                     android:textColor="@color/accent_color"
                     />
@@ -93,10 +94,9 @@
                     android:layout_marginTop="@dimen/margin_8dp"
                     app:endIconMode="clear_text"
                     app:hintEnabled="false"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
+                    app:boxStrokeWidth="@dimen/width_0dp"
+                    app:boxStrokeWidthFocused="@dimen/width_0dp"
                     app:hintAnimationEnabled="false"
-                    app:placeholderText="Password"
                     app:hintTextColor="@color/hint_text_color"
                     >
                     <com.google.android.material.textfield.TextInputEditText
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_48dp"
                         android:inputType="textEmailAddress"
-                        android:padding="12dp"
+                        android:padding="@dimen/padding_12dp"
                         android:background="@drawable/edit_text_background"
                         android:hint="@string/enter_your_email"
                         />
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/password"
                     android:layout_marginTop="@dimen/margin_16dp"
-                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
                     android:textColor="@color/accent_color"
                     />
@@ -123,8 +123,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
                     app:hintEnabled="false"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
+                    app:boxStrokeWidth="@dimen/width_0dp"
+                    app:boxStrokeWidthFocused="@dimen/width_0dp"
                     app:hintAnimationEnabled="false"
                     app:endIconMode="password_toggle"
                     app:hintTextColor="@color/hint_text_color"
@@ -145,9 +145,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/forgot_password"
                     android:layout_marginTop="@dimen/margin_8dp"
-                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
-                    android:textColor="#17A1FA"
+                    android:textColor="@color/create_account_blue_color"
                     />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fragment_login_login_btn"
@@ -165,12 +165,11 @@
                     android:text="@string/don_t_have_an_account_create_account"
                     android:layout_marginTop="@dimen/margin_40dp"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
-                    android:textColor="#17A1FA"
+                    android:textColor="@color/create_account_blue_color"
                     />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
