@@ -27,4 +27,14 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="don_t_have_an_account_create_account">Don’t have an account? <font color='#580AFF'>Create Account</font></string>
+    <string name="full_name">Full Name</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="upload_a_photo">Upload a Photo</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="when_did_you_join">When did you join?</string>
+    <string name="joined_since">Joined Since?</string>
+    <string name="already_have_an_account_login">Already have an account? <font color='#580AFF'>Login</font></string>
+    <string name="sign_up">Sign Up</string>
 </resources>

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_color"
-    tools:context=".presentation.ui.LoginFragment">
-    <!--    User Account toolbar-->
+    tools:context=".presentation.ui.RegisterFragment">
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/fragment_login_toolbar"
+        android:id="@+id/fragment_register_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/padding_10dp"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
-            android:id="@+id/fragment_login_backArrow_iv"
+            android:id="@+id/fragment_register_backArrow_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_button"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_login_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/fragment_register_toolbar"
         android:layout_marginHorizontal="@dimen/margin_20dp"
         >
         <LinearLayout
@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/login"
+                    android:text="@string/create_your_account"
                     android:fontFamily="@font/inter_bold"
                     android:textSize="@dimen/text_size_24sp"
                     android:textStyle="bold"
@@ -82,7 +82,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
+                    android:text="@string/full_name"
                     android:layout_marginTop="@dimen/margin_40dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
@@ -98,16 +98,16 @@
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextInput"
-                        android:id="@+id/fragment_login_email_edt"
+                        android:id="@+id/fragment_register_fullName_edt"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_48dp"
-                        android:hint="@string/enter_your_email"
+                        android:hint="@string/enter_your_full_name"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/password"
+                    android:text="@string/upload_a_photo"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
@@ -118,48 +118,97 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
-                    app:endIconMode="password_toggle"
+                    android:drawablePadding="-15dp"
                     app:hintTextColor="@color/hint_text_color"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextInput"
                         android:id="@+id/fragment_login_password_edt"
                         android:layout_width="match_parent"
+                        android:focusable="false"
+                        android:cursorVisible="false"
+                        android:drawableStart="@drawable/ic_frame_8562"
+                        android:focusableInTouchMode="false"
                         android:layout_height="@dimen/height_48dp"
-                        android:hint="@string/enter_your_password"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
-                    android:id="@+id/fragment_login_forgot_password_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/forgot_password"
-                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:text="@string/phone_number"
+                    android:layout_marginTop="@dimen/margin_16dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
-                    android:textColor="@color/create_account_blue_color"
+                    android:textColor="@color/accent_color"
                     />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/EditTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    app:hintTextColor="@color/hint_text_color"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/EditTextInput"
+                        android:id="@+id/fragment_register_phoneNumber_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_48dp"
+                        android:hint="@string/enter_your_phone_number"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/joined_since"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="@font/inter"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:textColor="@color/accent_color"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/EditTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconDrawable="@drawable/ic_calendar"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    app:hintTextColor="@color/hint_text_color"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/EditTextInput"
+                        android:id="@+id/fragment_register_calender_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_48dp"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/when_did_you_join"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fragment_login_login_btn"
                     style="@style/DefaultButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_48dp"
                     android:layout_marginTop="@dimen/margin_24dp"
-                    android:text="@string/login"
+                    android:text="@string/sign_up"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/fragment_login_no_account_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/don_t_have_an_account_create_account"
+                    android:text="@string/already_have_an_account_login"
                     android:layout_marginTop="@dimen/margin_40dp"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
-                    android:textColor="@color/create_account_blue_color"
+                    android:textColor="@color/accent_color"
                     />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

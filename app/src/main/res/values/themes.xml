@@ -26,4 +26,16 @@
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textAllCaps">false</item>
     </style>
+    <style name="EditTextInputLayout">
+        <item name="hintEnabled">false</item>
+        <item name="boxStrokeWidth">@dimen/width_0dp</item>
+        <item name="boxStrokeWidthFocused">@dimen/width_0dp</item>
+        <item name="hintAnimationEnabled">false</item>
+    </style>
+    <style name="EditTextInput">
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:padding">@dimen/padding_12dp</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:background">@drawable/edit_text_background</item>
+    </style>
 </resources>
