@@ -91,6 +91,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rider_date_joined_tv" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

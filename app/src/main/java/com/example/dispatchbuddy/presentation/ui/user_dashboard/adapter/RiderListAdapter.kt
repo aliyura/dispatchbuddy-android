@@ -38,7 +38,6 @@ class RiderListAdapter : ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(
     }
 }
 
-
 object DiffCallBack : DiffUtil.ItemCallback<RiderProfile>() {
     override fun areItemsTheSame(oldItem: RiderProfile, newItem: RiderProfile): Boolean {
         return oldItem.name == newItem.name
@@ -47,5 +46,4 @@ object DiffCallBack : DiffUtil.ItemCallback<RiderProfile>() {
     override fun areContentsTheSame(oldItem: RiderProfile, newItem: RiderProfile): Boolean {
         return oldItem == newItem
     }
-
 }

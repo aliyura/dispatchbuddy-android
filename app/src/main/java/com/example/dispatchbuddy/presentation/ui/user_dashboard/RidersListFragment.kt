@@ -1,11 +1,10 @@
 package com.example.dispatchbuddy.presentation.ui.user_dashboard
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.dispatchbuddy.R
+import androidx.fragment.app.Fragment
 import com.example.dispatchbuddy.common.ridersList
 import com.example.dispatchbuddy.databinding.FragmentRidersListBinding
 import com.example.dispatchbuddy.presentation.ui.user_dashboard.adapter.RiderListAdapter
@@ -32,5 +31,8 @@ class RidersListFragment : Fragment() {
         riderListAdapter.submitList(ridersList)
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
