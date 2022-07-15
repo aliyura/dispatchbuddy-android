@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_nav_graph.xml"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -15,4 +15,19 @@
         android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.RidersListFragment"
         android:label="fragment_riders_list"
         tools:layout="@layout/fragment_riders_list" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" />
 </navigation>
