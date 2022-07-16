@@ -38,4 +38,9 @@
         <item name="android:textSize">@dimen/text_size_12sp</item>
         <item name="android:background">@drawable/edit_text_background</item>
     </style>
+
+    <style name="MyBottomNavigationView.TextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
 </resources>

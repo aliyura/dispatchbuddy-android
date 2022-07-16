@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color"
-    tools:context=".presentation.ui.WelcomeFragment">
+    tools:context=".presentation.ui.authentication.WelcomeFragment">
     <!--    User Account toolbar-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_welcome_toolbar"

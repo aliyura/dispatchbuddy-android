@@ -21,8 +21,10 @@
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/splashscreen_image.xml" value="0.1095" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2418918918918919" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_riders_list.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.25" />
 >>>>>>> 0fcc17b570534a9b510fde6cb8f414857ea2ee83
       </map>
@@ -33,5 +35,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>

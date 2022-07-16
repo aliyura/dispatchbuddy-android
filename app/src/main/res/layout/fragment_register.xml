@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_color"
-    tools:context=".presentation.ui.RegisterFragment">
+    tools:context=".presentation.ui.authentication.RegisterFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_register_toolbar"
@@ -188,7 +188,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fragment_login_login_btn"
+                    android:id="@+id/fragment_register_signUp_btn"
                     style="@style/DefaultButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_48dp"
@@ -197,7 +197,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
-                    android:id="@+id/fragment_login_no_account_tv"
+                    android:id="@+id/fragment_register_have_account_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/already_have_an_account_login"
