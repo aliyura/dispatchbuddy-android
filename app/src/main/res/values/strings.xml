@@ -37,14 +37,31 @@
     <string name="joined_since">Joined Since?</string>
     <string name="already_have_an_account_login">Already have an account? <font color='#580AFF'>Login</font></string>
     <string name="sign_up">Sign Up</string>
+    <string name="login_or_sign_up_your_account">Login or Sign Up your account</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="kelechi_okoli">Kelechi Okoli</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="notification">Notification</string>
+    <string name="change_password">Change Password</string>
+    <string name="logout">Logout</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="enter_confirm_password">Enter confirm password</string>
+    <string name="save">Save</string>
+    <string name="home">Home</string>
+    <string name="locations">Locations</string>
+    <string name="account">Account</string>
     <string name="success">Success</string>
     <string name="success_message">You’ve successfully contacted Uche Okoro. \nA Rider will be in your location soon.</string>
     <string name="success_message_begin">You’ve successfully contacted </string>
     <string name="success_message_rider_name">%s.</string>
     <string name="success_message_end">A Rider will be in your location soon.</string>
     <string name="menu_home">Home</string>
-    <string name="locations">Locations</string>
-    <string name="account">Account</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="locations_fragment">Locations Fragment</string>
 </resources>

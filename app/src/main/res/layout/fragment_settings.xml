@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
+    tools:context=".presentation.ui.authentication.SettingsFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fragment_settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_10dp"
+        android:paddingRight="@dimen/padding_10dp"
+        app:elevation="@dimen/elevation_4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter_bold"
+            android:textStyle="bold"
+            android:text="@string/settings"
+            android:textColor="@color/accent_color"
+            android:textSize="@dimen/text_size_16sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_settings_toolbar"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/login_or_sign_up_your_account"
+            android:textColor="@color/accent_color"
+            android:textSize="@dimen/text_size_16sp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fragment_settings_login_btn"
+            style="@style/DefaultButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_48dp"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:text="@string/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fragment_settings_register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_48dp"
+            android:background="@drawable/oulined_button_background"
+            android:textAllCaps="false"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:textColor="@color/secondary_color"
+            android:text="@string/sign_up"
+            />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

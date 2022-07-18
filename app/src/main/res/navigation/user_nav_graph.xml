@@ -19,21 +19,6 @@
             android:id="@+id/action_ridersListFragment_to_successDialogFragment"
             app:destination="@id/successDialogFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
     <dialog
         android:id="@+id/successDialogFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.SuccessDialogFragment"
@@ -43,4 +28,9 @@
             android:name="rider_details"
             app:argType="com.example.dispatchbuddy.data.remote.dto.RiderProfile" />
     </dialog>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" />
 </navigation>

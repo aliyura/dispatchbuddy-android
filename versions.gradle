@@ -1,5 +1,5 @@
 ext.versions = [
-        nav_version              : '2.4.2',
+        nav_version              : '2.3.5',
         retrofit_version         : '2.9.0',
         okhttp3_version          : '5.0.0-alpha.3',
         constraint_layout_version: '2.1.3',
@@ -8,7 +8,7 @@ ext.versions = [
         hilt_life_cycle_version  : '1.0.0-alpha03',
         lifecycle_version        : '2.5.0',
         room_version             : '2.4.2',
-        material_version         : '1.5.0',
+        material_version         : '1.6.1',
         fragment_version         : '1.4.1',
         build_gradle_version     : '7.0.0',
         google_services          : "4.3.4",
