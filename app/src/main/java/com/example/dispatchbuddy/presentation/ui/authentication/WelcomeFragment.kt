@@ -1,14 +1,13 @@
 package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.FragmentWelcomeBinding
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 class WelcomeFragment : Fragment() {
     private  var _binding: FragmentWelcomeBinding? = null

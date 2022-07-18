@@ -10,8 +10,14 @@ import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.data.remote.dto.RiderProfile
 import com.example.dispatchbuddy.databinding.RidersListRvItemBinding
 
-class RiderListAdapter : ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(DiffCallBack) {
-    class ViewHolder(val binding: RidersListRvItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class RiderListAdapter(private val onItemClick: (RiderProfile) -> Unit) :
+    ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(DiffCallBack) {
+
+    class ViewHolder(
+        val binding: RidersListRvItemBinding,
+        private val onItemClick: (RiderProfile) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(riderProfile: RiderProfile) {
             binding.apply {
                 riderNameTv.text = riderProfile.name
@@ -23,6 +29,9 @@ class RiderListAdapter : ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(
                     .placeholder(R.drawable.profile_avatar)
                     .into(riderProfileImageIv)
 
+                contactRidersButton.setOnClickListener {
+                    onItemClick.invoke(riderProfile)
+                }
             }
         }
     }
@@ -30,7 +39,7 @@ class RiderListAdapter : ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             RidersListRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

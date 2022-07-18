@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".presentation.ui.user_dashboard.RidersListFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dispatch_riders_list_layout"
         android:layout_width="match_parent"
