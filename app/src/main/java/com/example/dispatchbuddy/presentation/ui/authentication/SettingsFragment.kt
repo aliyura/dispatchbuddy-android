@@ -1,5 +1,6 @@
 package com.example.dispatchbuddy.presentation.ui.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.FragmentLoginBinding
 import com.example.dispatchbuddy.databinding.FragmentSettingsBinding
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.RiderActivity
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null

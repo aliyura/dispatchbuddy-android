@@ -18,5 +18,6 @@
     <color name="accent_variant_color">#1A1A1A</color>
     <color name="hint_text_color">#C4C4C4</color>
     <color name="create_account_blue_color">#17A1FA</color>
+    <color name="grey">#97ADB6</color>
     <color name="profile_background">#F7F3FF</color>
 </resources>

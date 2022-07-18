@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.profile
+package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

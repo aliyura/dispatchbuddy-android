@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.ui.authentication.SmsVerificationFragment">
+
+    <ImageView
+        android:id="@+id/fragment_register_backArrow_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verify_code_tv"
+        app:layout_constraintTop_toTopOf="@+id/verify_code_tv"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/verify_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/verify_code"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/text_size_18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/verification_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:gravity="center"
+        android:text="@string/a_code_has_been_sent_to_via_sms"
+        android:textColor="@color/grey"
+        android:lineSpacingExtra="2sp"
+        android:textSize="@dimen/text_size_14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verification_guideline_top"
+        tools:text="A code has been sent to  \n+33 234 556 7888 via SMS" />
+
+    <LinearLayout
+        android:id="@+id/otp_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_65dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verification_message">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="@dimen/width_40dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/primaryColor"
+            android:textSize="@dimen/text_size_32sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="@dimen/width_40dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/primaryColor"
+            android:textSize="@dimen/text_size_32sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="@dimen/width_40dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/primaryColor"
+            android:textSize="@dimen/text_size_32sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="@dimen/width_40dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/primaryColor"
+            android:textSize="@dimen/text_size_32sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/resend_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resend_code"
+        android:textColor="@color/grey"
+        app:layout_constraintEnd_toEndOf="@+id/otp_layout"
+        android:layout_marginTop="@dimen/margin_20dp"
+        app:layout_constraintStart_toStartOf="@+id/otp_layout"
+        app:layout_constraintTop_toBottomOf="@id/otp_layout" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verification_guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24897401" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

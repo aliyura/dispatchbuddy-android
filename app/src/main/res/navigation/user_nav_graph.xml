@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_nav_graph.xml"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -28,9 +28,4 @@
             android:name="rider_details"
             app:argType="com.example.dispatchbuddy.data.remote.dto.RiderProfile" />
     </dialog>
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
 </navigation>
