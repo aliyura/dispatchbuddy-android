@@ -3,8 +3,6 @@ package com.example.dispatchbuddy.presentation.ui.user_dashboard
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +14,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.FragmentSuccessDialogBinding
-import com.example.dispatchbuddy.databinding.FragmentWelcomeBinding
 
 class SuccessDialogFragment : DialogFragment() {
     private  var _binding: FragmentSuccessDialogBinding? = null
@@ -48,7 +45,7 @@ class SuccessDialogFragment : DialogFragment() {
             bold { color(ResourcesCompat.getColor(resources, R.color.textColor, null)) {
                 append(getString(R.string.success_message_rider_name, args.riderDetails.name))
             } }
-            append(" ")
+            append("\n")
             append(getString(R.string.success_message_end))
         }
         binding.successMessageTv.text = message
