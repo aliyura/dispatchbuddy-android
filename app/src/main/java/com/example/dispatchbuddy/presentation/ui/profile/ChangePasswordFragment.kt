@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.authentication
+package com.example.dispatchbuddy.presentation.ui.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,18 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dispatchbuddy.R
-import com.example.dispatchbuddy.databinding.FragmentProfileBinding
+import com.example.dispatchbuddy.databinding.FragmentChangePasswordBinding
 
-class ProfileFragment : Fragment() {
-    private var _binding: FragmentProfileBinding? = null
+
+class ChangePasswordFragment : Fragment() {
+    private  var _binding: FragmentChangePasswordBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

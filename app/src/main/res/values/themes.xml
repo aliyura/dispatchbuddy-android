@@ -38,12 +38,31 @@
         <item name="hintEnabled">false</item>
         <item name="boxStrokeWidth">@dimen/width_0dp</item>
         <item name="boxStrokeWidthFocused">@dimen/width_0dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
         <item name="hintAnimationEnabled">false</item>
     </style>
     <style name="EditTextInput">
         <item name="android:inputType">textEmailAddress</item>
         <item name="android:padding">@dimen/padding_12dp</item>
         <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
         <item name="android:background">@drawable/edit_text_background</item>
     </style>
+    <style name="BrandedSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#e6e600</item>
+        <item name="colorSwitchThumbNormal">#cc0000</item>
+    </style>
+    <style name="ClosedCircuitSwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/height_24dp</item>
+        <item name="android:checked">true</item>
+        <item name="android:enabled">true</item>
+        <item name="android:thumb">@drawable/custom_thumb</item>
+        <item name="track">@drawable/custom_track</item>
+    </style>
+
+    <dimen name="height_24dp">24dp</dimen>
 </resources>

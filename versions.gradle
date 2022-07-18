@@ -1,5 +1,5 @@
 ext.versions = [
-        nav_version              : '2.4.2',
+        nav_version              : '2.3.5',
         retrofit_version         : '2.9.0',
         okhttp3_version          : '5.0.0-alpha.3',
         constraint_layout_version: '2.1.3',

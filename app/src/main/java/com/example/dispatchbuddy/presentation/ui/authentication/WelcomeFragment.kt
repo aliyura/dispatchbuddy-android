@@ -32,7 +32,6 @@ class WelcomeFragment : Fragment() {
                 findNavController().navigate(R.id.homeFragment)
             }
             fragmentWelcomeRiderBtn.setOnClickListener {
-                findNavController().navigate(R.id.loginFragment)
             }
         }
     }

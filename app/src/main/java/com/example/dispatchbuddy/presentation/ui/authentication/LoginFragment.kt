@@ -25,7 +25,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             fragmentLoginNoAccountTv.setOnClickListener {
-                findNavController().navigate(R.id.registerFragment)
+
             }
             fragmentLoginLoginBtn.setOnClickListener {
                 findNavController().navigate(R.id.homeFragment)

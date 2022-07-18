@@ -45,4 +45,15 @@
     <string name="notification">Notification</string>
     <string name="change_password">Change Password</string>
     <string name="logout">Logout</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="enter_confirm_password">Enter confirm password</string>
+    <string name="save">Save</string>
+    <string name="home">Home</string>
+    <string name="locations">Locations</string>
+    <string name="account">Account</string>
 </resources>
