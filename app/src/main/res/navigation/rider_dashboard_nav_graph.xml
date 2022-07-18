@@ -5,11 +5,6 @@
     android:id="@+id/dashboard_nav_graph.xml"
     app:startDestination="@id/homeFragment">
     <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.ChangePasswordFragment"
-        android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
-    <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
