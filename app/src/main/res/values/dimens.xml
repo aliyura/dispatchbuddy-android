@@ -37,4 +37,6 @@
     <dimen name="height_200dp">200dp</dimen>
     <dimen name="width_0dp">0dp</dimen>
     <dimen name="radius_16dp">16dp</dimen>
+    <dimen name="margin_65dp">65dp</dimen>
+    <dimen name="width_40dp">40dp</dimen>
 </resources>

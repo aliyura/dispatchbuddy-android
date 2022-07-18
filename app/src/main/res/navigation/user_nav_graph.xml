@@ -43,4 +43,9 @@
             android:name="rider_details"
             app:argType="com.example.dispatchbuddy.data.remote.dto.RiderProfile" />
     </dialog>
+    <fragment
+        android:id="@+id/smsVerificationFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.SmsVerificationFragment"
+        android:label="fragment_sms_verification"
+        tools:layout="@layout/fragment_sms_verification" />
 </navigation>

@@ -47,4 +47,7 @@
     <string name="account">Account</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="locations_fragment">Locations Fragment</string>
+    <string name="verify_code">Verify code</string>
+    <string name="a_code_has_been_sent_to_via_sms">A code has been sent to \n+33 234 556 7888 via SMS</string>
+    <string name="resend_code">Resend code</string>
 </resources>

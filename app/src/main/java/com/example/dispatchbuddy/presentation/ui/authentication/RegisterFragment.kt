@@ -25,7 +25,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             fragmentRegisterSignUpBtn.setOnClickListener {
-                findNavController().navigate(R.id.loginFragment)
+                findNavController().navigate(R.id.smsVerificationFragment)
             }
             fragmentRegisterHaveAccountTv.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment)
