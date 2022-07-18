@@ -1,5 +1,6 @@
 package com.example.dispatchbuddy.presentation.ui.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.FragmentWelcomeBinding
+import com.example.dispatchbuddy.presentation.ui.user_dashboard.UserActivity
 
 class WelcomeFragment : Fragment() {
-    private  var _binding: FragmentWelcomeBinding? = null
+    private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,18 +25,26 @@ class WelcomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            buttonClickListener()
+        buttonClickListener()
     }
-    private fun buttonClickListener(){
-        with(binding){
+
+    private fun buttonClickListener() {
+        with(binding) {
             fragmentWelcomeUserBtn.setOnClickListener {
-                findNavController().navigate(R.id.homeFragment)
+                navigateToUserDashboard()
             }
             fragmentWelcomeRiderBtn.setOnClickListener {
-                findNavController().navigate(R.id.loginFragment)
+                findNavController().navigate(R.id.settingsFragment)
             }
         }
     }
+
+    private fun navigateToUserDashboard() {
+        Intent(requireContext(), UserActivity::class.java).also { intentUserActivity ->
+            startActivity(intentUserActivity)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

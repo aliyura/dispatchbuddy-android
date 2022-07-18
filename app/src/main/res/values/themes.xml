@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.DispatchBuddy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -26,16 +26,28 @@
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textAllCaps">false</item>
     </style>
+    <style name="DefaultOutlinedButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/oulined_button_background</item>
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
     <style name="EditTextInputLayout">
         <item name="hintEnabled">false</item>
         <item name="boxStrokeWidth">@dimen/width_0dp</item>
         <item name="boxStrokeWidthFocused">@dimen/width_0dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
         <item name="hintAnimationEnabled">false</item>
     </style>
     <style name="EditTextInput">
         <item name="android:inputType">textEmailAddress</item>
         <item name="android:padding">@dimen/padding_12dp</item>
         <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
         <item name="android:background">@drawable/edit_text_background</item>
     </style>
 

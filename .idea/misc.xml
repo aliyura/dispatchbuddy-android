@@ -3,30 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<< HEAD
-        <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.2105" />
-        <entry key="app/src/main/res/drawable/location_input_bg.xml" value="0.299" />
-        <entry key="app/src/main/res/drawable/rider_item_bg.xml" value="0.143" />
-        <entry key="app/src/main/res/drawable/riders_list_title_bg.xml" value="0.143" />
-        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.2953125" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_pnone_number_verification.xml" value="0.2953125" />
-        <entry key="app/src/main/res/layout/fragment_riders.xml" value="0.2953125" />
-        <entry key="app/src/main/res/layout/fragment_riders_list.xml" value="0.2953125" />
-        <entry key="app/src/main/res/layout/riders_list_rv_item.xml" value="0.2953125" />
-=======
         <entry key="app/src/main/res/drawable-v24/back_button.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable-v24/outlinedEditTextBackground.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/custom_thumb.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/custom_track.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/ic_baseline_close_16.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/ic_baseline_correct_16.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/oulined_button_background.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/splashscreen_image.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/switch_thumb_false.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/switch_thumb_true.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/swtch_thumb_false.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/swtch_thumb_true.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/thumb.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/track.xml" value="0.1445" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_rider.xml" value="0.23777173913043478" />
+        <entry key="app/src/main/res/layout/fragment_change_password.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2418918918918919" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_rider_home.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_riders_list.xml" value="0.23777173913043478" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_success_dialog.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.25" />
->>>>>>> 0fcc17b570534a9b510fde6cb8f414857ea2ee83
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/rider_menu.xml" value="0.240990990990991" />
       </map>
     </option>
   </component>

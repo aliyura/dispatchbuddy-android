@@ -19,4 +19,5 @@
     <color name="hint_text_color">#C4C4C4</color>
     <color name="create_account_blue_color">#17A1FA</color>
     <color name="grey">#97ADB6</color>
+    <color name="profile_background">#F7F3FF</color>
 </resources>

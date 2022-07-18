@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.dispatchbuddy.R
 
-class MainActivity : AppCompatActivity() {
+class AuthenticationActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_DispatchBuddy)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_authentication)
     }
 }
