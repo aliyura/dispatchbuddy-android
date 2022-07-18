@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_color"
-    tools:context=".EditProfileFragment">
+    tools:context=".presentation.ui.profile.EditProfileFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_edit_profile_toolbar"

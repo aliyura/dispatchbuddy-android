@@ -36,6 +36,7 @@
     <dimen name="width_200dp">200dp</dimen>
     <dimen name="height_200dp">200dp</dimen>
     <dimen name="width_0dp">0dp</dimen>
+    <dimen name="radius_16dp">16dp</dimen>
     <dimen name="margin_56dp">56dp</dimen>
     <dimen name="radius_50dp">50dp</dimen>
     <dimen name="width_90dp">90dp</dimen>
@@ -48,4 +49,6 @@
     <dimen name="margin_negative_30dp">-30dp</dimen>
     <dimen name="width_16dp">16dp</dimen>
     <dimen name="height_16dp">16dp</dimen>
+    <dimen name="height_0dp">0dp</dimen>
+    <dimen name="height_24dp">24dp</dimen>
 </resources>

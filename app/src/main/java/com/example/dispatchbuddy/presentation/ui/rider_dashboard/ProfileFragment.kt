@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.profile
+package com.example.dispatchbuddy.presentation.ui.rider_dashboard
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,12 +22,15 @@ class ProfileFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        buttonClickListener()
     }
     private fun buttonClickListener(){
         with(binding){
             fragmentEditProfileTv.setOnClickListener {
-
+                findNavController().navigate(R.id.editProfileFragment)
+            }
+            fragmentChangePasswordProfileTv.setOnClickListener {
+                findNavController().navigate(R.id.changePasswordFragment)
             }
         }
     }

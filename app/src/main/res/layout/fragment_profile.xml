@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".presentation.ui.profile.ProfileFragment">
+    tools:context=".presentation.ui.rider_dashboard.ProfileFragment">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_profile_toolbar"
         android:layout_width="match_parent"
@@ -78,7 +78,6 @@
                     android:layout_marginTop="@dimen/margin_negative_30dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_camera_icon" />
-
                 <TextView
                     android:id="@+id/fragment_profile_name_tv"
                     android:layout_width="wrap_content"
@@ -87,7 +86,6 @@
                     android:text="@string/kelechi_okoli"
                     android:textColor="@color/accent_color"
                     android:textSize="@dimen/text_size_14sp" />
-
                 <TextView
                     android:id="@+id/fragment_profile_user_type_tv"
                     android:layout_width="wrap_content"
@@ -110,8 +108,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/width_16dp"
+                    android:layout_height="@dimen/height_16dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
                     android:src="@drawable/ic_profile___1335_" />
 
@@ -137,8 +135,8 @@
                 app:layout_constraintTop_toBottomOf="@id/fragment_profile_edit_profile_layout">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/width_16dp"
+                    android:layout_height="@dimen/height_16dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
                     android:src="@drawable/ic__6__notification" />
 
@@ -164,8 +162,8 @@
                 app:layout_constraintTop_toBottomOf="@id/fragment_edit_profile_notification_layout">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/width_16dp"
+                    android:layout_height="@dimen/height_16dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
                     android:src="@drawable/ic_lock" />
 
@@ -205,13 +203,12 @@
             </LinearLayout>
             <com.suke.widget.SwitchButton
                 android:id="@+id/switch_button"
-                android:layout_width="40dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/width_40dp"
+                android:layout_height="@dimen/height_24dp"
                 app:sb_checked="true"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_profile_notification_layout"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_edit_profile_notification_layout"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_profile_notification_layout" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

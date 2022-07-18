@@ -26,11 +26,14 @@
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2418918918918919" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_rider_home.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_riders_list.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_success_dialog.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="app/src/main/res/menu/rider_menu.xml" value="0.240990990990991" />
       </map>
     </option>

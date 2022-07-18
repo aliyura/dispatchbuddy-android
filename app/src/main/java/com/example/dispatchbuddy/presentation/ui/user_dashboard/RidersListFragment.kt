@@ -1,10 +1,11 @@
 package com.example.dispatchbuddy.presentation.ui.user_dashboard
 
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.ridersList
 import com.example.dispatchbuddy.databinding.FragmentRidersListBinding
 import com.example.dispatchbuddy.presentation.ui.user_dashboard.adapter.RiderListAdapter
@@ -26,7 +27,11 @@ class RidersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        riderListAdapter = RiderListAdapter()
+        riderListAdapter = RiderListAdapter {
+            val action =
+                RidersListFragmentDirections.actionRidersListFragmentToSuccessDialogFragment(it)
+            findNavController().navigate(action)
+        }
         binding.ridersListRv.adapter = riderListAdapter
         riderListAdapter.submitList(ridersList)
     }

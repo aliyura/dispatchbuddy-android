@@ -60,13 +60,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_48dp"
             android:background="@drawable/oulined_button_background"
-            app:cornerRadius="10dp"
             android:textAllCaps="false"
             android:layout_marginTop="@dimen/margin_24dp"
             android:textColor="@color/secondary_color"
             android:text="@string/sign_up"
             />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
         <activity
-            android:name=".RiderActivity"
+            android:name=".presentation.ui.rider_dashboard.RiderActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.user_dashboard.DashboardActivity"
