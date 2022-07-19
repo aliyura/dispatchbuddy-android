@@ -94,6 +94,7 @@
                         style="@style/EditTextInput"
                         android:id="@+id/fragment_register_fullName_edt"
                         android:layout_width="match_parent"
+                        android:inputType="textCapWords"
                         android:layout_height="@dimen/height_48dp"
                         android:hint="@string/enter_your_full_name"
                         />
@@ -101,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/upload_a_photo"
+                    android:text="@string/email"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
@@ -112,17 +113,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
+                    android:drawablePadding="-15dp"
+                    app:endIconMode="clear_text"
                     app:hintTextColor="@color/hint_text_color"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextInput"
                         android:id="@+id/fragment_login_password_edt"
                         android:layout_width="match_parent"
-                        android:focusable="false"
-                        android:cursorVisible="false"
-                        android:drawableStart="@drawable/ic_frame_8562"
-                        android:focusableInTouchMode="false"
                         android:layout_height="@dimen/height_48dp"
+                        android:inputType="textEmailAddress"
+                        android:hint="@string/enter_your_email"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
@@ -146,14 +147,16 @@
                         style="@style/EditTextInput"
                         android:id="@+id/fragment_register_phoneNumber_edt"
                         android:layout_width="match_parent"
+                        android:inputType="number"
                         android:layout_height="@dimen/height_48dp"
                         android:hint="@string/enter_your_phone_number"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
+                    android:id="@+id/fragment_register_dob_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/joined_since"
+                    android:text="@string/date_of_birth"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
@@ -171,12 +174,13 @@
                         style="@style/EditTextInput"
                         android:id="@+id/fragment_register_calender_edt"
                         android:layout_width="match_parent"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:cursorVisible="false"
+                        android:text=""
                         android:layout_height="@dimen/height_48dp"
                         android:drawableEnd="@drawable/ic_calendar"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/when_did_you_join"
+                        android:hint="@string/select_date"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 

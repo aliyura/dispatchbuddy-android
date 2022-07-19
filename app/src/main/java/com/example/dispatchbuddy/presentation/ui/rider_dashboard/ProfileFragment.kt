@@ -1,6 +1,7 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.FragmentProfileBinding
+import timber.log.Timber
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -30,7 +32,8 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.editProfileFragment)
             }
             fragmentChangePasswordProfileTv.setOnClickListener {
-                findNavController().navigate(R.id.changePasswordFragment)
+                val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment2()
+                findNavController().navigate(action)
             }
         }
     }

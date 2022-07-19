@@ -1,0 +1,12 @@
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dropdown_item_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/inter"
+    android:gravity="center_vertical"
+    android:textSize="@dimen/text_size_12sp"
+    android:padding="@dimen/padding_20dp"
+    android:textColor="@color/black"
+    />
