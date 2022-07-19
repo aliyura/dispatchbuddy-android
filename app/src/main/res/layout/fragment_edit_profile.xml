@@ -23,6 +23,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/back_button"
             tools:ignore="ContentDescription"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_profile"
+            android:fontFamily="@font/inter_bold"
+            android:textSize="@dimen/text_size_16sp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/accent_variant_color"
+            />
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
@@ -37,29 +47,41 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10dp"
             android:orientation="vertical">
-            <LinearLayout
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:orientation="vertical"
+                    app:cardCornerRadius="@dimen/radius_50dp"
+                    app:cardElevation="@dimen/elevation_0dp">
+
+                    <ImageView
+                        android:id="@+id/fragment_profile_avatar"
+                        android:layout_width="@dimen/width_90dp"
+                        android:layout_height="@dimen/height_90dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar" />
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/fragment_profile_avatar_picker"
+                    android:layout_width="@dimen/width_40dp"
+                    android:layout_height="@dimen/height_40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/margin_30dp"
+                    android:layout_marginTop="@dimen/margin_negative_30dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_camera_icon" />
+            <TextView
+                android:id="@+id/fragment_edit_upload_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                >
-                <ImageView
-                    android:layout_width="@dimen/width_42dp"
-                    android:layout_height="@dimen/height_42dp"
-                    android:layout_marginEnd="@dimen/margin_8dp"
-                    android:src="@drawable/ic_logo"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dispatchbuddy"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="@dimen/text_size_14sp"
-                    android:fontFamily="@font/inter_bold"
-                    android:textStyle="bold"
-                    android:textColor="@color/accent_variant_color"
-                    />
-            </LinearLayout>
+                android:text="@string/upload_photo"
+                android:textColor="@color/accent_color"
+                android:textSize="@dimen/text_size_14sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,22 +89,12 @@
                 android:background="@color/white"
                 android:paddingHorizontal="@dimen/padding_16dp"
                 android:paddingVertical="@dimen/padding_32dp"
-                android:layout_marginTop="@dimen/margin_32dp"
+                android:layout_marginTop="@dimen/margin_16dp"
                 >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_profile"
-                    android:fontFamily="@font/inter_bold"
-                    android:textSize="@dimen/text_size_24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/accent_variant_color"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/full_name"
-                    android:layout_marginTop="@dimen/margin_40dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
                     android:textColor="@color/accent_color"
@@ -97,9 +109,9 @@
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextInput"
-                        android:id="@+id/fragment_old_password_edt"
+                        android:id="@+id/fragment_edit_full_name_edt"
                         android:layout_width="match_parent"
-                        android:inputType="textPassword"
+                        android:inputType="textCapWords"
                         android:layout_height="@dimen/height_48dp"
                         android:hint="@string/enter_your_full_name"
                         />
@@ -107,7 +119,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/phone_number"
+                    android:text="@string/country"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
@@ -122,45 +134,74 @@
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextInput"
-                        android:id="@+id/fragment_new_password_edt"
-                        android:inputType="textPassword"
+                        android:id="@+id/fragment_edit_country_edt"
+                        android:inputType="textCapWords"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_48dp"
-                        android:hint="@string/enter_your_phone_number"
+                        android:hint="@string/enter_your_country"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/city"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="@font/inter"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:textColor="@color/accent_color"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/EditTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    app:hintTextColor="@color/hint_text_color"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/EditTextInput"
+                        android:id="@+id/fragment_edit_city_edt"
+                        android:inputType="textCapWords"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_48dp"
+                        android:hint="@string/enter_your_city_name"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/joined_since"
+                    android:text="@string/gender"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:fontFamily="@font/inter"
                     android:textSize="@dimen/text_size_12sp"
                     android:textColor="@color/accent_color"
                     />
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/EditTextInputLayout"
-                    android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="@dimen/width_120dp"
                     android:layout_height="wrap_content"
-                    app:endIconDrawable="@drawable/ic_calendar"
                     android:layout_marginTop="@dimen/margin_8dp"
-                    app:hintTextColor="@color/hint_text_color"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeWidthFocused="1dp"
+                    app:boxStrokeColor="@color/primary_color"
+                    app:hintTextColor="@color/primary_color"
                     >
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/EditTextInput"
-                        android:id="@+id/fragment_register_calender_edt"
+                    <AutoCompleteTextView
+                        android:id="@+id/selectGenderDropdown"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_48dp"
-                        android:drawableEnd="@drawable/ic_calendar"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/when_did_you_join"
-                        />
+                        android:layout_height="match_parent"
+                        android:dropDownVerticalOffset="@dimen/offset_4dp"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/text_size_12sp"
+                        android:inputType="none"
+                        android:background="@drawable/edit_text_background"
+                        android:textColor="@color/black"
+                        android:paddingHorizontal="@dimen/margin_4dp"
+                        android:paddingTop="@dimen/padding_4dp"
+                        android:scrollbars="none" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fragment_edit_profile_btn"
+                    android:id="@+id/fragment_edit_profile_save_btn"
                     style="@style/DefaultButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_48dp"

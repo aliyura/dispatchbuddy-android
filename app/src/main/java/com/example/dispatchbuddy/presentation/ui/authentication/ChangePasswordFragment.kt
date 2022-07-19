@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.FragmentChangePasswordBinding
 
@@ -19,6 +20,13 @@ class ChangePasswordFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.fragmentChangePasswordBtn.setOnClickListener {
+            findNavController().navigate(R.id.profileFragment)
+        }
     }
 
     override fun onDestroy() {
