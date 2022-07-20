@@ -20,4 +20,5 @@
     <color name="create_account_blue_color">#17A1FA</color>
     <color name="grey">#97ADB6</color>
     <color name="profile_background">#F7F3FF</color>
+    <color name="delivery_background">#FFFBE5</color>
 </resources>

@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable-v24/outlinedEditTextBackground.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/custom_thumb.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/custom_track.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/delivery_status_background.xml" value="0.186" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_baseline_close_16.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/ic_baseline_correct_16.xml" value="0.1445" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/oulined_button_background.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/splashscreen_image.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/success_dialog_bg.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/switch_thumb_false.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/switch_thumb_true.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/swtch_thumb_false.xml" value="0.1445" />
@@ -35,6 +37,8 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_success_dialog.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/requests_rv_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/riders_list_rv_item.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="app/src/main/res/menu/rider_menu.xml" value="0.240990990990991" />
       </map>

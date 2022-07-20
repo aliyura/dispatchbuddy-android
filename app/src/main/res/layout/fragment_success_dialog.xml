@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:elevation="@dimen/elevation_5dp"
-    android:layout_marginHorizontal="@dimen/margin_10dp"
+    android:layout_marginHorizontal="@dimen/margin_30dp"
     android:background="@drawable/success_dialog_bg"
     tools:context=".presentation.ui.user_dashboard.SuccessDialogFragment">
 

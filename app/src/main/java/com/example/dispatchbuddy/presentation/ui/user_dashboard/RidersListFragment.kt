@@ -28,8 +28,7 @@ class RidersListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         riderListAdapter = RiderListAdapter {
-            val action =
-                RidersListFragmentDirections.actionRidersListFragmentToSuccessDialogFragment(it)
+            val action = RidersListFragmentDirections.actionRidersListFragmentToSuccessDialogFragment(it)
             findNavController().navigate(action)
         }
         binding.ridersListRv.adapter = riderListAdapter
