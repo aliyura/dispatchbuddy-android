@@ -3,6 +3,10 @@
     package="com.example.dispatchbuddy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
 
     <application
         android:allowBackup="true"
@@ -11,6 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBzkZ6SpWj-Hgsr_hL86TFKu_3FAHy25c0"/>
+
         <activity
             android:name=".presentation.ui.rider_dashboard.RiderActivity"
             android:exported="false" />
