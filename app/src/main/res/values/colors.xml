@@ -21,4 +21,7 @@
     <color name="grey">#97ADB6</color>
     <color name="profile_background">#F7F3FF</color>
     <color name="delivery_background">#FFFBE5</color>
+    <color name="request_background">#E5E5E5</color>
+    <color name="request_status_color">#FED600</color>
+
 </resources>
