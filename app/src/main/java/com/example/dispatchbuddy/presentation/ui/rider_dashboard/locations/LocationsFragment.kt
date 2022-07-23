@@ -4,18 +4,26 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.locationResultList
 import com.example.dispatchbuddy.common.ridersList
 import com.example.dispatchbuddy.databinding.FragmentLocationsBinding
 import com.example.dispatchbuddy.presentation.ui.user_dashboard.RidersListFragmentDirections
@@ -28,11 +36,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class LocationsFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentLocationsBinding? = null
     private val binding get() = _binding!!
+    lateinit var locationResultAdapter: LocationResultAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
@@ -54,6 +64,13 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
             childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        locationResultAdapter = LocationResultAdapter {}
+        val bottomSheetView: View  = view.findViewById(R.id.bottom_sheet)
+
+        val locationResultRV: RecyclerView? = bottomSheetView.findViewById(R.id.location_result_rv)
+        locationResultRV?.adapter = locationResultAdapter
+        locationResultAdapter.submitList(locationResultList)
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -69,7 +86,11 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
             )
         }
 
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 
     private fun getLocationUpdates() {

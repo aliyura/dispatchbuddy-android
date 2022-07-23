@@ -7,19 +7,19 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_sheet_bg"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/padding_16dp"
+    android:paddingStart="@dimen/padding_16dp"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="56dp"
+    app:behavior_peekHeight="@dimen/peek_height_64dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    tools:context=".presentation.ui.rider_dashboard.locations.LocationBottomSheetDialog">
+    >
 
     <View
         android:id="@+id/view"
-        android:layout_width="61dp"
-        android:layout_height="4dp"
+        android:layout_width="@dimen/height_61dp"
+        android:layout_height="@dimen/height_4dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:background="#EBEBEB"
+        android:background="@color/dark_ash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter"
         android:text="@string/history"
+        android:layout_marginEnd="@dimen/margin_16dp"
         android:textColor="@color/primaryColor"
         android:textSize="@dimen/text_size_14sp"
         app:layout_constraintBottom_toBottomOf="@+id/select_locations_to_cover_tv"
@@ -56,6 +57,7 @@
         android:layout_marginTop="@dimen/margin_20dp"
         android:background="@drawable/location_input_bg"
         android:focusable="true"
+        android:layout_marginEnd="@dimen/margin_16dp"
         android:focusableInTouchMode="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,24 +111,26 @@
         android:layout_marginTop="@dimen/margin_12dp"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_results_tv"
-        app:spanCount="4"
+        app:spanCount="3"
+        tools:itemCount="7"
         tools:listitem="@layout/location_result_rv_item" />
 
     <TextView
         android:id="@+id/show_more_results_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_32dp"
+        android:layout_marginBottom="@dimen/margin_30dp"
         android:fontFamily="@font/inter"
         android:text="@string/show_more"
         android:textColor="@color/hint_text_color"
         android:textSize="@dimen/text_size_14sp"
         android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/margin_30dp"
         app:layout_constraintTop_toBottomOf="@+id/location_result_rv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

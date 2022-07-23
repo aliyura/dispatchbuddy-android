@@ -44,9 +44,10 @@ val ridersList = listOf(
 
 val locationResultList = listOf(
     Locations("Ikeja"),
-    Locations("Victoria Island"),
-    Locations("Lekki"),
     Locations("Ikotun"),
+    Locations("Iyana Ipaja"),
+    Locations("Victoria Island"),
     Locations("Idimu"),
+    Locations("Lekki"),
     Locations("Ikoyi"),
-    Locations("Iyana Ipaja"))
+   )

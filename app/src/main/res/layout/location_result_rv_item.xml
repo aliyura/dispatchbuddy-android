@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingEnd="@dimen/padding_9dp"
+    android:paddingEnd="@dimen/padding_6dp"
     android:paddingStart="@dimen/padding_6dp"
     android:layout_marginEnd="@dimen/margin_14dp"
     android:layout_marginBottom="@dimen/margin_16dp"
@@ -11,13 +11,12 @@
 
     <RadioButton
         android:id="@+id/location_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fontFamily="@font/inter"
-        android:text="@string/ikeja"
         android:textColor="@color/textColor"
+        android:text="@string/ikeja"
         android:textSize="@dimen/text_size_14sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
