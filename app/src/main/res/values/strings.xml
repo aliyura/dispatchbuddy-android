@@ -82,6 +82,9 @@
     <string name="lagos">Lagos</string>
     <string name="results">Results</string>
     <string name="ikeja">Ikeja</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="required_for_this_app">Required for this app</string>
+    <string name="enable_now">Enable Now</string>
     <string name="show_more">Show more</string>
     <string-array name="Gender">
         <item>Male</item>

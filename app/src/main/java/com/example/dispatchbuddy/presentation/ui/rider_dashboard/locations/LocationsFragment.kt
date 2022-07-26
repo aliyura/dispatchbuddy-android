@@ -1,48 +1,40 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.locations
 
 import android.Manifest
+import android.content.*
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
 import com.example.dispatchbuddy.common.locationResultList
-import com.example.dispatchbuddy.common.ridersList
 import com.example.dispatchbuddy.databinding.FragmentLocationsBinding
-import com.example.dispatchbuddy.presentation.ui.user_dashboard.RidersListFragmentDirections
-import com.example.dispatchbuddy.presentation.ui.user_dashboard.adapter.RiderListAdapter
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.gms.tasks.Task
 
 
 class LocationsFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentLocationsBinding? = null
     private val binding get() = _binding!!
     lateinit var locationResultAdapter: LocationResultAdapter
+    lateinit var bottomSheetView: View
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
@@ -63,11 +55,21 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
 
         locationResultAdapter = LocationResultAdapter {}
-        val bottomSheetView: View  = view.findViewById(R.id.bottom_sheet)
+        bottomSheetView = view.findViewById(R.id.bottom_sheet)
+        setUpRecyclerView()
 
+        /* register broadcast receivers */
+        val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        filter.addAction(Intent.ACTION_PROVIDER_CHANGED)
+        requireContext().registerReceiver(broadcastReceiver, filter)
+
+//        initiateMapLunch()
+    }
+
+    private fun setUpRecyclerView() {
         val locationResultRV: RecyclerView? = bottomSheetView.findViewById(R.id.location_result_rv)
         locationResultRV?.adapter = locationResultAdapter
         locationResultAdapter.submitList(locationResultList)
@@ -75,25 +77,16 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-        getLocationUpdates()
-        if (checkPermission()) {
-            googleMap.isMyLocationEnabled = true
-        } else {
-            requestPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                "Access Location",
-                Constants.PERMISSION_ID
-            )
-        }
+//        getLocationUpdates()
+    }
 
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
+    override fun onResume() {
+        super.onResume()
+        initiateMapLunch()
     }
 
     private fun getLocationUpdates() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationRequest = LocationRequest.create()
         locationRequest.interval = 20000
         locationRequest.fastestInterval = 10000
@@ -115,6 +108,11 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
 
     }
 
@@ -191,6 +189,111 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+
+    /**
+     * Ask for GPS Location and get current location
+     */
+    private fun buildAlertMessageNoGps() {
+
+        val locationRequest: LocationRequest = LocationRequest.create()
+        locationRequest.priority = Priority.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 30 * 1000
+        locationRequest.fastestInterval = 5 * 1000
+
+        val builder: LocationSettingsRequest.Builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true) // this is the key ingredient
+        val result: Task<LocationSettingsResponse> =
+            LocationServices.getSettingsClient(requireContext())
+                .checkLocationSettings(builder.build())
+        result.addOnCompleteListener { task ->
+            try {
+                val response: LocationSettingsResponse = task.getResult(ApiException::class.java)
+                /**
+                 * All location settings are satisfied. The client can initialize location requests here.
+                 */
+            } catch (exception: ApiException) {
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
+                        // Location settings are not satisfied. But could be fixed by showing the user a dialog.
+                        try {
+                            // Cast to a resolvable exception.
+                            val resolvable = exception as ResolvableApiException
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            resolvable.startResolutionForResult(
+                                requireActivity(),
+                                Constants.REQUEST_CHECK_SETTINGS
+                            )
+                        } catch (e: IntentSender.SendIntentException) {
+                            // Ignore the error.
+                        } catch (e: ClassCastException) {
+                            // Ignore, should be an impossible error.
+                        }
+                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                    }
+                }
+            }
+        }
+    }
+
+    //    /* set broadcast receiver go detect GPS changes */
+    private var broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (LocationManager.PROVIDERS_CHANGED_ACTION == intent.action) {
+                val locationManager =
+                    context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                if (isGpsEnabled) {
+                    // Handle Location turned ON
+                    Toast.makeText(requireContext(), "LOCATION ENABLED", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), "LOCATION DISABLED", Toast.LENGTH_LONG).show()
+                    // Handle Location turned OFF
+                }
+            }
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+
+        val locationManager =
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        return locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER) == true ||
+                locationManager?.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true
+    }
+
+    // logic to lunch map if all requirements are met
+    private fun initiateMapLunch() {
+        if (checkPermission()) {
+            if (isLocationEnabled()) {
+                googleMap.isMyLocationEnabled = true
+                getLocationUpdates()
+            } else {
+                buildAlertMessageNoGps()
+            }
+        } else {
+            requestPermission(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                "Access Location",
+                Constants.PERMISSION_ID
+            )
+
+        }
+//        if (checkPermission()) {
+//            if (isLocationEnabled()) {
+//                Toast.makeText(requireContext(), "LOCATION ENABLED", Toast.LENGTH_LONG).show()
+//            } else {
+//                buildAlertMessageNoGps()
+//            }
+//        } else {
+//            requestPermission(
+//                Manifest.permission.ACCESS_FINE_LOCATION,
+//                "Access Location",
+//                Constants.PERMISSION_ID
+//            )
+//        }
     }
 
 }
