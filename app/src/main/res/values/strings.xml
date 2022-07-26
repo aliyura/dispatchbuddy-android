@@ -77,6 +77,22 @@
     <string name="select_gender">Select Gender</string>
     <string name="upload_photo">Upload Photo</string>
     <string name="select_date">Select date</string>
+    <string name="all_requests">All Requests</string>
+    <string name="today">Today</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednessday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="requests">Requests</string>
+    <string name="ongoing">ongoing</string>
+    <string name="rate">Rate</string>
+    <string name="my_deliveries">My Deliveries</string>
+    <string name="completed">completed</string>
+    <string name="cancelled">cancelled</string>
+    <string name="deliveries">Delivery</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
