@@ -32,6 +32,7 @@ class LoginFragment : Fragment() {
             fragmentLoginLoginBtn.setOnClickListener {
                 Intent(requireContext(), RiderActivity::class.java).also { intent ->
                     startActivity(intent)
+                    activity?.finish()
                 }
             }
             fragmentLoginForgotPasswordTv.setOnClickListener {

@@ -1,6 +1,8 @@
 package com.example.dispatchbuddy.common
 
 import com.example.dispatchbuddy.R
+import com.example.dispatchbuddy.data.remote.dto.Locations
+import com.example.dispatchbuddy.data.remote.dto.RiderProfile
 import com.example.dispatchbuddy.data.remote.dto.*
 
 val ridersList = listOf(
@@ -40,6 +42,16 @@ val ridersList = listOf(
         "Joined, June 25, 2022"
     )
 )
+
+val locationResultList = listOf(
+    Locations("Ikeja"),
+    Locations("Ikotun"),
+    Locations("Iyana Ipaja"),
+    Locations("Victoria Island"),
+    Locations("Idimu"),
+    Locations("Lekki"),
+    Locations("Ikoyi"),
+   )
 val aWeekAgo = arrayListOf(
     RiderResponse(
         "pending",

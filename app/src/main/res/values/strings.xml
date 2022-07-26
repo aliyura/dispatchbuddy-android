@@ -77,6 +77,23 @@
     <string name="select_gender">Select Gender</string>
     <string name="upload_photo">Upload Photo</string>
     <string name="select_date">Select date</string>
+
+    //location
+    <string name="select_locations_to_cover">Select locations to cover</string>
+    <string name="history">History</string>
+    <string name="lagos">Lagos</string>
+    <string name="results">Results</string>
+    <string name="ikeja">Ikeja</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="required_for_this_app">Required for this app</string>
+    <string name="enable_now">Enable Now</string>
+    <string name="show_more">Show more</string>
+    <string name="Permission_required">Permission required</string>
+    <string name="Permission_granted">Permission Granted</string>
+    <string name="Permission_denied">Permission Denied</string>
+    <string name="ok">OK</string>
+
+    //requests
     <string name="all_requests">All Requests</string>
     <string name="today">Today</string>
     <string name="sunday">Sunday</string>
