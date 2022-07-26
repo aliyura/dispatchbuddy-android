@@ -1,6 +1,7 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.locations
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
 import android.location.LocationManager
@@ -9,7 +10,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.locationResultList
 import com.example.dispatchbuddy.databinding.FragmentLocationsBinding
 import com.google.android.gms.common.api.ApiException
@@ -33,7 +34,7 @@ import com.google.android.gms.tasks.Task
 class LocationsFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentLocationsBinding? = null
     private val binding get() = _binding!!
-    lateinit var locationResultAdapter: LocationResultAdapter
+    private lateinit var locationResultAdapter: LocationResultAdapter
     lateinit var bottomSheetView: View
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -65,8 +66,6 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         filter.addAction(Intent.ACTION_PROVIDER_CHANGED)
         requireContext().registerReceiver(broadcastReceiver, filter)
-
-//        initiateMapLunch()
     }
 
     private fun setUpRecyclerView() {
@@ -77,14 +76,13 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-//        getLocationUpdates()
     }
 
     override fun onResume() {
         super.onResume()
         initiateMapLunch()
     }
-
+    @SuppressLint("MissingPermission")
     private fun getLocationUpdates() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationRequest = LocationRequest.create()
@@ -93,6 +91,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         locationRequest.priority = Priority.PRIORITY_HIGH_ACCURACY
 
         locationCallback = object : LocationCallback() {
+
             override fun onLocationResult(locationResult: LocationResult) {
                 if (locationResult.locations.isNotEmpty()) {
                     val location = locationResult.lastLocation
@@ -101,7 +100,8 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                     val locationLogging = LocationModel(location?.latitude, location?.longitude)
 
                     googleMap.clear()
-//                    //get the user location, add a marker then zoom the map to city level
+                    googleMap.isMyLocationEnabled = true
+                    //get the user location, add a marker then zoom the map to city level
                     val latLng = location?.latitude?.let { LatLng(it, location.longitude) }
                     latLng?.let { CameraUpdateFactory.newLatLngZoom(it, 15f) }
                         ?.let { googleMap.animateCamera(it) }
@@ -160,15 +160,13 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) &&
                     grantResults[1] == PackageManager.PERMISSION_GRANTED
                 ) {
-                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
-                        .show()
+                    showShortToast(getString(R.string.Permission_granted))
                 } else {
-                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                    showShortToast(getString(R.string.Permission_denied))
                 }
                 return
             }
-            else -> {
-            }
+            else -> {}
         }
     }
 
@@ -178,8 +176,8 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
 
         builder.apply {
             setMessage("Permission to access your $name is required to use this app")
-            setTitle("Permission required")
-            setPositiveButton("OK") { dialog, which ->
+            setTitle(getString(R.string.Permission_required))
+            setPositiveButton(getString(R.string.ok)) { _, _ ->
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(permission),
@@ -191,11 +189,9 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         dialog.show()
     }
 
-    /**
-     * Ask for GPS Location and get current location
-     */
-    private fun buildAlertMessageNoGps() {
 
+    //Ask for GPS Location and get current location
+    private fun buildAlertMessageNoGps() {
         val locationRequest: LocationRequest = LocationRequest.create()
         locationRequest.priority = Priority.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 30 * 1000
@@ -218,7 +214,6 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
                         // Location settings are not satisfied. But could be fixed by showing the user a dialog.
                         try {
-                            // Cast to a resolvable exception.
                             val resolvable = exception as ResolvableApiException
                             // Show the dialog by calling startResolutionForResult(),
                             // and check the result in onActivityResult().
@@ -231,15 +226,14 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                         } catch (e: ClassCastException) {
                             // Ignore, should be an impossible error.
                         }
-                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
-                    }
+                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {}
                 }
             }
         }
     }
 
     //    /* set broadcast receiver go detect GPS changes */
-    private var broadcastReceiver = object : BroadcastReceiver() {
+    var broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (LocationManager.PROVIDERS_CHANGED_ACTION == intent.action) {
                 val locationManager =
@@ -247,9 +241,15 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 if (isGpsEnabled) {
                     // Handle Location turned ON
-                    Toast.makeText(requireContext(), "LOCATION ENABLED", Toast.LENGTH_LONG).show()
+                    /**
+                     * Beware causing crash, to be fixed
+                     **/
+//                    showShortToast("Location Enabled")
                 } else {
-                    Toast.makeText(requireContext(), "LOCATION DISABLED", Toast.LENGTH_LONG).show()
+                    /**
+                     * Beware causing crash, to be fixed
+                     **/
+//                    showShortToast("Location Disabled")
                     // Handle Location turned OFF
                 }
             }
@@ -268,7 +268,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
     private fun initiateMapLunch() {
         if (checkPermission()) {
             if (isLocationEnabled()) {
-                googleMap.isMyLocationEnabled = true
+
                 getLocationUpdates()
             } else {
                 buildAlertMessageNoGps()
@@ -281,19 +281,6 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
             )
 
         }
-//        if (checkPermission()) {
-//            if (isLocationEnabled()) {
-//                Toast.makeText(requireContext(), "LOCATION ENABLED", Toast.LENGTH_LONG).show()
-//            } else {
-//                buildAlertMessageNoGps()
-//            }
-//        } else {
-//            requestPermission(
-//                Manifest.permission.ACCESS_FINE_LOCATION,
-//                "Access Location",
-//                Constants.PERMISSION_ID
-//            )
-//        }
     }
 
 }

@@ -86,6 +86,10 @@
     <string name="required_for_this_app">Required for this app</string>
     <string name="enable_now">Enable Now</string>
     <string name="show_more">Show more</string>
+    <string name="Permission_required">Permission required</string>
+    <string name="Permission_granted">Permission Granted</string>
+    <string name="Permission_denied">Permission Denied</string>
+    <string name="ok">OK</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
