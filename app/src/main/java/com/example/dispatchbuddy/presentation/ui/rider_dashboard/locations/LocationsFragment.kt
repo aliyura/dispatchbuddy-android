@@ -243,12 +243,12 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                     /**
                      * Beware causing crash in other fragments, to be fixed
                      **/
-                    showShortSnackBar("Location Enabled")
+//                    showShortSnackBar("Location Enabled")
                 } else {
                     /**
                      * Beware causing crash, to be fixed
                      **/
-                    showShortSnackBar("Location Disabled")
+//                    showShortSnackBar("Location Disabled")
                     // Handle Location turned OFF
                 }
             }
