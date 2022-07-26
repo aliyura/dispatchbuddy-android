@@ -17,16 +17,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.locationResultList
 import com.example.dispatchbuddy.databinding.FragmentLocationsBinding
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
 
@@ -56,7 +54,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
+        MapsInitializer.initialize(requireContext())
 
         locationResultAdapter = LocationResultAdapter {}
         bottomSheetView = view.findViewById(R.id.bottom_sheet)
@@ -76,6 +74,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+        getLocationUpdates()
     }
 
     override fun onResume() {
@@ -242,14 +241,14 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 if (isGpsEnabled) {
                     // Handle Location turned ON
                     /**
-                     * Beware causing crash, to be fixed
+                     * Beware causing crash in other fragments, to be fixed
                      **/
-//                    showShortToast("Location Enabled")
+                    showShortSnackBar("Location Enabled")
                 } else {
                     /**
                      * Beware causing crash, to be fixed
                      **/
-//                    showShortToast("Location Disabled")
+                    showShortSnackBar("Location Disabled")
                     // Handle Location turned OFF
                 }
             }

@@ -37,8 +37,7 @@ class RiderListAdapter(private val onItemClick: (RiderProfile) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            RidersListRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RidersListRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding, onItemClick)
     }
 
