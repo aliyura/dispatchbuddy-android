@@ -88,6 +88,11 @@
     <string name="saturday">Saturday</string>
     <string name="requests">Requests</string>
     <string name="ongoing">ongoing</string>
+    <string name="rate">Rate</string>
+    <string name="my_deliveries">My Deliveries</string>
+    <string name="completed">completed</string>
+    <string name="cancelled">cancelled</string>
+    <string name="deliveries">Delivery</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

@@ -9,7 +9,10 @@
         android:id="@+id/requestFragment"
         android:icon="@drawable/ic_request"
         android:title="@string/requests" />
-
+    <item
+        android:id="@+id/deliveriesFragment"
+        android:icon="@drawable/ic_delivery_truck_svgrepo_com"
+        android:title="@string/deliveries" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_account"

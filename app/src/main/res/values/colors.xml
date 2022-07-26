@@ -23,5 +23,9 @@
     <color name="delivery_background">#FFFBE5</color>
     <color name="request_background">#E5E5E5</color>
     <color name="request_status_color">#FED600</color>
+    <color name="mint_green">#98FF98</color>
+    <color name="cadmium_green">#005C29</color>
+    <color name="orange_red">#FF5C5C</color>
+    <color name="rufous_red">#A30000</color>
 
 </resources>

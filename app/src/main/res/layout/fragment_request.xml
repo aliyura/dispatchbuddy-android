@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
-            android:id="@+id/fragment_login_backArrow_iv"
+            android:id="@+id/fragment_request_backArrow_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_button"
@@ -34,15 +34,21 @@
             />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_request_rv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_32dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/request_rv_header"
-        app:layout_constraintTop_toBottomOf="@id/fragment_request_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_request_toolbar">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_request_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            tools:listitem="@layout/request_rv_header" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

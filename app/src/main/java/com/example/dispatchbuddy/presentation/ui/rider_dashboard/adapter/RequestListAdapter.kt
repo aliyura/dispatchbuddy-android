@@ -1,76 +1,68 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter
 
 import android.content.Context
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dispatchbuddy.common.getDaysAgo
 import com.example.dispatchbuddy.data.remote.dto.RiderResponse
 import com.example.dispatchbuddy.data.remote.dto.RiderSectionResponse
 import com.example.dispatchbuddy.databinding.RequestRvHeaderBinding
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 
-class RequestAdapter(
-    private val requestList: ArrayList<RiderSectionResponse>,
-    private val context: Context
-    ): RecyclerView.Adapter<RequestAdapter.ViewHolder>() {
-    inner class ViewHolder(val binding: RequestRvHeaderBinding):RecyclerView.ViewHolder(binding.root) {
+class RequestListAdapter(val context: Context) : ListAdapter<RiderSectionResponse, RequestListAdapter.ViewHolder>(DiffCallBack) {
+    inner class ViewHolder(val binding: RequestRvHeaderBinding): RecyclerView.ViewHolder(binding.root) {
         val headerText = binding.headerTitleTv
         val childRequestRv = binding.fragmentRequestChildRv
-        fun bindRiderView(request: RiderSectionResponse){
+        fun bindViews(request: RiderSectionResponse){
             binding.fragmentRequestChildRv.apply {
-                val childAdapter = RequestChildAdapter(request.riderResponse, context)
-                adapter = childAdapter
+                val childListAdapter = RequestChildListAdapter(context)
+                childListAdapter.addChildList(request.riderResponse)
+                adapter = childListAdapter
                 val stackedLayoutManager= LinearLayoutManager(context)
                 layoutManager = stackedLayoutManager
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = RequestRvHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val parentItem = requestList[position]
-        holder.bindRiderView(parentItem)
+        val parentItem = getItem(position)
+        holder.bindViews(parentItem)
         val dateString = parentItem.sectionHeaders[position].toString()
         val myDate: Date = SimpleDateFormat("yyyy-M-d", Locale.ENGLISH).parse(dateString)!!
-
         val calendar = Calendar.getInstance()
-        val dateTime = LocalDateTime.now()
-        dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
         calendar.time = myDate
-        when (calendar.time) {
-            getDaysAgo(0) -> {
-                holder.headerText.text = "Today"
-            }
-            getDaysAgo(-1) -> {
-                holder.headerText.text = "Yesterday"
-            }
-            getDaysAgo(-7) -> {
-                holder.headerText.text = "A week ago"
-            }
-            getDaysAgo(-8) -> {
-                holder.headerText.text = "All History"
-            }
+        when(calendar[Calendar.DAY_OF_WEEK]){
+            1->{holder.headerText.text = "Sunday, ${calendar.time}"}
+            2->{holder.headerText.text = "Monday, ${calendar.time}"}
+            3->{holder.headerText.text = "Tuesday, ${calendar.time}"}
+            4->{holder.headerText.text = "Wednesday, ${calendar.time}"}
+            5->{holder.headerText.text = "Thursday, ${calendar.time}"}
+            6->{holder.headerText.text = "Friday, ${calendar.time}"}
+            7->{holder.headerText.text = "Saturday, ${calendar.time}"}
         }
         val sessionList: ArrayList<RiderResponse> = ArrayList(parentItem.riderResponse)
         val layoutManager = LinearLayoutManager(holder.childRequestRv.context, LinearLayoutManager.VERTICAL, false)
         layoutManager.initialPrefetchItemCount = parentItem.riderResponse.size
-        val childAdapter = RequestChildAdapter(sessionList, context)
+        val childAdapter = RequestChildListAdapter(context)
+        childAdapter.addChildList(sessionList)
         holder.childRequestRv.layoutManager = layoutManager
         holder.childRequestRv.adapter = childAdapter
     }
-    override fun getItemCount(): Int {
-        return requestList.size
-    }
+
+   object DiffCallBack : DiffUtil.ItemCallback<RiderSectionResponse>(){
+       override fun areItemsTheSame(oldItem: RiderSectionResponse, newItem: RiderSectionResponse): Boolean {
+           return oldItem == newItem
+       }
+       override fun areContentsTheSame(oldItem: RiderSectionResponse, newItem: RiderSectionResponse): Boolean {
+           return oldItem == newItem
+       }
+   }
 }

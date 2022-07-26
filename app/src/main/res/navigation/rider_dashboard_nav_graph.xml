@@ -37,4 +37,9 @@
         android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.RequestFragment"
         android:label="fragment_request"
         tools:layout="@layout/fragment_request" />
+    <fragment
+        android:id="@+id/deliveriesFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.DeliveriesFragment"
+        android:label="fragment_deliveries"
+        tools:layout="@layout/fragment_deliveries" />
 </navigation>
