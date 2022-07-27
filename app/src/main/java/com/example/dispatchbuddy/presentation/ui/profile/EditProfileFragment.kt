@@ -50,7 +50,7 @@ class EditProfileFragment : Fragment() {
             FieldValidationTracker.FieldType.FULLNAME,
             FieldValidationTracker.FieldType.COUNTRY,
             FieldValidationTracker.FieldType.CITY,
-            FieldValidationTracker.FieldType.GENDER,
+            FieldValidationTracker.FieldType.GENDER
         )
         FieldValidationTracker.populateFieldTypeMap(fieldTypesToValidate)
 
