@@ -110,6 +110,12 @@
     <string name="completed">completed</string>
     <string name="cancelled">cancelled</string>
     <string name="deliveries">Delivery</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_valid_name_str">Enter a valid Name</string>
+    <string name="enter_valid_email_str">Enter a valid Email</string>
+    <string name="enter_valid_phone_number_str">Enter a valid Phone number</string>
+    <string name="enter_valid_date_of_birth_str">Enter a valid Date of Birth</string>
+    <string name="enter_valid_password_str">Enter a valid Password</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
