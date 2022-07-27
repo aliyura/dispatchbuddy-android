@@ -1,10 +1,14 @@
 package com.example.dispatchbuddy.di
 
+import android.content.Context
 import com.example.dispatchbuddy.common.Constants.BASE_URL
+import com.example.dispatchbuddy.common.preferences.DispatchBuddyPreferences
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,6 +49,14 @@ object AppModule {
     @Singleton
     fun provideLogger(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    @Provides
+    @Singleton
+    fun providePreference(
+        @ApplicationContext context: Context
+    ): Preferences{
+        return DispatchBuddyPreferences(context = context)
     }
 
     @Qualifier

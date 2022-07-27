@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.domain.usecases.loginUseCases
+package com.example.dispatchbuddy.domain.usecases.authUseCases
 
 import com.example.dispatchbuddy.domain.repository.AuthRepository
 import javax.inject.Inject
