@@ -1,5 +1,6 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
@@ -38,6 +39,7 @@ class RequestAdapter(
         val binding = RequestRvHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val parentItem = requestList[position]
@@ -51,7 +53,7 @@ class RequestAdapter(
         calendar.time = myDate
         when (calendar.time) {
             getDaysAgo(0) -> {
-                holder.headerText.text = "Today"
+                holder.headerText.text = "$dateTime"
             }
             getDaysAgo(-1) -> {
                 holder.headerText.text = "Yesterday"
@@ -59,7 +61,7 @@ class RequestAdapter(
             getDaysAgo(-7) -> {
                 holder.headerText.text = "A week ago"
             }
-            getDaysAgo(-8) -> {
+            else -> {
                 holder.headerText.text = "All History"
             }
         }
