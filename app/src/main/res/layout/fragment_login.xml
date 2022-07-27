@@ -85,6 +85,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/EditTextInputLayout"
                     android:layout_width="match_parent"
+                    android:id="@+id/fragment_login_email_layout"
                     android:layout_height="wrap_content"
                     app:endIconMode="clear_text"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -109,6 +110,7 @@
                     />
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/EditTextInputLayout"
+                    android:id="@+id/fragment_login_password_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -140,6 +142,7 @@
                     android:layout_height="@dimen/height_48dp"
                     android:layout_marginTop="@dimen/margin_24dp"
                     android:text="@string/login"
+                    android:enabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
