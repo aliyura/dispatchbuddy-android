@@ -102,6 +102,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/EditTextInputLayout"
                     android:layout_width="match_parent"
+                    android:id="@+id/fragment_edit_full_name_layout"
                     android:layout_height="wrap_content"
                     app:endIconMode="clear_text"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -127,6 +128,7 @@
                     />
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/EditTextInputLayout"
+                    android:id="@+id/fragment_edit_country_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -152,6 +154,7 @@
                     />
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/EditTextInputLayout"
+                    android:id="@+id/fragment_edit_city_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -179,6 +182,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="@dimen/width_120dp"
+                    android:id="@+id/selectGenderDropdownLayout"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
                     app:boxStrokeWidth="1dp"
@@ -207,6 +211,7 @@
                     android:layout_height="@dimen/height_48dp"
                     android:layout_marginTop="@dimen/margin_24dp"
                     android:text="@string/save"
+                    android:enabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

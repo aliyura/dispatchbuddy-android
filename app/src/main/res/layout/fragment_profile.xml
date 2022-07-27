@@ -177,6 +177,33 @@
                     android:textSize="@dimen/text_size_14sp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_edit_profile_deliveries_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_32dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_edit_profile_logout_layout">
+
+                <ImageView
+                    android:layout_width="@dimen/width_16dp"
+                    android:layout_height="@dimen/height_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:src="@drawable/ic_delivery_truck_svgrepo_com" />
+
+                <TextView
+                    android:id="@+id/fragment_change_password_deliveries_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/all_deliveries"
+                    android:textColor="@color/accent_color"
+                    android:textSize="@dimen/text_size_14sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_32dp"
@@ -184,7 +211,7 @@
                 android:layout_marginHorizontal="@dimen/margin_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_edit_profile_logout_layout">
+                app:layout_constraintTop_toBottomOf="@id/fragment_edit_profile_deliveries_layout">
 
                 <ImageView
                     android:layout_width="@dimen/width_16dp"

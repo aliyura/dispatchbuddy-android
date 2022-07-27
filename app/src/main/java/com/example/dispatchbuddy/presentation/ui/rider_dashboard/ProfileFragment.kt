@@ -35,6 +35,9 @@ class ProfileFragment : Fragment() {
                 val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment2()
                 findNavController().navigate(action)
             }
+            fragmentEditProfileDeliveriesLayout.setOnClickListener {
+                findNavController().navigate(R.id.deliveriesFragment)
+            }
         }
     }
     override fun onDestroyView() {
