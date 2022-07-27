@@ -28,6 +28,28 @@ inline fun TextInputLayout.validateField(
     }
 }
 
+fun TextInputLayout.validateConfirmPassword(
+    passwordInputLayout: TextInputLayout,
+    fieldType: FieldValidationTracker.FieldType,
+    errorMessage: String,
+) {
+    this.editText?.doAfterTextChanged {
+        if (!FieldValidations.validateConfirmPassword(
+                it.toString().trim(),
+                passwordInputLayout.editText?.text.toString().trim()
+            )
+        ) {
+            this.error = errorMessage
+            fieldTypeMap[fieldType] = false
+            FieldValidationTracker.isFieldsValidated.value = fieldTypeMap
+        } else {
+            this.error = null
+            fieldTypeMap[fieldType] = true
+            FieldValidationTracker.isFieldsValidated.value = fieldTypeMap
+        }
+    }
+}
+
 fun MaterialButton.observeFieldsValidationToEnableButton(
     context: Context,
     lifecycleOwner: LifecycleOwner,

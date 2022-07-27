@@ -9,6 +9,18 @@ object FieldValidations {
         return name.isNotBlank() && name.matches(regex) && name.length >= 5
     }
 
+    // Function to verify the name of the intended user
+    fun verifyCountry(name: String): Boolean {
+        val regex = Regex("^(?![\\s.]+\$)[a-zA-Z\\s.]*\$")
+        return name.isNotBlank() && name.matches(regex) && name.length >= 2
+    }
+
+    // Function to verify the name of the intended user
+    fun verifyCity(name: String): Boolean {
+        val regex = Regex("^(?![\\s.]+\$)[a-zA-Z\\s.]*\$")
+        return name.isNotBlank() && name.matches(regex) && name.length >= 2
+    }
+
     // Function to verify the e-mail of the intended user
     fun verifyEmail(email: String): Boolean {
         val regex = Regex("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$")
@@ -39,5 +51,12 @@ object FieldValidations {
         return dateOfBirth.isNotBlank() && dateOfBirth.matches(regex)
     }
 
+    fun validateConfirmPassword(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword && password.isNotBlank()
+    }
+
+    fun validateGender(gender: String): Boolean {
+        return gender.isNotBlank()
+    }
 
 }

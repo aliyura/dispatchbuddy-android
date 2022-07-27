@@ -116,6 +116,10 @@
     <string name="enter_valid_phone_number_str">Enter a valid Phone number</string>
     <string name="enter_valid_date_of_birth_str">Enter a valid Date of Birth</string>
     <string name="enter_valid_password_str">Enter a valid Password</string>
+    <string name="enter_valid_country">Enter a valid Country</string>
+    <string name="enter_valid_city">Enter a valid City</string>
+    <string name="select_an_option">Select an option</string>
+    <string name="enter_valid_confirm_password_str">Password Should Match</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
