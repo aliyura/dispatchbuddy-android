@@ -1,6 +1,7 @@
-package com.example.dispatchbuddy.common
+package com.example.dispatchbuddy.common.network
 
 import android.os.Parcelable
+import com.example.dispatchbuddy.common.Resource
 import com.google.gson.Gson
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.Dispatchers

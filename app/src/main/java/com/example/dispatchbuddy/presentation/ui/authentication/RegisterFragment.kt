@@ -1,12 +1,19 @@
 package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
+import com.example.dispatchbuddy.common.Resource
+import com.example.dispatchbuddy.common.ViewExtensions.hideView
+import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
+import com.example.dispatchbuddy.common.ViewExtensions.showView
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.FieldType
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.populateFieldTypeMap
 import com.example.dispatchbuddy.common.validation.FieldValidations.verifyDateOfBirth
@@ -16,14 +23,24 @@ import com.example.dispatchbuddy.common.validation.FieldValidations.verifyPasswo
 import com.example.dispatchbuddy.common.validation.FieldValidations.verifyPhoneNumber
 import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnableButton
 import com.example.dispatchbuddy.common.validation.validateField
+import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.databinding.FragmentRegisterBinding
+import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.RegistrationViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
+    private val TAG = "RegisterFragment"
+    var email: String = ""
+    private val registrationViewModel: RegistrationViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,9 +52,12 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeRegistrationResponse()
+
         with(binding) {
             fragmentRegisterSignUpBtn.setOnClickListener {
-                findNavController().navigate(R.id.smsVerificationFragment)
+                registerUser()
             }
             fragmentRegisterHaveAccountTv.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment)
@@ -56,6 +76,55 @@ class RegisterFragment : Fragment() {
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
             val date = dateFormatter.format(Date(it))
             binding.fragmentRegisterCalenderEdt.setText(date)
+        }
+    }
+
+    private fun registerUser() {
+        with(binding) {
+            val fullName = fragmentRegisterFullNameEdt.text.toString()
+            email = fragmentRegisterEmailEdt.text.toString()
+            val phoneNumber = fragmentRegisterPhoneNumberEdt.text.toString()
+            val dateOfBirth = fragmentRegisterCalenderEdt.text.toString()
+            val password = fragmentRegisterPasswordEdt.text.toString()
+
+            registrationViewModel.registerUser(
+                Registration(
+                    authProvider = "EMAIL",
+                    name = fullName,
+                    email = email,
+                    phoneNumber = phoneNumber,
+                    dateOfBirth = dateOfBirth,
+                    password = password
+                )
+            )
+        }
+    }
+
+    private fun observeRegistrationResponse() {
+        lifecycleScope.launch {
+            registrationViewModel.stateFlow.collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.loader.showView()
+                    }
+                    is Resource.Success -> {
+                        binding.loader.hideView()
+                        val response = it.value.payload
+                        Log.d(TAG, "observeRegistrationResponse: $response")
+                        showShortSnackBar(it.value.message)
+                        val action =
+                            RegisterFragmentDirections.actionRegisterFragmentToSmsVerificationFragment(
+                                email
+                            )
+                        findNavController().navigate(action)
+                    }
+                    is Resource.Error -> {
+                        binding.loader.hideView()
+                        showShortSnackBar(it.error)
+                    }
+                    else -> {}
+                }
+            }
         }
     }
 
@@ -102,7 +171,8 @@ class RegisterFragment : Fragment() {
             }
             fragmentRegisterSignUpBtn.observeFieldsValidationToEnableButton(
                 requireContext(),
-                viewLifecycleOwner)
+                viewLifecycleOwner
+            )
         }
     }
 

@@ -49,7 +49,7 @@ object AuthModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        api: DispatchBuddyAPI
+        api: DispatchBuddyAPI,
     ): AuthRepository{
         return AuthRepositoryImpl(api = api)
     }
