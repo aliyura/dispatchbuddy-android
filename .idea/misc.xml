@@ -28,7 +28,7 @@
         <entry key="app/src/main/res/layout/activity_rider.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_change_password.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2418918918918919" />
         <entry key="app/src/main/res/layout/fragment_location_bootom_sheet_dialog.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_locations.xml" value="0.2953125" />
