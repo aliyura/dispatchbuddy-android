@@ -8,7 +8,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.databinding.ActivityRiderBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RiderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRiderBinding
     override fun onCreate(savedInstanceState: Bundle?) {
