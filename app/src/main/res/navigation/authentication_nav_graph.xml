@@ -19,12 +19,20 @@
         android:id="@+id/registerFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.authentication.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_smsVerificationFragment"
+            app:destination="@id/smsVerificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/smsVerificationFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.authentication.SmsVerificationFragment"
         android:label="fragment_sms_verification"
-        tools:layout="@layout/fragment_sms_verification" />
+        tools:layout="@layout/fragment_sms_verification" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.authentication.SettingsFragment"
