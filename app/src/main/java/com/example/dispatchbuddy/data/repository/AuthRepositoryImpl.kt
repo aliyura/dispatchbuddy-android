@@ -4,6 +4,7 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.network.apiCall
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.common.network.IAppDispatchers
+import com.example.dispatchbuddy.data.remote.dto.models.LoginResponse
 import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
@@ -40,6 +41,19 @@ class AuthRepositoryImpl(
             emit(
                 apiCall {
                     api.validateUser(email)
+                }
+            )
+        }
+
+    override suspend fun loginUser(
+        username: String,
+        password: String,
+        grant_type: String
+    ): Flow<Resource<GenericResponse<LoginResponse>>> =
+        flow {
+            emit(
+                apiCall {
+                    api.loginUser(username, password, grant_type)
                 }
             )
         }
