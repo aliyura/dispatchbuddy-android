@@ -70,7 +70,6 @@ class ChangePasswordFragment : Fragment() {
                         binding.changePasswordProgressBar.hideView()
                         showShortSnackBar(it.value.message)
                         findNavController().navigate(R.id.loginFragment)
-                        popBackStack()
                     }
                     is Resource.Error ->{
                         binding.changePasswordProgressBar.hideView()

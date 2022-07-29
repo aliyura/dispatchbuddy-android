@@ -7,6 +7,7 @@ import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.google.gson.annotations.SerializedName
+import okhttp3.Credentials
 import retrofit2.http.*
 
 interface DispatchBuddyAPI {
@@ -21,9 +22,9 @@ interface DispatchBuddyAPI {
     suspend fun validateUser(@Body email: String): GenericResponse<String>
 
     @FormUrlEncoded
-    @Headers("Content-Type:application/json")
     @POST("oauth/token")
     suspend fun loginUser(
+        @Header("Authorization") Authorization : String,
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("grant_type") grant_type: String

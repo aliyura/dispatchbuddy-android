@@ -27,7 +27,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDispatchBuddyAPI(
-        @AuthInterceptorOkHttpClient okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient
     ): DispatchBuddyAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -37,7 +37,7 @@ object AppModule {
             .create(DispatchBuddyAPI::class.java)
     }
 
-    /*Add authorization token to the header interceptor*/
+    /*Add authorization to the header interceptor*/
     @Provides
     @Singleton
     fun provideHeaderInterceptor(): Interceptor {
@@ -45,12 +45,11 @@ object AppModule {
             val request = chain.request().newBuilder()
                 request.addHeader("Username", "web-client")
                 request.addHeader("Password", "password")
-
             chain.proceed(request.build())
         }
     }
 
-    @AuthInterceptorOkHttpClient
+
     @Provides
     @Singleton
     fun providesOkhttp(headerAuthorization: Interceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =

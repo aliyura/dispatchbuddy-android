@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.Credentials
 
 class AuthRepositoryImpl(
     private val api: DispatchBuddyAPI,
@@ -46,6 +47,7 @@ class AuthRepositoryImpl(
         }
 
     override suspend fun loginUser(
+        authorizationHeader: String,
         username: String,
         password: String,
         grant_type: String
@@ -54,7 +56,7 @@ class AuthRepositoryImpl(
             emit(Resource.Loading("Loading"))
             emit(
                 apiCall {
-                    api.loginUser(username, password, grant_type)
+                    api.loginUser(username=username, password = password, grant_type = grant_type, Authorization = authorizationHeader)
                 }
             )
         }

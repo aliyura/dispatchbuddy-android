@@ -5,5 +5,5 @@ object Constants {
     const val REQUEST_CHECK_SETTINGS = 100
     const val GALLERY = 100
     const val GALLERY_PERMISSION_CODE = 101
-    const val BASE_URL = "https://api.dispatchbuddy.net/"
+    const val BASE_URL = "https://api.dispatchbuddy.net/api/"
 }
