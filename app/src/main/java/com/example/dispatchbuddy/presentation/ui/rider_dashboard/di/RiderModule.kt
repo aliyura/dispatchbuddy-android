@@ -1,5 +1,7 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.di
 
+import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.Constants.MAIN_API
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.RiderRepositoryImpl
 import com.example.dispatchbuddy.domain.repository.RiderRepository
@@ -8,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -60,7 +63,7 @@ object RiderModule {
     @Provides
     @Singleton
     fun provideRiderRepository(
-        api: DispatchBuddyAPI
+        @Named(MAIN_API) api: DispatchBuddyAPI
     ): RiderRepository{
         return RiderRepositoryImpl(api = api)
     }

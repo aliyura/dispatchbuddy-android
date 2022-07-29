@@ -3,6 +3,9 @@ package com.example.dispatchbuddy.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.dispatchbuddy.common.Constants.BASE_URL
+import com.example.dispatchbuddy.common.Constants.LOGIN_API
+import com.example.dispatchbuddy.common.Constants.LOGIN_BASE_URL
+import com.example.dispatchbuddy.common.Constants.MAIN_API
 import com.example.dispatchbuddy.common.preferences.DispatchBuddyPreferences
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
@@ -17,6 +20,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -24,6 +28,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Named(MAIN_API)
     @Provides
     @Singleton
     fun provideDispatchBuddyAPI(
@@ -31,6 +36,20 @@ object AppModule {
     ): DispatchBuddyAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(DispatchBuddyAPI::class.java)
+    }
+
+    @Named(LOGIN_API)
+    @Provides
+    @Singleton
+    fun provideLoginDispatchBuddyAPI(
+        okHttpClient: OkHttpClient
+    ): DispatchBuddyAPI {
+        return Retrofit.Builder()
+            .baseUrl(LOGIN_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

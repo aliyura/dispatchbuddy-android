@@ -14,6 +14,7 @@ import okhttp3.Credentials
 
 class AuthRepositoryImpl(
     private val api: DispatchBuddyAPI,
+    private val loginApi: DispatchBuddyAPI
 ) : AuthRepository {
 
     override suspend fun registerUser(registration: Registration): Flow<Resource<GenericResponse<UserProfile>>> =
@@ -55,7 +56,7 @@ class AuthRepositoryImpl(
             emit(Resource.Loading("Loading"))
             emit(
                 apiCall {
-                    api.loginUser(
+                    loginApi.loginUser(
                         username = username,
                         password = password,
                         grant_type = grant_type,
