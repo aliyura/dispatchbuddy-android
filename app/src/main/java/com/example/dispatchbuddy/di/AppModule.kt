@@ -44,7 +44,7 @@ object AppModule {
         return Interceptor { chain ->
             val request = chain.request().newBuilder()
                 request.addHeader("Username", "web-client")
-                request.addHeader("password", "password")
+                request.addHeader("Password", "password")
 
             chain.proceed(request.build())
         }
@@ -53,11 +53,12 @@ object AppModule {
     @AuthInterceptorOkHttpClient
     @Provides
     @Singleton
-    fun providesOkhttp(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun providesOkhttp(headerAuthorization: Interceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(30L, TimeUnit.SECONDS)
             .readTimeout(30L, TimeUnit.SECONDS)
             .writeTimeout(30L, TimeUnit.SECONDS)
+            .addInterceptor(headerAuthorization)
             .addInterceptor(loggingInterceptor).build()
 
     @Provides
