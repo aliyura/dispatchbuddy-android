@@ -3,10 +3,7 @@ package com.example.dispatchbuddy.presentation.ui.rider_dashboard.di
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.RiderRepositoryImpl
 import com.example.dispatchbuddy.domain.repository.RiderRepository
-import com.example.dispatchbuddy.domain.usecases.riderUseCases.DeliveriesUseCase
-import com.example.dispatchbuddy.domain.usecases.riderUseCases.LocationUseCase
-import com.example.dispatchbuddy.domain.usecases.riderUseCases.ProfileUseCase
-import com.example.dispatchbuddy.domain.usecases.riderUseCases.RequestUseCase
+import com.example.dispatchbuddy.domain.usecases.riderUseCases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,6 +41,20 @@ object RiderModule {
         riderRepository: RiderRepository
     ):RequestUseCase{
         return RequestUseCase(repository = riderRepository)
+    }
+    @Provides
+    @Singleton
+    fun provideUploadImageUseCase(
+        riderRepository: RiderRepository
+    ):UploadImageUseCase{
+        return UploadImageUseCase(repository = riderRepository)
+    }
+    @Provides
+    @Singleton
+    fun provideGetUserUseCase(
+        riderRepository: RiderRepository
+    ):GetUserUseCase{
+        return GetUserUseCase(repository = riderRepository)
     }
     //provided Rider Repository
     @Provides
