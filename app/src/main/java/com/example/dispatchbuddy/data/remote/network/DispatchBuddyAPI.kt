@@ -2,9 +2,11 @@ package com.example.dispatchbuddy.data.remote.network
 
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.data.remote.dto.models.LoginResponse
+import com.example.dispatchbuddy.data.remote.dto.models.ChangePassword
 import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
+import com.google.gson.annotations.SerializedName
 import retrofit2.http.*
 
 interface DispatchBuddyAPI {
@@ -19,11 +21,15 @@ interface DispatchBuddyAPI {
     suspend fun validateUser(@Body email: String): GenericResponse<String>
 
     @FormUrlEncoded
-    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @Headers("Content-Type:application/json")
     @POST("oauth/token")
     suspend fun loginUser(
         @Field("username") username: String,
         @Field("password") password: String,
-        @Query("grant_type") grant_type : String
-    ) : GenericResponse<LoginResponse>
+        @Field("grant_type") grant_type: String
+    ): GenericResponse<LoginResponse>
+
+    @POST("user/password-reset")
+    suspend fun changePassword(@Body changePassword: ChangePassword): GenericResponse<UserProfile>
+
 }

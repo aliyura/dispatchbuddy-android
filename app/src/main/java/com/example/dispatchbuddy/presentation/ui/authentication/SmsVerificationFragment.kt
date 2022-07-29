@@ -23,6 +23,7 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.databinding.FragmentSmsVerificationBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
@@ -143,6 +144,7 @@ class SmsVerificationFragment : Fragment() {
                         binding.loader.hideView()
                         showShortSnackBar(it.value.message)
                         findNavController().navigate(R.id.loginFragment)
+                        popBackStack()
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()

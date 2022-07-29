@@ -1,9 +1,8 @@
 package com.example.dispatchbuddy.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.dispatchbuddy.common.Constants.BASE_URL
-import com.example.dispatchbuddy.common.network.AppDispatchers
-import com.example.dispatchbuddy.common.network.IAppDispatchers
 import com.example.dispatchbuddy.common.preferences.DispatchBuddyPreferences
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
@@ -12,7 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -36,6 +35,19 @@ object AppModule {
             .client(okHttpClient)
             .build()
             .create(DispatchBuddyAPI::class.java)
+    }
+
+    /*Add authorization token to the header interceptor*/
+    @Provides
+    @Singleton
+    fun provideHeaderInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                request.addHeader("Username", "web-client")
+                request.addHeader("password", "password")
+
+            chain.proceed(request.build())
+        }
     }
 
     @AuthInterceptorOkHttpClient

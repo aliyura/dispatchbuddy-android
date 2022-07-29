@@ -1,25 +1,23 @@
 package com.example.dispatchbuddy.data.repository
 
 import com.example.dispatchbuddy.common.Resource
-import com.example.dispatchbuddy.common.network.apiCall
 import com.example.dispatchbuddy.common.network.GenericResponse
-import com.example.dispatchbuddy.common.network.IAppDispatchers
-import com.example.dispatchbuddy.data.remote.dto.models.LoginResponse
-import com.example.dispatchbuddy.data.remote.dto.models.Registration
-import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
-import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
+import com.example.dispatchbuddy.common.network.apiCall
+import com.example.dispatchbuddy.data.remote.dto.models.*
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.domain.repository.AuthRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class AuthRepositoryImpl(
     private val api: DispatchBuddyAPI,
-//    private val appDispatchers: IAppDispatchers
 ) : AuthRepository {
 
     override suspend fun registerUser(registration: Registration): Flow<Resource<GenericResponse<UserProfile>>> =
         flow {
+            emit(Resource.Loading("Loading"))
             emit(
                 apiCall {
                     api.registerUser(registration)
@@ -29,8 +27,9 @@ class AuthRepositoryImpl(
 
     override suspend fun verifyUser(verifyUser: VerifyUser): Flow<Resource<GenericResponse<UserProfile>>> =
         flow {
+            emit(Resource.Loading("Loading"))
             emit(
-                apiCall{
+                apiCall {
                     api.verifyUser(verifyUser)
                 }
             )
@@ -38,6 +37,7 @@ class AuthRepositoryImpl(
 
     override suspend fun validateUser(email: String): Flow<Resource<GenericResponse<String>>> =
         flow {
+            emit(Resource.Loading("Loading"))
             emit(
                 apiCall {
                     api.validateUser(email)
@@ -51,11 +51,19 @@ class AuthRepositoryImpl(
         grant_type: String
     ): Flow<Resource<GenericResponse<LoginResponse>>> =
         flow {
+            emit(Resource.Loading("Loading"))
             emit(
                 apiCall {
                     api.loginUser(username, password, grant_type)
                 }
             )
         }
+
+    override suspend fun changePassword(changePassword: ChangePassword): Flow<Resource<GenericResponse<UserProfile>>> =
+        flow {
+            emit(Resource.Loading("Loading"))
+            emit(apiCall { api.changePassword(changePassword) })
+        }.flowOn(Dispatchers.IO)
+
 
 }

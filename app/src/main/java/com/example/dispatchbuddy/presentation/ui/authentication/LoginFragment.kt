@@ -14,6 +14,7 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.common.validation.FieldValidations
 import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnableButton
