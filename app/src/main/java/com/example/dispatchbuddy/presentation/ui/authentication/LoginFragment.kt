@@ -103,7 +103,7 @@ class LoginFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding.loader.hideView()
-                        showShortSnackBar(it.value.message)
+                        showShortSnackBar("Login Successful")
                         Intent(requireContext(), RiderActivity::class.java).also { intent ->
                             startActivity(intent)
                             activity?.finish()

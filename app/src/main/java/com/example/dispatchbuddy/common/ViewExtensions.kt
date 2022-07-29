@@ -6,7 +6,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 
 object ViewExtensions {
@@ -51,4 +53,16 @@ object ViewExtensions {
         snackTextView.maxLines = 3
         snackBar.show()
     }
+}
+
+fun Fragment.popBackStack(){
+    findNavController().popBackStack()
+}
+
+fun Fragment.handleBackPress(){
+    activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            popBackStack()
+        }
+    })
 }

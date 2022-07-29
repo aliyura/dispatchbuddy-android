@@ -64,7 +64,7 @@ class SmsVerificationFragment : Fragment() {
             }
             resendCodeTv.text = resendCode
             resendCodeTv.setOnClickListener {
-                showShortToast("Clicked")
+//                showShortToast("Clicked")
                 verificationViewModel.validateUser(args.email)
             }
             fragmentRegisterBackArrowIv.setOnClickListener {

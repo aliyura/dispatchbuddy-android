@@ -78,8 +78,4 @@ object AppModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class AuthInterceptorOkHttpClient
 
-//    @Provides
-//    @Singleton
-//    fun provideAppDispatchers():
-//            IAppDispatchers = AppDispatchers()
 }

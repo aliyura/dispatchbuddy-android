@@ -47,7 +47,6 @@ class AuthRepositoryImpl(
         }
 
     override suspend fun loginUser(
-        authorizationHeader: String,
         username: String,
         password: String,
         grant_type: String
@@ -56,7 +55,12 @@ class AuthRepositoryImpl(
             emit(Resource.Loading("Loading"))
             emit(
                 apiCall {
-                    api.loginUser(username=username, password = password, grant_type = grant_type, Authorization = authorizationHeader)
+                    api.loginUser(
+                        username = username,
+                        password = password,
+                        grant_type = grant_type,
+                        credentials = Credentials.basic("web-client", "password")
+                    )
                 }
             )
         }
