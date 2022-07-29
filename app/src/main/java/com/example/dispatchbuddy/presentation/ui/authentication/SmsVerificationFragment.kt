@@ -2,6 +2,7 @@ package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,18 +23,21 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.databinding.FragmentSmsVerificationBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SmsVerificationFragment : Fragment() {
     private var _binding: FragmentSmsVerificationBinding? = null
     private val binding get() = _binding!!
     val args: SmsVerificationFragmentArgs by navArgs()
-    val verificationViewModel : VerificationViewModel by viewModels()
+    val TAG = "SmsVerificationFragment"
+    private val verificationViewModel : VerificationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +50,8 @@ class SmsVerificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeVerificationResponse()
         observeValidationResponse()
 
         binding.apply {
@@ -58,7 +64,7 @@ class SmsVerificationFragment : Fragment() {
             }
             resendCodeTv.text = resendCode
             resendCodeTv.setOnClickListener {
-                showShortToast("Clicked")
+//                showShortToast("Clicked")
                 verificationViewModel.validateUser(args.email)
             }
             fragmentRegisterBackArrowIv.setOnClickListener {
@@ -83,9 +89,15 @@ class SmsVerificationFragment : Fragment() {
                 // las text changed
                 etList[etList.size - 1].id -> {
                     if (text.isEmpty()) etList[index - 1].requestFocus()
-                    else
-                    verificationViewModel.verifyUser(VerifyUser(args.email, etList.toString()))
-                }
+                    else {
+                        Timber.d("configOtpEditText: $etList")
+                        verificationViewModel.verifyUser(
+                            VerifyUser(
+                                username = args.email,
+                                otp = etList.toString()
+                            )
+                        )
+                    }}
 
                 // middle text changes
                 else -> {
@@ -109,7 +121,7 @@ class SmsVerificationFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding.loader.hideView()
-                        showShortSnackBar(it.value.payload)
+                        showShortSnackBar(it.value.message)
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()
@@ -119,6 +131,28 @@ class SmsVerificationFragment : Fragment() {
                 }
             }
         }
+    }
 
+    private fun observeVerificationResponse() {
+        lifecycleScope.launch {
+            verificationViewModel.verificationStateFlow.collect{
+                when(it) {
+                    is Resource.Loading -> {
+                        binding.loader.showView()
+                    }
+                    is Resource.Success -> {
+                        binding.loader.hideView()
+                        showShortSnackBar(it.value.message)
+                        findNavController().navigate(R.id.loginFragment)
+                        popBackStack()
+                    }
+                    is Resource.Error -> {
+                        binding.loader.hideView()
+                        showShortSnackBar(it.error)
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 }

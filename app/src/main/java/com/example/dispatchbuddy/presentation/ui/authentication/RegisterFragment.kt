@@ -14,6 +14,7 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.FieldType
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.populateFieldTypeMap
 import com.example.dispatchbuddy.common.validation.FieldValidations.verifyDateOfBirth

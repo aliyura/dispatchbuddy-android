@@ -1,5 +1,7 @@
 package com.example.dispatchbuddy.presentation.ui.authentication.di
 
+import com.example.dispatchbuddy.common.Constants.LOGIN_API
+import com.example.dispatchbuddy.common.Constants.MAIN_API
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.AuthRepositoryImpl
 import com.example.dispatchbuddy.domain.repository.AuthRepository
@@ -11,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -49,8 +52,9 @@ object AuthModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        api: DispatchBuddyAPI,
+        @Named(MAIN_API) api: DispatchBuddyAPI,
+        @Named(LOGIN_API) loginApi : DispatchBuddyAPI
     ): AuthRepository{
-        return AuthRepositoryImpl(api = api)
+        return AuthRepositoryImpl(api = api, loginApi = loginApi )
     }
 }
