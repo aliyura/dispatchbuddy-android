@@ -66,7 +66,7 @@
                         android:layout_width="@dimen/width_90dp"
                         android:layout_height="@dimen/height_90dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/avatar" />
+                        android:src="@drawable/ic_launcher_background" />
                 </androidx.cardview.widget.CardView>
 
                 <ImageView
@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/kelechi_okoli"
+                    android:text=""
                     android:textColor="@color/accent_color"
                     android:textSize="@dimen/text_size_14sp" />
                 <TextView
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/rider"
+                    android:text=""
                     android:textColor="@color/hint_text_color"
                     android:textSize="@dimen/text_size_14sp" />
             </LinearLayout>
@@ -238,4 +238,14 @@
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_profile_notification_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/profile_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:indeterminateTint ="@color/primaryColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

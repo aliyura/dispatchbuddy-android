@@ -29,7 +29,7 @@
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.profile.EditProfileFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.profile.view.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment

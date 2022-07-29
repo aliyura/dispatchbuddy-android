@@ -1,6 +1,7 @@
 package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,6 +70,7 @@ class ChangePasswordFragment : Fragment() {
                     is Resource.Success ->{
                         binding.changePasswordProgressBar.hideView()
                         showShortSnackBar(it.value.message)
+                        Log.d("NAME", "USER_NAME CHANGE_PASSWORD-->:${it.value.payload.name} ")
                         findNavController().navigate(R.id.loginFragment)
                     }
                     is Resource.Error ->{

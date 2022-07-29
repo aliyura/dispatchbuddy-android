@@ -48,6 +48,7 @@ class AuthRepositoryImpl(
         }
 
     override suspend fun changePassword(changePassword: ChangePassword): Flow<Resource<GenericResponse<UserProfile>>> = flow {
+        emit(Resource.Loading(""))
         emit(apiCall{ api.changePassword(changePassword) })
     }.flowOn(Dispatchers.IO)
 

@@ -1,5 +1,9 @@
 package com.example.dispatchbuddy.common
 
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.net.Uri
+import android.provider.OpenableColumns
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -11,14 +15,13 @@ fun getDaysAgo(daysAgo: Int): Date {
     return calendar.time
 }
 
-fun Fragment.popBackStack(){
-    findNavController().popBackStack()
-}
-
-fun Fragment.handleBackPress(){
-    activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
-        override fun handleOnBackPressed() {
-            popBackStack()
-        }
-    })
+@SuppressLint("Range")
+fun ContentResolver.getFileName(uri: Uri): String {
+    var name = ""
+    val cursor =query(uri,null, null, null, null)
+    cursor?.use {
+        it?.moveToFirst()
+        name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+    }
+    return name
 }
