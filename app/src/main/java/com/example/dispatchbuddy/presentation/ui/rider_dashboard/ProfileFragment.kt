@@ -27,6 +27,7 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
 import com.example.dispatchbuddy.common.getFileName
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.databinding.FragmentProfileBinding
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel.RiderViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,12 +37,15 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val riderViewModel: RiderViewModel by viewModels()
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +62,8 @@ class ProfileFragment : Fragment() {
         observeImageUploadResponse()
         observeGetUserResponse()
         getUserDetails()
+        val id = preferences.getUserId()
+        Log.d("USER_ID", "Profile: $id")
     }
     private fun buttonClickListener(){
         with(binding){
@@ -135,7 +141,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getUserDetails(){
-        riderViewModel.getUser(dummyId, "Bearer $dummyToken")
+        riderViewModel.getUser(preferences.getUserId(), "Bearer ${preferences.getToken()}")
     }
 
     private fun observeImageUploadResponse(){
@@ -169,6 +175,9 @@ class ProfileFragment : Fragment() {
                             fragmentProfileNameTv.text = response.value.payload.name
                             fragmentProfileUserTypeTv.text = response.value.payload.accountType
                         }
+                        val name = response.value.payload.name
+                        val dob = response.value.payload.dateOfBirth
+                        saveUserNameAndDateOfBirth(name = name, dob = dob)
                         val fileName = response.value.payload.dp
                         Log.d("fileName", "observeGetUserResponse: $fileName")
 //                        val image = "https://lenos.s3.amazonaws.com/pictures/${fileName}"
@@ -185,6 +194,13 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
+    private fun saveUserNameAndDateOfBirth(name: String, dob: String) {
+        saveUserName(name)
+        saveDateOfBirth(dob)
+    }
+    private fun saveUserName(name: String) = preferences.saveUserName(name)
+    private fun saveDateOfBirth(dob: String) = preferences.saveDateOfBirth(dob)
 
     override fun onDestroyView() {
         super.onDestroyView()

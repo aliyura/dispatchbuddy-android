@@ -34,7 +34,7 @@ class WelcomeFragment : Fragment() {
                 navigateToUserDashboard()
             }
             fragmentWelcomeRiderBtn.setOnClickListener {
-                findNavController().navigate(R.id.settingsFragment)
+                findNavController().navigate(R.id.loginFragment)
             }
         }
     }

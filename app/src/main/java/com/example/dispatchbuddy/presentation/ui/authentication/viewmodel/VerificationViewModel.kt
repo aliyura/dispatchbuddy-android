@@ -7,6 +7,7 @@ import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.domain.repository.AuthRepository
+import com.example.dispatchbuddy.domain.usecases.authUseCases.SmsVerificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class VerificationViewModel @Inject constructor(private val repository: AuthRepository): ViewModel() {
+class VerificationViewModel @Inject constructor(private val smsVerificationUseCase: SmsVerificationUseCase): ViewModel() {
 
     private val verificationMutableStateFlow = MutableStateFlow<Resource<GenericResponse<UserProfile>>?>(null)
     val verificationStateFlow: StateFlow<Resource<GenericResponse<UserProfile>>?> get() = verificationMutableStateFlow
@@ -25,7 +26,7 @@ class VerificationViewModel @Inject constructor(private val repository: AuthRepo
 
     fun verifyUser(verifyUser: VerifyUser) {
         viewModelScope.launch {
-            repository.verifyUser(verifyUser).collect{
+            smsVerificationUseCase(verifyUser).collect{
                 verificationMutableStateFlow.value = it
             }
         }
@@ -33,7 +34,7 @@ class VerificationViewModel @Inject constructor(private val repository: AuthRepo
 
     fun validateUser(email: String) {
         viewModelScope.launch {
-            repository.validateUser(email).collect{
+            smsVerificationUseCase(email).collect{
                 _validationResponse.value = it
             }
         }
