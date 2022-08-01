@@ -71,7 +71,6 @@ class ChangePasswordFragment : Fragment() {
                         binding.changePasswordProgressBar.hideView()
                         showShortSnackBar(it.value.message)
                         Log.d("NAME", "USER_NAME CHANGE_PASSWORD-->:${it.value.payload.name} ")
-                        findNavController().navigate(R.id.loginFragment)
                     }
                     is Resource.Error ->{
                         binding.changePasswordProgressBar.hideView()

@@ -42,5 +42,9 @@
         android:id="@+id/changePasswordFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.authentication.ChangePasswordFragment"
         android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

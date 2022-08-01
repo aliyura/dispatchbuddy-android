@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,7 +53,6 @@ class ProfileFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         buttonClickListener()
         uploadImage()
         observeImageUploadResponse()
@@ -162,18 +162,18 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->
                 when(response){
-                    is Resource.Loading ->{
-                        binding.profileProgressBar.showView()
-                    }
+                    is Resource.Loading ->{}
                     is Resource.Success ->{
                         binding.profileProgressBar.hideView()
-                        showShortSnackBar(response.value.message)
                         with(binding){
                             fragmentProfileNameTv.text = response.value.payload.name
                             fragmentProfileUserTypeTv.text = response.value.payload.accountType
                         }
+                        val fileName = response.value.payload.dp
+                        Log.d("fileName", "observeGetUserResponse: $fileName")
+//                        val image = "https://lenos.s3.amazonaws.com/pictures/${fileName}"
 //                        Glide.with(requireContext())
-//                            .load(Uri.parse(response.value.payload.dp.toString()))
+//                            .load(image)
 //                            .into(binding.fragmentProfileAvatar)
                     }
                     is Resource.Error ->{
