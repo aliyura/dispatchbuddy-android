@@ -12,6 +12,6 @@ class LoginUseCase @Inject constructor(val repository: AuthRepository) {
         username: String,
         password: String,
         grant_type: String
-    ): Flow<Resource<GenericResponse<LoginResponse>>> =
+    ): Flow<Resource<LoginResponse>> =
         repository.loginUser(username, password, grant_type)
 }

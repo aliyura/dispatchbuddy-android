@@ -5,4 +5,13 @@ interface Preferences {
     fun saveToken(token: String)
     fun getToken(): String
     fun deleteTokenInfo()
+    //save user ID
+    fun saveUserId(id: String)
+    fun getUserId(): String
+    fun deleteUserId()
+    // save user riderDetails
+    fun saveUserName(name: String)
+    fun saveDateOfBirth(dob: String)
+    fun getUserName(): String
+    fun getDateOfBirth(): String
 }

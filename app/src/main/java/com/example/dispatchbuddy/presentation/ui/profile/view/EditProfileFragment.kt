@@ -24,6 +24,9 @@ import com.example.dispatchbuddy.common.Constants.GALLERY_PERMISSION_CODE
 import com.example.dispatchbuddy.common.Constants.dummyToken
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
+import com.example.dispatchbuddy.common.handleBackPress
+import com.example.dispatchbuddy.common.popBackStack
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.common.validation.FieldValidations
 import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnableButton
@@ -36,12 +39,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
     private val profileViewModel: ProfileViewModel by viewModels()
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,20 +61,17 @@ class EditProfileFragment : Fragment() {
         super.onResume()
         setUpDropdownMenu()
         validateFields()
+        setViews()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         observerUpdateProfileResponse()
-        binding.fragmentEditProfileSaveBtn.setOnClickListener {
-            updateUserProfile()
-        }
-        binding.fragmentRegisterCalenderEdt.setOnClickListener {
-            datePicker()
-        }
-
+        handleBackPress()
+        buttonClickListener()
     }
+
     private fun setUpDropdownMenu(){
         val genderType = resources.getStringArray(R.array.Gender)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, genderType)
@@ -88,7 +91,7 @@ class EditProfileFragment : Fragment() {
                 gender = gender,
                 dateOfBirth = dateOfBirth,
                 city = city
-            ), "Bearer $dummyToken")
+            ), "Bearer ${preferences.getToken()}")
         }
     }
 
@@ -99,6 +102,12 @@ class EditProfileFragment : Fragment() {
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
             val date = dateFormatter.format(Date(it))
             binding.fragmentRegisterCalenderEdt.setText(date)
+        }
+    }
+    private fun setViews(){
+        with(binding){
+            fragmentEditFullNameEdt.setText(preferences.getUserName())
+            fragmentRegisterCalenderEdt.setText(preferences.getDateOfBirth())
         }
     }
 
@@ -112,7 +121,6 @@ class EditProfileFragment : Fragment() {
                     is Resource.Success ->{
                         binding.editProfileProgressBar.visibility = View.GONE
                         showShortSnackBar(response.value.message)
-                        Log.d("NAME", "USER_NAME EDIT_PROFILE-->:${response.value.payload.name} ")
                         findNavController().navigate(R.id.profileFragment)
                     }
                     is Resource.Error ->{
@@ -122,6 +130,14 @@ class EditProfileFragment : Fragment() {
                     else -> {}
                 }
             }
+        }
+    }
+
+    private fun buttonClickListener() {
+        with(binding){
+            fragmentEditProfileSaveBtn.setOnClickListener { updateUserProfile() }
+            fragmentRegisterCalenderEdt.setOnClickListener { datePicker() }
+            fragmentLoginBackArrowIv.setOnClickListener { popBackStack() }
         }
     }
 

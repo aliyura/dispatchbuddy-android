@@ -54,6 +54,7 @@ suspend fun <T> apiCall(dispatcher: CoroutineContext = Dispatchers.IO,
 
 }
 
+
 class ErrorStatus {
     companion object {
         const val NO_CONNECTION = "Not Connected To The Internet"
@@ -67,3 +68,4 @@ class ErrorStatus {
 data class APIErrorResponse(
     val message: String
 ) : Parcelable
+

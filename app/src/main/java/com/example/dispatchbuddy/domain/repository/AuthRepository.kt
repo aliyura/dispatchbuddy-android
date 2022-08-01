@@ -15,6 +15,6 @@ interface AuthRepository {
     suspend fun registerUser(registration: Registration) : Flow<Resource<GenericResponse<UserProfile>>>
     suspend fun verifyUser(verifyUser: VerifyUser) : Flow<Resource<GenericResponse<UserProfile>>>
     suspend fun validateUser(email: String) : Flow<Resource<GenericResponse<String>>>
-    suspend fun loginUser(username: String, password:String, grant_type: String): Flow<Resource<GenericResponse<LoginResponse>>>
+    suspend fun loginUser(username: String, password:String, grant_type: String): Flow<Resource<LoginResponse>>
     suspend fun changePassword(changePassword: ChangePassword): Flow<Resource<GenericResponse<UserProfile>>>
 }

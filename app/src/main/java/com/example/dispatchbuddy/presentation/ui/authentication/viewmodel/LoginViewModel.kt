@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(val loginUseCase: LoginUseCase) : ViewModel() {
-    private var _loginResponse = MutableStateFlow<Resource<GenericResponse<LoginResponse>>?>(null)
-    val loginResponse: StateFlow<Resource<GenericResponse<LoginResponse>>?> get() = _loginResponse
+    private var _loginResponse = MutableStateFlow<Resource<LoginResponse>?>(null)
+    val loginResponse: StateFlow<Resource<LoginResponse>?> get() = _loginResponse
 
 
     fun loginUser(username: String, password: String, grant_type: String) {

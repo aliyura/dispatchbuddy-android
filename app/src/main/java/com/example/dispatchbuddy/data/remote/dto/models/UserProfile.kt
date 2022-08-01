@@ -10,7 +10,7 @@ data class UserProfile(
     val dp: Any,
     val email: String,
     val gender: Any,
-    val id: String,
+    val id: String? = null,
     val isEnabled: Boolean,
     val lastLoginDate: String,
     val lastModifiedDate: Any,

@@ -14,7 +14,7 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.popBackStack
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.common.validation.FieldValidations
 import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnableButton
@@ -24,12 +24,15 @@ import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.LoginV
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.RiderActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val loginViewModel : LoginViewModel by viewModels()
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,11 +106,11 @@ class LoginFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding.loader.hideView()
+                        val id = it.value.id
+                        val token = it.value.access_token
+                        saveTokenAndUserId(token, id)
                         showShortSnackBar("Login Successful")
-                        Intent(requireContext(), RiderActivity::class.java).also { intent ->
-                            startActivity(intent)
-                            activity?.finish()
-                        }
+                        riderActivityIntent()
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()
@@ -118,6 +121,19 @@ class LoginFragment : Fragment() {
             }
         }
     }
+    private fun riderActivityIntent(){
+        Intent(requireContext(), RiderActivity::class.java).also { intent ->
+            startActivity(intent)
+            activity?.finish()
+        }
+    }
+
+    private fun saveTokenAndUserId(token: String, userId: String) {
+            saveToken(token)
+            saveUserId(userId)
+    }
+    private fun saveToken(token: String) = preferences.saveToken(token)
+    private fun saveUserId(userId: String) = preferences.saveUserId(userId)
 
     override fun onDestroyView() {
         super.onDestroyView()

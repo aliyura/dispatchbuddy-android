@@ -6,8 +6,6 @@ import com.example.dispatchbuddy.data.remote.dto.models.ChangePassword
 import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
-import com.google.gson.annotations.SerializedName
-import okhttp3.Credentials
 import com.example.dispatchbuddy.data.remote.dto.models.*
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -33,7 +31,7 @@ interface DispatchBuddyAPI {
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("grant_type") grant_type: String
-    ): GenericResponse<LoginResponse>
+    ): LoginResponse
 
     @POST("user/password-reset")
     suspend fun changePassword(@Body changePassword: ChangePassword): GenericResponse<UserProfile>

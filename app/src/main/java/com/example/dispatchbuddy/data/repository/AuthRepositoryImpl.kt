@@ -51,7 +51,7 @@ class AuthRepositoryImpl(
         username: String,
         password: String,
         grant_type: String
-    ): Flow<Resource<GenericResponse<LoginResponse>>> =
+    ): Flow<Resource<LoginResponse>> =
         flow {
             emit(Resource.Loading("Loading"))
             emit(
