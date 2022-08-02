@@ -79,6 +79,7 @@ class ProfileFragment : Fragment() {
             fragmentEditProfileDeliveriesLayout.setOnClickListener {
                 findNavController().navigate(R.id.deliveriesFragment)
             }
+            fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
     private fun uploadImage(){
