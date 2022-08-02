@@ -2,6 +2,7 @@ package com.example.dispatchbuddy.presentation.ui.rider_dashboard
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -19,16 +20,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.dispatchbuddy.R
-import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.*
 import com.example.dispatchbuddy.common.Constants.dummyId
 import com.example.dispatchbuddy.common.Constants.dummyToken
-import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.getFileName
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.databinding.FragmentProfileBinding
+import com.example.dispatchbuddy.databinding.LogoutDialogLayoutBinding
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel.RiderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -44,6 +44,8 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val riderViewModel: RiderViewModel by viewModels()
+    private lateinit var  logoutDialog: AlertDialog
+    private lateinit var logoutDialogLayoutBinding: LogoutDialogLayoutBinding
     @Inject
     lateinit var preferences: Preferences
 
@@ -63,7 +65,7 @@ class ProfileFragment : Fragment() {
         observeGetUserResponse()
         getUserDetails()
         val id = preferences.getUserId()
-        Log.d("USER_ID", "Profile: $id")
+        logOut()
     }
     private fun buttonClickListener(){
         with(binding){
@@ -77,6 +79,7 @@ class ProfileFragment : Fragment() {
             fragmentEditProfileDeliveriesLayout.setOnClickListener {
                 findNavController().navigate(R.id.deliveriesFragment)
             }
+            fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
     private fun uploadImage(){
@@ -142,6 +145,10 @@ class ProfileFragment : Fragment() {
 
     private fun getUserDetails(){
         riderViewModel.getUser(preferences.getUserId(), "Bearer ${preferences.getToken()}")
+    }
+    private fun logOut(){
+        logoutDialogLayoutBinding = LogoutDialogLayoutBinding.inflate(layoutInflater)
+        logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut() }
     }
 
     private fun observeImageUploadResponse(){
