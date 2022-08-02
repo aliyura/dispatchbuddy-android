@@ -76,4 +76,5 @@
     <dimen name="height_83dp">83dp</dimen>
     <dimen name="width_71dp">71dp</dimen>
     <dimen name="width_24dp">24dp</dimen>
+    <dimen name="textSize_18sp">18sp</dimen>
 </resources>
