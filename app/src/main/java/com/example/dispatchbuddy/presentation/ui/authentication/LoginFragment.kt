@@ -47,7 +47,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferences.deleteTokenInfo()
-        preferences.deleteTokenInfo()
+        preferences.deleteUserId()
         observe()
         validateFields()
         handleBackPress()
