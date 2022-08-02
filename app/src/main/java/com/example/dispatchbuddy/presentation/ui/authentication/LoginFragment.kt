@@ -14,6 +14,7 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.handleBackPress
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.common.validation.FieldValidations
@@ -45,9 +46,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        preferences.deleteTokenInfo()
+        preferences.deleteTokenInfo()
         observe()
         validateFields()
+        handleBackPress()
         with(binding) {
             fragmentLoginNoAccountTv.setOnClickListener {
                 findNavController().navigate(R.id.registerFragment)

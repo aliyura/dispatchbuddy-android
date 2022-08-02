@@ -121,6 +121,9 @@
     <string name="select_an_option">Select an option</string>
     <string name="enter_valid_confirm_password_str">Password Should Match</string>
     <string name="all_deliveries">All Deliveries</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to log out?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

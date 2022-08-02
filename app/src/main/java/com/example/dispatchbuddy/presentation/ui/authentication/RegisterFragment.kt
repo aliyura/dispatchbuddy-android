@@ -14,6 +14,7 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.handleBackPress
 import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.FieldType
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.populateFieldTypeMap
@@ -55,19 +56,16 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeRegistrationResponse()
+        validateFields()
+        handleBackPress()
 
         with(binding) {
-            fragmentRegisterSignUpBtn.setOnClickListener {
-                registerUser()
-            }
+            fragmentRegisterSignUpBtn.setOnClickListener { registerUser() }
+            fragmentRegisterCalenderEdt.setOnClickListener { datePicker() }
             fragmentRegisterHaveAccountTv.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment)
             }
-            fragmentRegisterCalenderEdt.setOnClickListener {
-                datePicker()
-            }
         }
-        validateFields()
     }
 
     private fun datePicker() {

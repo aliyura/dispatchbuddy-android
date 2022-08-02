@@ -2,6 +2,7 @@ package com.example.dispatchbuddy.common
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -9,6 +10,10 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.dispatchbuddy.common.Constants.FROM_LOGOUT
+import com.example.dispatchbuddy.presentation.ui.authentication.AuthenticationActivity
+import com.example.dispatchbuddy.presentation.ui.authentication.LoginFragment
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.RiderActivity
 import com.google.android.material.snackbar.Snackbar
 
 object ViewExtensions {
@@ -65,4 +70,10 @@ fun Fragment.handleBackPress(){
             popBackStack()
         }
     })
+}
+fun Fragment.userLogOut(): Unit{
+    val intent = Intent(requireContext(), AuthenticationActivity::class.java)
+    intent.putExtra(FROM_LOGOUT, true)
+    startActivity(intent)
+    activity?.finish()
 }
