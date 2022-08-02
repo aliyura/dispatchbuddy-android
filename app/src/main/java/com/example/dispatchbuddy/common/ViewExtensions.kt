@@ -71,7 +71,7 @@ fun Fragment.handleBackPress(){
         }
     })
 }
-fun Fragment.userLogOut(): Unit{
+fun Fragment.userLogOut(){
     val intent = Intent(requireContext(), AuthenticationActivity::class.java)
     intent.putExtra(FROM_LOGOUT, true)
     startActivity(intent)

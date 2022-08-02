@@ -64,7 +64,7 @@ class ErrorStatus {
     }
 }
 
-@Parcelize
+@kotlinx.parcelize.Parcelize
 data class APIErrorResponse(
     val message: String
 ) : Parcelable
