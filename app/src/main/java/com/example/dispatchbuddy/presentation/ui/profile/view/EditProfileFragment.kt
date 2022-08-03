@@ -23,6 +23,7 @@ import com.example.dispatchbuddy.common.Constants.GALLERY
 import com.example.dispatchbuddy.common.Constants.GALLERY_PERMISSION_CODE
 import com.example.dispatchbuddy.common.Constants.dummyToken
 import com.example.dispatchbuddy.common.Resource
+import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.handleBackPress
 import com.example.dispatchbuddy.common.popBackStack
@@ -34,6 +35,7 @@ import com.example.dispatchbuddy.common.validation.validateField
 import com.example.dispatchbuddy.data.remote.dto.models.UpdateProfile
 import com.example.dispatchbuddy.databinding.FragmentEditProfileBinding
 import com.example.dispatchbuddy.presentation.ui.profile.viewmodel.ProfileViewModel
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel.RiderViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,6 +48,12 @@ class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val riderViewModel: RiderViewModel by viewModels()
+    private var name: String? = null
+    private var country: String? = null
+    private var city: String? = null
+    private var gender: String? = null
+    private var dateOfBirth: String? = null
     @Inject
     lateinit var preferences: Preferences
 
@@ -61,13 +69,14 @@ class EditProfileFragment : Fragment() {
         super.onResume()
         setUpDropdownMenu()
         validateFields()
-        setViews()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         observerUpdateProfileResponse()
+        observeEditGetUserResponse()
+        getUserDetails()
         handleBackPress()
         buttonClickListener()
     }
@@ -95,6 +104,10 @@ class EditProfileFragment : Fragment() {
         }
     }
 
+    private fun getUserDetails(){
+        riderViewModel.getUser(preferences.getUserId(), "Bearer ${preferences.getToken()}")
+    }
+
     private fun datePicker() {
         val datePicker = MaterialDatePicker.Builder.datePicker().build()
         datePicker.show(parentFragmentManager, "Select Date")
@@ -102,12 +115,6 @@ class EditProfileFragment : Fragment() {
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
             val date = dateFormatter.format(Date(it))
             binding.fragmentRegisterCalenderEdt.setText(date)
-        }
-    }
-    private fun setViews(){
-        with(binding){
-            fragmentEditFullNameEdt.setText(preferences.getUserName())
-            fragmentRegisterCalenderEdt.setText(preferences.getDateOfBirth())
         }
     }
 
@@ -125,6 +132,34 @@ class EditProfileFragment : Fragment() {
                     }
                     is Resource.Error ->{
                         binding.editProfileProgressBar.visibility = View.GONE
+                        showShortSnackBar(response.error)
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+    private fun observeEditGetUserResponse(){
+        lifecycleScope.launch {
+            riderViewModel.getUser.collect{ response ->
+                when(response){
+                    is Resource.Loading ->{}
+                    is Resource.Success ->{
+                        name = response.value.payload.name
+                        country = response.value.payload.country
+                        city = response.value.payload.city
+                        gender = response.value.payload.gender
+                        dateOfBirth = response.value.payload.dateOfBirth
+                        with(binding){
+                            if (!name.isNullOrEmpty()) fragmentEditFullNameEdt.setText(name) else fragmentEditFullNameEdt.setText("")
+                            if (!country.isNullOrEmpty()) fragmentEditCountryEdt.setText(country) else fragmentEditCountryEdt.setText("")
+                            if (!city.isNullOrEmpty()) fragmentEditCityEdt.setText(city) else fragmentEditCityEdt.setText("")
+                            if (!dateOfBirth.isNullOrEmpty()) fragmentRegisterCalenderEdt.setText(dateOfBirth) else fragmentRegisterCalenderEdt.setText("")
+                            if (!gender.isNullOrEmpty()) selectGenderDropdown.setText(gender) else selectGenderDropdown.setText("")
+                        }
+
+                    }
+                    is Resource.Error ->{
                         showShortSnackBar(response.error)
                     }
                     else -> {}
