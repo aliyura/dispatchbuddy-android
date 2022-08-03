@@ -182,9 +182,6 @@ class ProfileFragment : Fragment() {
                             fragmentProfileNameTv.text = response.value.payload.name
                             fragmentProfileUserTypeTv.text = response.value.payload.accountType
                         }
-                        val name = response.value.payload.name
-                        val dob = response.value.payload.dateOfBirth
-                        saveUserNameAndDateOfBirth(name = name, dob = dob)
                         val fileName = response.value.payload.dp
                         Log.d("fileName", "observeGetUserResponse: $fileName")
 //                        val image = "https://lenos.s3.amazonaws.com/pictures/${fileName}"
@@ -201,13 +198,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
-    private fun saveUserNameAndDateOfBirth(name: String, dob: String) {
-        saveUserName(name)
-        saveDateOfBirth(dob)
-    }
-    private fun saveUserName(name: String) = preferences.saveUserName(name)
-    private fun saveDateOfBirth(dob: String) = preferences.saveDateOfBirth(dob)
 
     override fun onDestroyView() {
         super.onDestroyView()
