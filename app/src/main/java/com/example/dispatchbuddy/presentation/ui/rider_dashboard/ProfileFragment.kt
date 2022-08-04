@@ -64,7 +64,6 @@ class ProfileFragment : Fragment() {
         observeImageUploadResponse()
         observeGetUserResponse()
         getUserDetails()
-        val id = preferences.getUserId()
         logOut()
     }
     private fun buttonClickListener(){
@@ -82,6 +81,7 @@ class ProfileFragment : Fragment() {
             fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
+
     private fun uploadImage(){
         binding.fragmentProfileAvatarPicker.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -130,6 +130,7 @@ class ProfileFragment : Fragment() {
             binding.fragmentProfileAvatar.setImageURI(image)
         }
     }
+
     private fun uploadImage(selectedImage:Uri?) {
         if (selectedImage == null) {
             showShortSnackBar("Select an Image")
@@ -146,6 +147,7 @@ class ProfileFragment : Fragment() {
     private fun getUserDetails(){
         riderViewModel.getUser(preferences.getUserId(), "Bearer ${preferences.getToken()}")
     }
+
     private fun logOut(){
         logoutDialogLayoutBinding = LogoutDialogLayoutBinding.inflate(layoutInflater)
         logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut() }
@@ -171,6 +173,7 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
     private fun observeGetUserResponse(){
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->
