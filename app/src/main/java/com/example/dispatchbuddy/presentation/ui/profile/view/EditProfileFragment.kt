@@ -1,29 +1,16 @@
 package com.example.dispatchbuddy.presentation.ui.profile.view
 
 import android.os.Bundle
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
-import com.example.dispatchbuddy.common.Constants.GALLERY
-import com.example.dispatchbuddy.common.Constants.GALLERY_PERMISSION_CODE
-import com.example.dispatchbuddy.common.Constants.dummyToken
 import com.example.dispatchbuddy.common.Resource
-import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.handleBackPress
 import com.example.dispatchbuddy.common.popBackStack
@@ -139,6 +126,7 @@ class EditProfileFragment : Fragment() {
             }
         }
     }
+
     private fun observeEditGetUserResponse(){
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->

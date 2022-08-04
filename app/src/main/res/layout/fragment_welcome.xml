@@ -24,21 +24,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_20dp"
-        android:layout_marginStart="@dimen/margin_16dp"
+        android:fontFamily="@font/inter_bold"
         android:text="@string/welcome_to_dispatchbuddy"
         android:textColor="@color/accent_color"
-        android:textSize="@dimen/text_size_24sp"
-        android:fontFamily="@font/inter_bold"
+        android:textSize="@dimen/text_size_20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_welcome_toolbar" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/width_200dp"
-        android:layout_height="@dimen/height_200dp"
+        android:layout_width="@dimen/width_100dp"
+        android:layout_height="@dimen/height_100dp"
         android:src="@drawable/ic_logo"
-        android:layout_marginTop="@dimen/margin_40dp"
+        android:layout_marginTop="@dimen/margin_60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_welcome_title_TV" />
@@ -47,30 +47,109 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_marginHorizontal="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_40dp"
+        android:layout_marginTop="@dimen/margin_80dp"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/fragment_welcome_user_btn"
-            style="@style/DefaultButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_48dp"
-            android:text="@string/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/fragment_welcome_card_one"
+            android:layout_width="@dimen/height_100dp"
+            android:layout_height="@dimen/height_100dp"
+            android:layout_margin="@dimen/margin_10dp"
+            app:cardElevation="@dimen/elevation_5dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/radius_15dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    android:id="@+id/fragment_welcome_card_one_View"
+                    android:layout_width="@dimen/width_42dp"
+                    android:layout_height="@dimen/height_42dp"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:background="@drawable/circular_shape"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/fragment_welcome_rider_btn"
-            style="@style/DefaultButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_48dp"
-            android:layout_marginTop="@dimen/margin_40dp"
-            android:text="@string/rider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:layout_width="@dimen/width_36dp"
+                    android:layout_height="@dimen/height_36dp"
+                    android:elevation="@dimen/elevation_10dp"
+                    android:src="@drawable/ic_account_user"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_welcome_card_one_View"
+                    app:layout_constraintEnd_toEndOf="@+id/fragment_welcome_card_one_View"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_welcome_card_one_View"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_welcome_card_one_View" />
+
+                <TextView
+                    android:id="@+id/fragment_welcome_user_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/user"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="@dimen/text_size_16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_welcome_card_one_View" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/fragment_welcome_card_two"
+            android:layout_width="@dimen/height_100dp"
+            android:layout_height="@dimen/height_100dp"
+            app:cardElevation="@dimen/elevation_5dp"
+            android:layout_margin="@dimen/margin_10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/radius_15dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/fragment_welcome_card_two_View"
+                    android:layout_width="@dimen/width_42dp"
+                    android:layout_height="@dimen/height_42dp"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:background="@drawable/circular_shape"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="@dimen/width_36dp"
+                    android:layout_height="@dimen/height_36dp"
+                    android:elevation="@dimen/elevation_10dp"
+                    android:src="@drawable/ic_delivery_truck_rider"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_welcome_card_two_View"
+                    app:layout_constraintEnd_toEndOf="@+id/fragment_welcome_card_two_View"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_welcome_card_two_View"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_welcome_card_two_View" />
+
+                <TextView
+                    android:id="@+id/fragment_dashboard_withdraw_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/rider"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="@dimen/text_size_16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_welcome_card_two_View" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

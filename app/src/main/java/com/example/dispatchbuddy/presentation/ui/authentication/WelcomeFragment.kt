@@ -30,10 +30,10 @@ class WelcomeFragment : Fragment() {
 
     private fun buttonClickListener() {
         with(binding) {
-            fragmentWelcomeUserBtn.setOnClickListener {
+            fragmentWelcomeCardOne.setOnClickListener {
                 navigateToUserDashboard()
             }
-            fragmentWelcomeRiderBtn.setOnClickListener {
+            fragmentWelcomeCardTwo.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment)
             }
         }

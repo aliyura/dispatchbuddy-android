@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants.FROM_LOGOUT
 import com.example.dispatchbuddy.presentation.ui.authentication.AuthenticationActivity
 import com.google.android.material.snackbar.Snackbar
