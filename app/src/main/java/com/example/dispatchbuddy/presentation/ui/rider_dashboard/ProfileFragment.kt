@@ -64,7 +64,6 @@ class ProfileFragment : Fragment() {
         observeImageUploadResponse()
         observeGetUserResponse()
         getUserDetails()
-        val id = preferences.getUserId()
         logOut()
     }
     private fun buttonClickListener(){
@@ -73,7 +72,7 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.editProfileFragment)
             }
             fragmentChangePasswordProfileTv.setOnClickListener {
-                val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment2()
+                val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
                 findNavController().navigate(action)
             }
             fragmentEditProfileDeliveriesLayout.setOnClickListener {
@@ -82,6 +81,7 @@ class ProfileFragment : Fragment() {
             fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
+
     private fun uploadImage(){
         binding.fragmentProfileAvatarPicker.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -130,6 +130,7 @@ class ProfileFragment : Fragment() {
             binding.fragmentProfileAvatar.setImageURI(image)
         }
     }
+
     private fun uploadImage(selectedImage:Uri?) {
         if (selectedImage == null) {
             showShortSnackBar("Select an Image")
@@ -146,6 +147,7 @@ class ProfileFragment : Fragment() {
     private fun getUserDetails(){
         riderViewModel.getUser(preferences.getUserId(), "Bearer ${preferences.getToken()}")
     }
+
     private fun logOut(){
         logoutDialogLayoutBinding = LogoutDialogLayoutBinding.inflate(layoutInflater)
         logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut() }
@@ -171,6 +173,7 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
     private fun observeGetUserResponse(){
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->
@@ -182,9 +185,6 @@ class ProfileFragment : Fragment() {
                             fragmentProfileNameTv.text = response.value.payload.name
                             fragmentProfileUserTypeTv.text = response.value.payload.accountType
                         }
-                        val name = response.value.payload.name
-                        val dob = response.value.payload.dateOfBirth
-                        saveUserNameAndDateOfBirth(name = name, dob = dob)
                         val fileName = response.value.payload.dp
                         Log.d("fileName", "observeGetUserResponse: $fileName")
 //                        val image = "https://lenos.s3.amazonaws.com/pictures/${fileName}"
@@ -201,13 +201,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
-    private fun saveUserNameAndDateOfBirth(name: String, dob: String) {
-        saveUserName(name)
-        saveDateOfBirth(dob)
-    }
-    private fun saveUserName(name: String) = preferences.saveUserName(name)
-    private fun saveDateOfBirth(dob: String) = preferences.saveDateOfBirth(dob)
 
     override fun onDestroyView() {
         super.onDestroyView()
