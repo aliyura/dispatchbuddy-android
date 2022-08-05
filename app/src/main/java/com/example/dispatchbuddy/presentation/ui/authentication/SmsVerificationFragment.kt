@@ -143,8 +143,8 @@ class SmsVerificationFragment : Fragment() {
                     is Resource.Success -> {
                         binding.loader.hideView()
                         showShortSnackBar(it.value.message)
-                        findNavController().navigate(R.id.loginFragment)
-                        popBackStack()
+                        val action = SmsVerificationFragmentDirections.actionSmsVerificationFragmentToLoginFragment()
+                        findNavController().navigate(action)
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()

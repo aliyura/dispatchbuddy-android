@@ -61,7 +61,8 @@ class RegisterFragment : Fragment() {
                 registerUser()
             }
             fragmentRegisterHaveAccountTv.setOnClickListener {
-                findNavController().navigate(R.id.loginFragment)
+                val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                findNavController().navigate(action)
             }
             fragmentRegisterCalenderEdt.setOnClickListener {
                 datePicker()
