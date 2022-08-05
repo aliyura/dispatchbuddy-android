@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_emailForChangePasswordFragment"
+            app:destination="@id/emailForChangePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -46,6 +49,9 @@
         <action
             android:id="@+id/action_smsVerificationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_smsVerificationFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -67,5 +73,14 @@
         <action
             android:id="@+id/action_changePasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailForChangePasswordFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.EmailForChangePasswordFragment"
+        android:label="fragment_email_for_change_password"
+        tools:layout="@layout/fragment_email_for_change_password" >
+        <action
+            android:id="@+id/action_emailForChangePasswordFragment_to_smsVerificationFragment"
+            app:destination="@id/smsVerificationFragment" />
     </fragment>
 </navigation>
