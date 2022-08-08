@@ -58,7 +58,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
 
         locationResultAdapter = LocationResultAdapter {}
         bottomSheetView = view.findViewById(R.id.bottom_sheet)
-        setUpRecyclerView()
+        setUpBottomSheetRecyclerView()
 
         /* register broadcast receivers */
         val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
@@ -66,7 +66,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         requireContext().registerReceiver(broadcastReceiver, filter)
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpBottomSheetRecyclerView() {
         val locationResultRV: RecyclerView? = bottomSheetView.findViewById(R.id.location_result_rv)
         locationResultRV?.adapter = locationResultAdapter
         locationResultAdapter.submitList(locationResultList)

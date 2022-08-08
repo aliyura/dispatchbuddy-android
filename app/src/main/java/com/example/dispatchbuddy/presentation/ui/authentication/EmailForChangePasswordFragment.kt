@@ -83,9 +83,8 @@ class EmailForChangePasswordFragment : Fragment() {
                     is Resource.Success -> {
                         binding.loader.hideView()
                         showShortSnackBar(it.value.message)
-                        if (it.value.message == "success")
+                        if (it.value.success)
                         findNavController().navigate(R.id.action_emailForChangePasswordFragment_to_smsVerificationFragment)
-                        else showShortSnackBar(it.value.message)
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()
