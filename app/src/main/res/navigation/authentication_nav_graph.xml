@@ -33,8 +33,7 @@
         <action
             android:id="@+id/action_registerFragment_to_smsVerificationFragment"
             app:destination="@id/smsVerificationFragment"
-            app:popUpTo="@id/smsVerificationFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -54,6 +53,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_smsVerificationFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
