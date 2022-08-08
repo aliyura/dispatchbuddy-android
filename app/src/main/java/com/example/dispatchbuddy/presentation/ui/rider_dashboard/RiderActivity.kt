@@ -19,23 +19,34 @@ class RiderActivity : AppCompatActivity() {
         setContentView(binding.root)
         initBottomNavigation()
     }
-    private fun initBottomNavigation(){
+
+    private fun initBottomNavigation() {
         val bottomNavView: BottomNavigationView = binding.bottomNavView
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_dashboard) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_dashboard) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavView.setupWithNavController(navController)
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.loginFragment ->{hideBottomNav()}
-                R.id.registerFragment ->{hideBottomNav()}
-                else ->{showBottomNav()}
+                R.id.loginFragment,
+                R.id.registerFragment,
+                R.id.changePasswordFragment,
+                R.id.editProfileFragment,
+                R.id.deliveriesFragment-> {
+                    hideBottomNav()
+                }
+                else -> {
+                    showBottomNav()
+                }
             }
         }
     }
-    private fun hideBottomNav(){
+
+    private fun hideBottomNav() {
         binding.bottomNavView.visibility = View.GONE
     }
-    private fun showBottomNav(){
+
+    private fun showBottomNav() {
         binding.bottomNavView.visibility = View.VISIBLE
     }
 }

@@ -124,6 +124,9 @@
     <string name="are_you_sure_you_want_to_logout">Are you sure you want to log out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_email_associated_with_account">Enter the email associated with your account and we’ll send an otp so you can reset your password</string>
+    <string name="next">Next</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

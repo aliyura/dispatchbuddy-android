@@ -153,8 +153,17 @@ class SmsVerificationFragment : Fragment() {
                     is Resource.Success -> {
                         binding.loader.hideView()
                         showShortSnackBar(it.value.message)
-                        val action = SmsVerificationFragmentDirections.actionSmsVerificationFragmentToLoginFragment()
-                        findNavController().navigate(action)
+                        findNavController().addOnDestinationChangedListener { _, destination, _ ->
+                            when (destination.id) {
+                                R.id.loginFragment ->{
+                                    findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
+                                }
+                                R.id.changePasswordFragment ->{
+                                    findNavController().navigate(R.id.action_smsVerificationFragment_to_changePasswordFragment)
+                                }
+                                else ->{return@addOnDestinationChangedListener}
+                            }
+                        }
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()
