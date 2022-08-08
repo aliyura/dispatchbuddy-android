@@ -50,7 +50,8 @@ class LoginFragment : Fragment() {
         validateFields()
         with(binding) {
             fragmentLoginNoAccountTv.setOnClickListener {
-                findNavController().navigate(R.id.registerFragment)
+                val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                findNavController().navigate(action)
             }
             fragmentLoginLoginBtn.setOnClickListener {
                 loginUser()

@@ -2,11 +2,12 @@ package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
@@ -21,15 +22,14 @@ import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
-import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.databinding.FragmentSmsVerificationBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
 
 @AndroidEntryPoint
 class SmsVerificationFragment : Fragment() {
@@ -38,6 +38,16 @@ class SmsVerificationFragment : Fragment() {
     val args: SmsVerificationFragmentArgs by navArgs()
     val TAG = "SmsVerificationFragment"
     private val verificationViewModel : VerificationViewModel by viewModels()
+
+    override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,11 +74,11 @@ class SmsVerificationFragment : Fragment() {
             }
             resendCodeTv.text = resendCode
             resendCodeTv.setOnClickListener {
-//                showShortToast("Clicked")
                 verificationViewModel.validateUser(args.email)
             }
             fragmentRegisterBackArrowIv.setOnClickListener {
-                findNavController().navigate(R.id.settingsFragment)
+                val action = SmsVerificationFragmentDirections.actionSmsVerificationFragmentToRegisterFragment()
+                findNavController().navigate(action)
             }
 
             configOtpEditText(firstEt, secondEt, thirdEt, fourthEt, fifthEt, sixthEt)
@@ -143,8 +153,8 @@ class SmsVerificationFragment : Fragment() {
                     is Resource.Success -> {
                         binding.loader.hideView()
                         showShortSnackBar(it.value.message)
-                        findNavController().navigate(R.id.loginFragment)
-                        popBackStack()
+                        val action = SmsVerificationFragmentDirections.actionSmsVerificationFragmentToLoginFragment()
+                        findNavController().navigate(action)
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()
