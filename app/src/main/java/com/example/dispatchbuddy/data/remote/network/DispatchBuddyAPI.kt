@@ -45,4 +45,11 @@ interface DispatchBuddyAPI {
 
     @GET("user/get-by-id/{id}")
     suspend fun getUser(@Path("id") id : String ,@Header("Authorization") token: String): GenericResponse<UserProfile>
+
+    @GET("rider/search")
+    suspend fun RequestARider(
+        @Query("page") limit: Int,
+        @Query("pickup") pickup: String,
+        @Query("destination") destination: String,
+    )
 }

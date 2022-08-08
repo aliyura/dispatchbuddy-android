@@ -124,6 +124,11 @@
     <string name="are_you_sure_you_want_to_logout">Are you sure you want to log out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="phone">Phone</string>
+    <string name="Item_Name">Item Name</string>
+    <string name="enter_your_item_name">Enter your Item Name</string>
+    <string name="enter_your_item_weight">Enter your item weight</string>
+    <string name="Item_weight">Item Weight</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

@@ -12,7 +12,6 @@
     app:behavior_peekHeight="@dimen/peek_height_64dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     >
-
     <View
         android:id="@+id/view"
         android:layout_width="@dimen/height_61dp"

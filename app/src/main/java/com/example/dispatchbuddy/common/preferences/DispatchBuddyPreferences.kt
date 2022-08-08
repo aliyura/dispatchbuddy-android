@@ -3,8 +3,8 @@ package com.example.dispatchbuddy.common.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.dispatchbuddy.common.preferences.PreferenceConstants.KEY_TOKEN
-import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_DOB
-import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_NAME
+import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_DESTINATION
+import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_PICK_UP
 import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_ID
 import javax.inject.Inject
 
@@ -48,17 +48,17 @@ class DispatchBuddyPreferences @Inject constructor(
         edit { remove(USER_ID) }
     }
 
-    override fun saveUserName(name: String) {
-        edit { putString(USER_NAME, name) }
+    override fun savePickUp(pickup: String) {
+        edit { putString(USER_PICK_UP, pickup) }
     }
-    override fun getUserName(): String {
-        return preferences.getString(USER_NAME, "").orEmpty()
+    override fun getPickUp(): String {
+        return preferences.getString(USER_PICK_UP, "").orEmpty()
     }
 
-    override fun saveDateOfBirth(dob: String) {
-        edit { putString(USER_DOB, dob) }
+    override fun saveDestination(destination: String) {
+        edit { putString(USER_DESTINATION, destination) }
     }
-    override fun getDateOfBirth(): String {
-        return preferences.getString(USER_DOB, "").orEmpty()
+    override fun getDestination(): String {
+        return preferences.getString(USER_DESTINATION, "").orEmpty()
     }
 }

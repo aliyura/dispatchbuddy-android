@@ -10,14 +10,14 @@ import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.data.remote.dto.RiderProfile
 import com.example.dispatchbuddy.databinding.RidersListRvItemBinding
 
-class RiderListAdapter(private val onItemClick: (RiderProfile) -> Unit) :
-    ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(DiffCallBack) {
+class RiderListAdapter(
+    private val onItemClick: (RiderProfile) -> Unit
+) : ListAdapter<RiderProfile, RiderListAdapter.ViewHolder>(DiffCallBack) {
 
     class ViewHolder(
         val binding: RidersListRvItemBinding,
         private val onItemClick: (RiderProfile) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(riderProfile: RiderProfile) {
             binding.apply {
                 riderNameTv.text = riderProfile.name
@@ -28,7 +28,6 @@ class RiderListAdapter(private val onItemClick: (RiderProfile) -> Unit) :
                     .load(riderProfile.image)
                     .placeholder(R.drawable.profile_avatar)
                     .into(riderProfileImageIv)
-
                 contactRidersButton.setOnClickListener {
                     onItemClick.invoke(riderProfile)
                 }
