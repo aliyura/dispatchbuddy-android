@@ -7,9 +7,11 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -38,6 +40,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private lateinit var googleMap: GoogleMap
+    var locationList = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +59,18 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
         MapsInitializer.initialize(requireContext())
 
-        locationResultAdapter = LocationResultAdapter {}
+        locationResultAdapter = LocationResultAdapter {
+            locationList.add(it.cityName)
+            showShortToast("Selected ${it.cityName}")
+        }
+
         bottomSheetView = view.findViewById(R.id.bottom_sheet)
         setUpBottomSheetRecyclerView()
+
+        val submit : TextView= bottomSheetView.findViewById(R.id.show_more_results_tv)
+        submit.setOnClickListener {
+            Log.d("LocationsFragment", "List outside adapter $locationList")
+        }
 
         /* register broadcast receivers */
         val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
