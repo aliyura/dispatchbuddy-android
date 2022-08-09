@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
@@ -68,6 +69,20 @@ class ChangePasswordFragment : Fragment() {
                     is Resource.Success ->{
                         binding.changePasswordProgressBar.hideView()
                         showShortSnackBar(it.value.message)
+//                        if (it.value.message){
+                            findNavController().addOnDestinationChangedListener { _, destination, _ ->
+                                when (destination.id) {
+                                    R.id.loginFragment ->{
+                                        findNavController().navigate(R.id.action_changePasswordFragment_to_loginFragment)
+                                    }
+                                    R.id.profileFragment ->{
+                                        findNavController().navigate(R.id.profileFragment)
+                                    }
+                                    else ->{return@addOnDestinationChangedListener}
+                                }
+
+                        }
+
                     }
                     is Resource.Error ->{
                         binding.changePasswordProgressBar.hideView()

@@ -133,6 +133,9 @@
     <string name="Item_weight">Item Weight</string>
     <string name="no_rider_in_this_location">No rider in this location</string>
     <string name="no_rider_error_message">Please enter a correct Pickup and Destination Locations</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_email_associated_with_account">Enter the email associated with your account and we’ll send an otp so you can reset your password</string>
+    <string name="next">Next</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

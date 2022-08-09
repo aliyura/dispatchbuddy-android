@@ -72,7 +72,7 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.editProfileFragment)
             }
             fragmentChangePasswordProfileTv.setOnClickListener {
-                val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment2()
+                val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
                 findNavController().navigate(action)
             }
             fragmentEditProfileDeliveriesLayout.setOnClickListener {

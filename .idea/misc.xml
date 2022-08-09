@@ -38,12 +38,13 @@
         <entry key="app/src/main/res/layout/fragment_change_password.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_contact_user_bootom_sheet_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_email_for_change_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2418918918918919" />
         <entry key="app/src/main/res/layout/fragment_location_bootom_sheet_dialog.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_locations.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18272425249169436" />
         <entry key="app/src/main/res/layout/fragment_request.xml" value="0.16822916666666668" />
         <entry key="app/src/main/res/layout/fragment_rider_home.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_riders_list.xml" value="0.23777173913043478" />

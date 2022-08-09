@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
@@ -61,7 +62,8 @@ class RegisterFragment : Fragment() {
                 registerUser()
             }
             fragmentRegisterHaveAccountTv.setOnClickListener {
-                findNavController().navigate(R.id.loginFragment)
+                val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                findNavController().navigate(action)
             }
             fragmentRegisterCalenderEdt.setOnClickListener {
                 datePicker()
@@ -110,14 +112,15 @@ class RegisterFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding.loader.hideView()
-                        val response = it.value.payload
-                        Log.d(TAG, "observeRegistrationResponse: $response")
                         showShortSnackBar(it.value.message)
-                        val action =
-                            RegisterFragmentDirections.actionRegisterFragmentToSmsVerificationFragment(
-                                email
-                            )
-                        findNavController().navigate(action)
+                        if (it.value.success){
+                            val responseEmail = it.value.payload.email
+                            val action =
+                                RegisterFragmentDirections.actionRegisterFragmentToSmsVerificationFragment(
+                                    responseEmail
+                                )
+                            findNavController().navigate(action)
+                        }
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()
