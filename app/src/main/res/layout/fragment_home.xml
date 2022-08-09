@@ -7,7 +7,6 @@
     android:background="@color/white"
     android:fillViewport="true">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -121,44 +120,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dispatch_info_tv" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pickup_layout"
+                style="@style/EditTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_4dp"
-                android:background="@drawable/location_input_bg"
-                android:focusable="true"
+                app:endIconMode="clear_text"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:hintTextColor="@color/hint_text_color"
                 android:focusableInTouchMode="true"
+                app:startIconDrawable="@drawable/ic_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pickup_tv">
 
-                <ImageView
-                    android:id="@+id/pickup_location_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_14dp"
-                    android:layout_marginStart="@dimen/margin_20dp"
-                    android:src="@drawable/ic_location"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pickup_location_et"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_14dp"
-                    android:background="@null"
-                    android:fontFamily="@font/inter"
+                    style="@style/EditTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_54dp"
                     android:hint="@string/enter_pick_up_location"
-                    android:textColorHint="@color/black_24"
-                    android:textSize="@dimen/text_size_16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/pickup_location_iv"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/delivery_destination_tv"
@@ -172,64 +155,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pickup_layout" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/delivery_destination_layout"
+                style="@style/EditTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_4dp"
-                android:background="@drawable/location_input_bg"
-                android:focusable="true"
+                app:endIconMode="clear_text"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:hintTextColor="@color/hint_text_color"
+                app:startIconDrawable="@drawable/ic_location"
                 android:focusableInTouchMode="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/delivery_destination_tv">
 
-                <ImageView
-                    android:id="@+id/delivery_destination_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_14dp"
-                    android:layout_marginStart="@dimen/margin_20dp"
-                    android:src="@drawable/ic_location"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/delivery_destination_et"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_14dp"
-                    android:background="@null"
-                    android:fontFamily="@font/inter"
-                    android:hint="@string/enter_delivery_destination"
-                    android:textColorHint="@color/black_24"
-                    android:textSize="@dimen/text_size_16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/delivery_destination_iv"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    style="@style/EditTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_54dp"
+                    android:hint="@string/enter_delivery_destination" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/find_riders_button"
+                style="@style/DefaultButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_24dp"
-                android:background="@drawable/btn_bg"
-                android:fontFamily="@font/inter_semibold"
-                android:gravity="center"
+                android:layout_height="@dimen/height_48dp"
+                android:layout_marginTop="@dimen/margin_24dp"
                 android:text="@string/find_riders"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:enabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/delivery_destination_layout" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

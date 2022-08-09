@@ -7,6 +7,7 @@ import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.data.remote.dto.models.*
+import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.RequestRiderResponse
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
@@ -47,9 +48,9 @@ interface DispatchBuddyAPI {
     suspend fun getUser(@Path("id") id : String ,@Header("Authorization") token: String): GenericResponse<UserProfile>
 
     @GET("rider/search")
-    suspend fun RequestARider(
-        @Query("page") limit: Int,
+    suspend fun requestARider(
+        @Query("page") page: Int,
         @Query("pickup") pickup: String,
         @Query("destination") destination: String,
-    )
+    ): GenericResponse<RequestRiderResponse>
 }

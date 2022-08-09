@@ -18,7 +18,7 @@ class RiderRepositoryImpl@Inject constructor(
         dp: MultipartBody.Part,
         token: String
     ): Flow<Resource<GenericResponse<UserProfile>>> = flow{
-        emit(Resource.Loading(""))
+        emit(Resource.Loading("Loading"))
         emit(apiCall { api.uploadImage(dp = dp, token = token) })
     }
 
@@ -26,7 +26,7 @@ class RiderRepositoryImpl@Inject constructor(
         id: String,
         token: String
     ): Flow<Resource<GenericResponse<UserProfile>>>  = flow {
-        emit(Resource.Loading(""))
+        emit(Resource.Loading("Loading"))
         emit(apiCall { api.getUser(id = id, token = token) })
     }
 }
