@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
