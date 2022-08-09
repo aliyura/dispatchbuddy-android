@@ -33,6 +33,7 @@ class RiderViewModel @Inject constructor(
             }
         }
     }
+
     fun getUser(id: String, token: String){
         viewModelScope.launch {
             getUserUseCase(id = id, token = token).collect{
