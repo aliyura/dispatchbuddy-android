@@ -10,8 +10,9 @@ interface Preferences {
     fun getUserId(): String
     fun deleteUserId()
     // save user riderDetails
-    fun saveUserName(name: String)
-    fun saveDateOfBirth(dob: String)
-    fun getUserName(): String
-    fun getDateOfBirth(): String
+    fun savePickUp(pickup: String)
+    fun saveDestination(destination: String)
+    // get user details
+    fun getPickUp(): String
+    fun getDestination(): String
 }

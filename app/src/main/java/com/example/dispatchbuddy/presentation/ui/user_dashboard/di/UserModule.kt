@@ -6,6 +6,7 @@ import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.UserRepositoryImpl
 import com.example.dispatchbuddy.domain.repository.UserRepository
 import com.example.dispatchbuddy.domain.usecases.userUseCases.HomeUseCase
+import com.example.dispatchbuddy.domain.usecases.userUseCases.RequestARiderUseCase
 import com.example.dispatchbuddy.domain.usecases.userUseCases.RiderListUseCase
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,13 @@ object UserModule {
         userRepository: UserRepository
     ): RiderListUseCase{
         return RiderListUseCase(repository = userRepository)
+    }
+    @Provides
+    @Singleton
+    fun provideRequestARiderUseCase(
+        userRepository: UserRepository
+    ): RequestARiderUseCase{
+        return RequestARiderUseCase(repository = userRepository)
     }
     // provided the user Repository
     @Provides

@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable-v24/outlinedEditTextBackground.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/bottom_sheet_bg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/circular_shape.xml" value="0.186" />
+        <entry key="app/src/main/res/drawable/custom_success_dialog.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/custom_thumb.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/custom_track.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.1095" />
@@ -16,6 +17,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_correct_16.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/ic_camera_icon.xml" value="0.123" />
         <entry key="app/src/main/res/drawable/ic_delivery_truck_rider.xml" value="0.186" />
+        <entry key="app/src/main/res/drawable/ic_empty_dataset_1.xml" value="0.2005" />
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/location_input_bg.xml" value="0.1995" />
         <entry key="app/src/main/res/drawable/locations_bg.xml" value="0.147" />
@@ -31,8 +33,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_rider.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/circular_shape.xml" value="0.23777173913043478" />
+        <entry key="app/src/main/res/layout/custom_successful_dialog_layout.xml" value="0.22873022659256093" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_change_password.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_contact_user_bootom_sheet_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_email_for_change_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2418918918918919" />
@@ -48,10 +52,12 @@
         <entry key="app/src/main/res/layout/fragment_sms_verification.xml" value="0.1638888888888889" />
         <entry key="app/src/main/res/layout/fragment_success_dialog.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.22282608695652173" />
+        <entry key="app/src/main/res/layout/item_empty_dataset.xml" value="0.23798730734360835" />
         <entry key="app/src/main/res/layout/location_result_rv_item.xml" value="0.7105263157894737" />
         <entry key="app/src/main/res/layout/logout_dialog_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/request_rv_header.xml" value="0.16822916666666668" />
         <entry key="app/src/main/res/layout/requests_rv_item.xml" value="0.16822916666666668" />
+        <entry key="app/src/main/res/layout/riders_list_rv_item.xml" value="0.23798730734360835" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="app/src/main/res/menu/rider_menu.xml" value="0.240990990990991" />
       </map>
@@ -62,5 +68,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22282608695652173" />
+      </ProjectState>
+    </option>
   </component>
 </project>
