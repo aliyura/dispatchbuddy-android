@@ -6,6 +6,9 @@ import com.example.dispatchbuddy.common.network.apiCall
 import com.example.dispatchbuddy.data.remote.dto.CoveredLocationsResponse
 import com.example.dispatchbuddy.data.remote.dto.models.Locations
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
+import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponse
+import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
+import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.UserRequestStatusResponse
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.domain.repository.RiderRepository
 import kotlinx.coroutines.flow.Flow
@@ -37,4 +40,36 @@ class RiderRepositoryImpl@Inject constructor(
             emit(Resource.Loading("Loading"))
             emit(apiCall { api.addCoveredLocations(locations, token) })
         }
+
+    override suspend fun getAllUserRequest(
+        page: Int,
+        token: String
+    ): Flow<Resource<GenericResponse<AllUserRequestResponse>>> = flow{
+        emit(Resource.Loading("Loading"))
+        emit(apiCall { api.getAllUserRequest(page = page, token = token) })
+    }
+
+    override suspend fun rejectUserRequest(
+        rejectUserRequest: RejectUserRideModel,
+        token: String
+    ): Flow<Resource<GenericResponse<UserRequestStatusResponse>>> = flow {
+        emit(Resource.Loading("Loading"))
+        emit(apiCall { api.rejectUserRequest(rejectUserRequest = rejectUserRequest, token = token)})
+        }
+
+    override suspend fun acceptUserRequest(
+        id: String,
+        token: String
+    ): Flow<Resource<GenericResponse<UserRequestStatusResponse>>> = flow {
+        emit(Resource.Loading("Loading"))
+        emit(apiCall { api.acceptUserRequest(id = id, token = token) })
+    }
+
+    override suspend fun closeUserRequest(
+        id: String,
+        token: String
+    ): Flow<Resource<GenericResponse<UserRequestStatusResponse>>> = flow {
+        emit(Resource.Loading("Loading"))
+        emit(apiCall { api.closeUserRequest(id = id, token = token) })
+    }
 }
