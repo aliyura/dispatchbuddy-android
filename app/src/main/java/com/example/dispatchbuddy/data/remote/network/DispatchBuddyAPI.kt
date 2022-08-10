@@ -7,6 +7,8 @@ import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.data.remote.dto.models.*
+import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.ContactRiderModel
+import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.ContactRiderResponse
 import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.RequestRiderResponse
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -53,4 +55,7 @@ interface DispatchBuddyAPI {
         @Query("pickup") pickup: String,
         @Query("destination") destination: String,
     ): GenericResponse<RequestRiderResponse>
+
+    @POST("rider/request")
+    suspend fun contactARider(@Body contactRiderModel: ContactRiderModel): GenericResponse<ContactRiderResponse>
 }
