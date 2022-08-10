@@ -89,4 +89,7 @@
     <dimen name="padding_5dp">5dp</dimen>
     <dimen name="text_size_20sp">20sp</dimen>
     <dimen name="textSize_14sp">14sp</dimen>
+    <dimen name="margin_25dp">25dp</dimen>
+    <dimen name="margin_26dp">26dp</dimen>
+    <dimen name="height_54dp">54dp</dimen>
 </resources>

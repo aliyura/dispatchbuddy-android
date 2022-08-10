@@ -1,6 +1,7 @@
 package com.example.dispatchbuddy.common.validation
 
 import android.content.Context
+import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
@@ -50,6 +51,23 @@ fun TextInputLayout.validateConfirmPassword(
     }
 }
 
+fun CheckBox.validateChecked(
+    errorMessage: String,
+    fieldType: FieldValidationTracker.FieldType
+) {
+    this.setOnCheckedChangeListener { _, isChecked ->
+        if (!FieldValidations.verifyCheckBox(isChecked)) {
+            this.error = errorMessage
+            fieldTypeMap[fieldType] = false
+            FieldValidationTracker.isFieldsValidated.value = fieldTypeMap
+        } else {
+            this.error = null
+            fieldTypeMap[fieldType] = true
+            FieldValidationTracker.isFieldsValidated.value = fieldTypeMap
+        }
+    }
+}
+
 fun MaterialButton.observeFieldsValidationToEnableButton(
     context: Context,
     lifecycleOwner: LifecycleOwner,
@@ -65,3 +83,5 @@ fun MaterialButton.observeFieldsValidationToEnableButton(
         }
     }
 }
+
+

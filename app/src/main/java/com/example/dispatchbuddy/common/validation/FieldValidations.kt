@@ -59,4 +59,8 @@ object FieldValidations {
         return gender.isNotBlank()
     }
 
+    fun verifyCheckBox(isChecked: Boolean): Boolean{
+        return isChecked
+    }
+
 }
