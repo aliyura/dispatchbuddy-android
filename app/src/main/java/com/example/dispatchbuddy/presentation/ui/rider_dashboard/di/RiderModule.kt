@@ -59,6 +59,38 @@ object RiderModule {
     ):GetUserUseCase{
         return GetUserUseCase(repository = riderRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetAllUserRequestUseCase(
+        riderRepository: RiderRepository
+    ): GetAllUserRequestUseCases{
+        return GetAllUserRequestUseCases(repository = riderRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRejectUserRequestUseCases(
+        riderRepository: RiderRepository
+    ): RejectUserRequestUseCase{
+        return RejectUserRequestUseCase(repository = riderRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAcceptUserRequestUseCases(
+        riderRepository: RiderRepository
+    ): AcceptUserUseCase{
+        return AcceptUserUseCase(repository = riderRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCloseUserRequestUseCases(
+        riderRepository: RiderRepository
+    ): CloseUserRequestUseCase{
+        return CloseUserRequestUseCase(repository = riderRepository)
+    }
     //provided Rider Repository
     @Provides
     @Singleton

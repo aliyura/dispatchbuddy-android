@@ -107,11 +107,12 @@
     <string name="ongoing">ongoing</string>
     <string name="rate">Rate</string>
     <string name="my_deliveries">My Deliveries</string>
-    <string name="completed">completed</string>
+    <string name="completed">Closed</string>
     <string name="cancelled">cancelled</string>
     <string name="deliveries">Delivery</string>
     <string name="enter_password">Enter Password</string>
     <string name="enter_valid_name_str">Enter a valid Name</string>
+    <string name="enter_valid_reject_reason_str">Enter a valid Rejection Reason</string>
     <string name="enter_valid_email_str">Enter a valid Email</string>
     <string name="enter_valid_pickup_str">Enter a valid pickup Location</string>
     <string name="enter_valid_destination_str">Enter a valid Destination Location</string>
@@ -136,6 +137,15 @@
     <string name="reset_password">Reset Password</string>
     <string name="enter_email_associated_with_account">Enter the email associated with your account and we’ll send an otp so you can reset your password</string>
     <string name="next">Next</string>
+    <string name="no_request">No request</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <string name="pending">Pending</string>
+    <string name="incoming_request">Incoming Request</string>
+    <string name="rejection_reason">Rejection Reason</string>
+    <string name="enter_your_rejection_reason">Enter your reason of rejection</string>
+    <string name="save_reason">Save Reason</string>
+    <string name="complete">Close</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

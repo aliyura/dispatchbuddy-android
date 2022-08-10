@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/minHeight"
+    android:background="@drawable/bottom_sheet_bg"
+    android:orientation="vertical"
+    android:paddingBottom="40dp"
+    android:paddingHorizontal="@dimen/padding_16dp"
+    >
+    <View
+        android:id="@+id/close_btn"
+        android:layout_width="@dimen/height_61dp"
+        android:layout_height="@dimen/height_4dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:background="@color/dark_ash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_40dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/close_btn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rejection_reason"
+            android:fontFamily="@font/inter"
+            android:textSize="@dimen/text_size_14sp"
+            android:textColor="@color/accent_color"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dialog_rejection_reason_layout"
+            style="@style/EditTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text"
+            android:layout_marginTop="@dimen/margin_8dp"
+            app:hintTextColor="@color/hint_text_color"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditTextInput"
+                android:id="@+id/dialog_rejection_reason_edt"
+                android:layout_width="match_parent"
+                android:inputType="textCapWords"
+                android:layout_height="@dimen/height_54dp"
+                android:hint="@string/enter_your_rejection_reason"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dialog_rejection_reason_riders_button"
+            style="@style/DefaultButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_48dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:enabled="false"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="center"
+            android:text="@string/save_reason"
+            />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

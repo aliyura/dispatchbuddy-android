@@ -92,4 +92,5 @@
     <dimen name="margin_25dp">25dp</dimen>
     <dimen name="margin_26dp">26dp</dimen>
     <dimen name="height_54dp">54dp</dimen>
+    <dimen name="minHeight">320dp</dimen>
 </resources>

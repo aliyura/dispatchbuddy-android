@@ -8,6 +8,9 @@ import com.example.dispatchbuddy.data.remote.dto.models.Registration
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.data.remote.dto.models.*
+import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponse
+import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
+import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.UserRequestStatusResponse
 import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.ContactRiderModel
 import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.ContactRiderResponse
 import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.RequestRiderResponse
@@ -72,4 +75,28 @@ interface DispatchBuddyAPI {
 
     @POST("rider/request")
     suspend fun contactARider(@Body contactRiderModel: ContactRiderModel): GenericResponse<ContactRiderResponse>
+
+    @GET("rider/requests")
+    suspend fun getAllUserRequest(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): GenericResponse<AllUserRequestResponse>
+
+    @POST("rider/reject-request")
+    suspend fun rejectUserRequest(
+        @Body rejectUserRequest: RejectUserRideModel,
+        @Header("Authorization") token: String
+    ): GenericResponse<UserRequestStatusResponse>
+
+    @POST("rider/accept-request/{id}")
+    suspend fun acceptUserRequest(
+        @Path("id") id: String, @Header("Authorization") token: String
+    ): GenericResponse<UserRequestStatusResponse>
+
+    @POST("rider/close-request/{id}")
+    suspend fun closeUserRequest(
+        @Path("id") id: String, @Header("Authorization") token: String
+    ): GenericResponse<UserRequestStatusResponse>
+
+
 }
