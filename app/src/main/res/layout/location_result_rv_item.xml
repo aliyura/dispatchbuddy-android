@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/locationsContainer"
     android:paddingEnd="@dimen/padding_6dp"
     android:paddingStart="@dimen/padding_6dp"
     android:layout_marginEnd="@dimen/margin_14dp"
     android:layout_marginBottom="@dimen/margin_16dp"
     android:background="@drawable/locations_bg">
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/location_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fontFamily="@font/inter"
         android:textColor="@color/textColor"
         android:text="@string/ikeja"
+        android:paddingHorizontal="@dimen/padding_6dp"
+        android:button="@drawable/checkbox_selector"
+        android:buttonTint="@color/primaryColor"
         android:textSize="@dimen/text_size_14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

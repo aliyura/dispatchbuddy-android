@@ -5,20 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dispatchbuddy.data.remote.dto.Locations
+import com.example.dispatchbuddy.data.remote.dto.LocationCity
 import com.example.dispatchbuddy.databinding.LocationResultRvItemBinding
 
-class LocationResultAdapter(private val onItemClick: (Locations) -> Unit) :
-    ListAdapter<Locations, LocationResultAdapter.ViewHolder>(DiffCallBack) {
 
-    class ViewHolder(
-        val binding: LocationResultRvItemBinding,
-        private val onItemClick: (Locations) -> Unit
+class LocationResultAdapter(private val onItemClick: (LocationCity) -> Unit) :
+    ListAdapter<LocationCity, LocationResultAdapter.ViewHolder>(DiffCallBack) {
+
+    inner class ViewHolder(
+        val binding: LocationResultRvItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(locations: Locations) {
+        fun bind(locations: LocationCity, onItemClick: (LocationCity) -> Unit) {
             binding.apply {
                 locationButton.text = locations.cityName
+                locationButton.setOnCheckedChangeListener { compoundButton, b ->
+                    if (locationButton.isChecked) {
+                        onItemClick.invoke(locations)
+                    }
+                }
             }
         }
     }
@@ -26,20 +31,20 @@ class LocationResultAdapter(private val onItemClick: (Locations) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             LocationResultRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, onItemClick)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onItemClick)
     }
 }
 
-object DiffCallBack : DiffUtil.ItemCallback<Locations>() {
-    override fun areItemsTheSame(oldItem: Locations, newItem: Locations): Boolean {
+object DiffCallBack : DiffUtil.ItemCallback<LocationCity>() {
+    override fun areItemsTheSame(oldItem: LocationCity, newItem: LocationCity): Boolean {
         return oldItem.cityName == newItem.cityName
     }
 
-    override fun areContentsTheSame(oldItem: Locations, newItem: Locations): Boolean {
+    override fun areContentsTheSame(oldItem: LocationCity, newItem: LocationCity): Boolean {
         return oldItem == newItem
     }
 }

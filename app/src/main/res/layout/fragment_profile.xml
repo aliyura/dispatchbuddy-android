@@ -234,6 +234,7 @@
                 android:layout_width="@dimen/width_40dp"
                 android:layout_height="@dimen/height_24dp"
                 app:sb_checked="true"
+                app:sb_checked_color="@color/primaryColor"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_profile_notification_layout"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_edit_profile_notification_layout"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_profile_notification_layout" />

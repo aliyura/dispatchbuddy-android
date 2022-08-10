@@ -1,6 +1,7 @@
 package com.example.dispatchbuddy.data.remote.network
 
 import com.example.dispatchbuddy.common.network.GenericResponse
+import com.example.dispatchbuddy.data.remote.dto.CoveredLocationsResponse
 import com.example.dispatchbuddy.data.remote.dto.models.LoginResponse
 import com.example.dispatchbuddy.data.remote.dto.models.ChangePassword
 import com.example.dispatchbuddy.data.remote.dto.models.Registration
@@ -26,11 +27,12 @@ interface DispatchBuddyAPI {
 
     @Headers(
         "Content-Type: application/x-www-form-urlencoded",
-        "accept-encoding: gzip, deflate, br")
+        "accept-encoding: gzip, deflate, br"
+    )
     @FormUrlEncoded
     @POST("oauth/token")
     suspend fun loginUser(
-        @Header("Authorization") credentials : String,
+        @Header("Authorization") credentials: String,
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("grant_type") grant_type: String
@@ -40,14 +42,20 @@ interface DispatchBuddyAPI {
     suspend fun changePassword(@Body changePassword: ChangePassword): GenericResponse<UserProfile>
 
     @PUT("user/update")
-    suspend fun updateProfile(@Body update: UpdateProfile, @Header("Authorization") token: String): GenericResponse<UserProfile>
+    suspend fun updateProfile(
+        @Body update: UpdateProfile,
+        @Header("Authorization") token: String
+    ): GenericResponse<UserProfile>
 
     @Multipart
     @PUT("user/update-dp")
-    suspend fun uploadImage(@Part dp: MultipartBody.Part, @Header("Authorization") token: String): GenericResponse<UserProfile>
+    suspend fun uploadImage(
+        @Part dp: MultipartBody.Part,
+        @Header("Authorization") token: String
+    ): GenericResponse<UserProfile>
 
     @GET("user/get-by-id/{id}")
-    suspend fun getUser(@Path("id") id : String ,@Header("Authorization") token: String): GenericResponse<UserProfile>
+    suspend fun getUser(@Path("id") id: String, @Header("Authorization") token: String): GenericResponse<UserProfile>
 
     @GET("rider/search")
     suspend fun requestARider(
@@ -55,6 +63,12 @@ interface DispatchBuddyAPI {
         @Query("pickup") pickup: String,
         @Query("destination") destination: String,
     ): GenericResponse<RequestRiderResponse>
+
+    @POST("rider/add-locations")
+    suspend fun addCoveredLocations(
+        @Body locations: Locations,
+        @Header("Authorization") token: String
+    ): GenericResponse<CoveredLocationsResponse>
 
     @POST("rider/request")
     suspend fun contactARider(@Body contactRiderModel: ContactRiderModel): GenericResponse<ContactRiderResponse>

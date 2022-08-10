@@ -3,6 +3,8 @@ package com.example.dispatchbuddy.data.repository
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.common.network.apiCall
+import com.example.dispatchbuddy.data.remote.dto.CoveredLocationsResponse
+import com.example.dispatchbuddy.data.remote.dto.models.Locations
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.domain.repository.RiderRepository
@@ -29,4 +31,10 @@ class RiderRepositoryImpl@Inject constructor(
         emit(Resource.Loading("Loading"))
         emit(apiCall { api.getUser(id = id, token = token) })
     }
+
+    override suspend fun addCoveredLocations(locations: Locations, token: String): Flow<Resource<GenericResponse<CoveredLocationsResponse>>> =
+        flow {
+            emit(Resource.Loading("Loading"))
+            emit(apiCall { api.addCoveredLocations(locations, token) })
+        }
 }

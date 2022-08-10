@@ -10,16 +10,27 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.Resource
+import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
+import com.example.dispatchbuddy.common.ViewExtensions.showView
 import com.example.dispatchbuddy.common.locationResultList
+import com.example.dispatchbuddy.common.preferences.Preferences
+import com.example.dispatchbuddy.common.validation.FieldValidationTracker
+import com.example.dispatchbuddy.data.remote.dto.models.Locations
 import com.example.dispatchbuddy.databinding.FragmentLocationsBinding
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
@@ -27,8 +38,11 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LocationsFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentLocationsBinding? = null
     private val binding get() = _binding!!
@@ -38,6 +52,10 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private lateinit var googleMap: GoogleMap
+    var locationList = mutableSetOf<String>()
+    private val locationsViewModel : LocationsViewModel by viewModels()
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +74,20 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
         MapsInitializer.initialize(requireContext())
 
-        locationResultAdapter = LocationResultAdapter {}
+        locationResultAdapter = LocationResultAdapter {
+            locationList.add(it.cityName)
+        }
+
         bottomSheetView = view.findViewById(R.id.bottom_sheet)
         setUpBottomSheetRecyclerView()
+        observeCoveredLocationsResponse()
+
+        val save : TextView= bottomSheetView.findViewById(R.id.fragment_save_btn)
+        save.setOnClickListener {
+            if(!locationList.isNullOrEmpty())
+            locationsViewModel.addCoveredLocations(Locations( locationList.toList()), "Bearer ${preferences.getToken()}")
+            else showShortSnackBar("Select location")
+        }
 
         /* register broadcast receivers */
         val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
@@ -66,7 +95,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         requireContext().registerReceiver(broadcastReceiver, filter)
     }
 
-    private fun setUpBottomSheetRecyclerView() {
+        private fun setUpBottomSheetRecyclerView() {
         val locationResultRV: RecyclerView? = bottomSheetView.findViewById(R.id.location_result_rv)
         locationResultRV?.adapter = locationResultAdapter
         locationResultAdapter.submitList(locationResultList)
@@ -279,6 +308,31 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 Constants.PERMISSION_ID
             )
 
+        }
+    }
+
+    private fun observeCoveredLocationsResponse() {
+        val loader : ProgressBar =
+            bottomSheetView.findViewById(R.id.loader)
+        lifecycleScope.launch {
+            locationsViewModel.locationsCoveredResponse.collect{
+                when(it) {
+                    is Resource.Loading -> {
+                        loader.showView()
+                    }
+
+                    is Resource.Success -> {
+                        loader.hideView()
+                        showShortSnackBar(" Locations Saved")
+                        it.value.payload.coveredLocations
+                    }
+
+                    is Resource.Error -> {
+                        loader.hideView()
+                        showShortSnackBar(it.error)
+                    }
+                }
+            }
         }
     }
 
