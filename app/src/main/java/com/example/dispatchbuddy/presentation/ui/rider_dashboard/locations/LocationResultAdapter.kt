@@ -1,26 +1,22 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.locations
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.RadioButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dispatchbuddy.R
-import com.example.dispatchbuddy.data.remote.dto.Locations
+import com.example.dispatchbuddy.data.remote.dto.LocationCity
 import com.example.dispatchbuddy.databinding.LocationResultRvItemBinding
 
 
-class LocationResultAdapter(private val onItemClick: (Locations) -> Unit) :
-    ListAdapter<Locations, LocationResultAdapter.ViewHolder>(DiffCallBack) {
+class LocationResultAdapter(private val onItemClick: (LocationCity) -> Unit) :
+    ListAdapter<LocationCity, LocationResultAdapter.ViewHolder>(DiffCallBack) {
 
     inner class ViewHolder(
         val binding: LocationResultRvItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(locations: Locations, onItemClick: (Locations) -> Unit) {
+        fun bind(locations: LocationCity, onItemClick: (LocationCity) -> Unit) {
             binding.apply {
                 locationButton.text = locations.cityName
                 locationButton.setOnCheckedChangeListener { compoundButton, b ->
@@ -43,12 +39,12 @@ class LocationResultAdapter(private val onItemClick: (Locations) -> Unit) :
     }
 }
 
-object DiffCallBack : DiffUtil.ItemCallback<Locations>() {
-    override fun areItemsTheSame(oldItem: Locations, newItem: Locations): Boolean {
+object DiffCallBack : DiffUtil.ItemCallback<LocationCity>() {
+    override fun areItemsTheSame(oldItem: LocationCity, newItem: LocationCity): Boolean {
         return oldItem.cityName == newItem.cityName
     }
 
-    override fun areContentsTheSame(oldItem: Locations, newItem: Locations): Boolean {
+    override fun areContentsTheSame(oldItem: LocationCity, newItem: LocationCity): Boolean {
         return oldItem == newItem
     }
 }
