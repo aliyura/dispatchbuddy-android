@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants.FROM_LOGOUT
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.presentation.ui.authentication.AuthenticationActivity
 import com.google.android.material.snackbar.Snackbar
 
@@ -70,7 +71,9 @@ fun Fragment.handleBackPress(){
         }
     })
 }
-fun Fragment.userLogOut(){
+fun Fragment.userLogOut(preferences: Preferences){
+    preferences.deleteTokenInfo()
+    preferences.deleteUserId()
     val intent = Intent(requireContext(), AuthenticationActivity::class.java)
     intent.putExtra(FROM_LOGOUT, true)
     startActivity(intent)

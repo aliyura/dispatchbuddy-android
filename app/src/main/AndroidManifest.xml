@@ -27,8 +27,14 @@
             android:name=".presentation.ui.user_dashboard.UserActivity"
             android:exported="true">
         </activity>
+
         <activity
             android:name=".presentation.ui.authentication.AuthenticationActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".presentation.ui.authentication.FirstScreenActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
