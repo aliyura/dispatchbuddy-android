@@ -150,7 +150,7 @@ class ProfileFragment : Fragment() {
 
     private fun logOut(){
         logoutDialogLayoutBinding = LogoutDialogLayoutBinding.inflate(layoutInflater)
-        logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut() }
+        logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut(preferences) }
     }
 
     private fun observeImageUploadResponse(){
