@@ -146,6 +146,8 @@
     <string name="enter_your_rejection_reason">Enter your reason of rejection</string>
     <string name="save_reason">Save Reason</string>
     <string name="complete">Close</string>
+    <string name="ride_not_accepted">You have not Accepted this Ride</string>
+    <string name="ride_closed">This Ride has been closed</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

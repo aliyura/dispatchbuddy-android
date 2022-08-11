@@ -75,9 +75,9 @@ class ProfileFragment : Fragment() {
                 val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
                 findNavController().navigate(action)
             }
-            fragmentEditProfileDeliveriesLayout.setOnClickListener {
-                findNavController().navigate(R.id.deliveriesFragment)
-            }
+//            fragmentEditProfileDeliveriesLayout.setOnClickListener {
+//                findNavController().navigate(R.id.deliveriesFragment)
+//            }
             fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
