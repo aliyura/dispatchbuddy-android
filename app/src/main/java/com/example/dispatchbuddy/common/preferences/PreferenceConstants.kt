@@ -5,4 +5,5 @@ object PreferenceConstants {
     const val USER_ID = "user_id"
     const val USER_PICK_UP = "user_pickup"
     const val USER_DESTINATION = "user_destination"
+    const val USER_EMAIL = "user_email"
 }

@@ -8,11 +8,7 @@
         android:id="@+id/profileFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_locations"
         android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.locations.LocationsFragment"
@@ -22,11 +18,6 @@
         android:id="@+id/homeFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.HomeFragment"
         android:label="HomeFragment" />
-    <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.ChangePasswordFragment"
-        android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.profile.view.EditProfileFragment"
@@ -42,4 +33,9 @@
         android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.DeliveriesFragment"
         android:label="fragment_deliveries"
         tools:layout="@layout/fragment_deliveries" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.profile.view.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" />
 </navigation>

@@ -45,6 +45,7 @@ class RequestFragment : Fragment() {
     private val responseList: ArrayList<RiderResponse> = ArrayList()
     private val sectionResponse: ArrayList<RiderSectionResponse> = ArrayList()
     private val allUserRequest: ArrayList<AllUserRequestResponseContent> = ArrayList()
+    private val closedListData: ArrayList<AllUserRequestResponseContent> = ArrayList()
     private lateinit var allRequestAdapter: AllUserRequestAdapter
     private lateinit var requestUserId: String
     private lateinit var requestUserStatus: String
@@ -71,6 +72,7 @@ class RequestFragment : Fragment() {
         observerRejectUserRequestResponse()
         observerAcceptUserRequestResponse()
         observerCloseUserRequestResponse()
+
     }
     private fun populateData(list: List<RiderResponse>){
         try {
@@ -193,10 +195,17 @@ class RequestFragment : Fragment() {
                     }
                     is Resource.Success ->{
                         binding.riderListRequestProgressBar.hideView()
+                        closedListData.clear()
                         if (response.value.payload == null){
                             binding.fragmentRequestChildRv.hideView()
                             binding.emptyRequestListState.showView()
                         }else{
+                            for (item in response.value.payload.allUserRequestResponseContent){
+                                if (item.status != "CO"){
+                                    closedListData.add(item)
+                                }
+                            }
+                            //initializeRecyclerView(closedListData)
                             initializeRecyclerView(response.value.payload.allUserRequestResponseContent)
                         }
                     }
@@ -309,6 +318,7 @@ class RequestFragment : Fragment() {
             )
         }
     }
+
         override fun onDestroy() {
         super.onDestroy()
         _binding = null

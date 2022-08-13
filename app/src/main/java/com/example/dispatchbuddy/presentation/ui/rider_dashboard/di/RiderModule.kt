@@ -1,6 +1,5 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.di
 
-import com.example.dispatchbuddy.common.Constants
 import com.example.dispatchbuddy.common.Constants.MAIN_API
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.RiderRepositoryImpl

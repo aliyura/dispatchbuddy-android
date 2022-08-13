@@ -143,7 +143,6 @@ class EditProfileFragment : Fragment() {
                             if (!country.isNullOrEmpty()) fragmentEditCountryEdt.setText(country) else fragmentEditCountryEdt.setText("")
                             if (!city.isNullOrEmpty()) fragmentEditCityEdt.setText(city) else fragmentEditCityEdt.setText("")
                             if (!dateOfBirth.isNullOrEmpty()) fragmentRegisterCalenderEdt.setText(dateOfBirth) else fragmentRegisterCalenderEdt.setText("")
-                            if (!gender.isNullOrEmpty()) selectGenderDropdown.setText(gender) else selectGenderDropdown.setText("")
                         }
 
                     }

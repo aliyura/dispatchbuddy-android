@@ -5,6 +5,7 @@ import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.ProfileRepositoryImpl
 import com.example.dispatchbuddy.domain.repository.ProfileRepository
 import com.example.dispatchbuddy.domain.usecases.profileUseCases.EditProfileUsesCase
+import com.example.dispatchbuddy.domain.usecases.profileUseCases.ResetPasswordUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,13 @@ object ProfileModule {
         profileRepository: ProfileRepository
     ): EditProfileUsesCase{
         return EditProfileUsesCase(repository = profileRepository)
+    }
+    @Provides
+    @Singleton
+    fun provideResetPasswordUseCase(
+        profileRepository: ProfileRepository
+    ): ResetPasswordUseCase{
+        return ResetPasswordUseCase(repository = profileRepository)
     }
     // Provided Profile ProfileRepository
     @Provides
