@@ -28,5 +28,6 @@
     <color name="cadmium_green">#005C29</color>
     <color name="orange_red">#FF5C5C</color>
     <color name="rufous_red">#A30000</color>
+    <color name="gray">#D5DDE0</color>
 
 </resources>

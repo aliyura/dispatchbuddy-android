@@ -97,6 +97,4 @@ interface DispatchBuddyAPI {
     suspend fun closeUserRequest(
         @Path("id") id: String, @Header("Authorization") token: String
     ): GenericResponse<UserRequestStatusResponse>
-
-
 }

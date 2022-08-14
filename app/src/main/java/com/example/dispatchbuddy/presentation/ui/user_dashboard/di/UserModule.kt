@@ -1,6 +1,5 @@
 package com.example.dispatchbuddy.presentation.ui.user_dashboard.di
 
-import com.example.dispatchbuddy.common.Constants
 import com.example.dispatchbuddy.common.Constants.MAIN_API
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import com.example.dispatchbuddy.data.repository.UserRepositoryImpl
@@ -52,8 +51,7 @@ object UserModule {
     @Provides
     @Singleton
     fun provideUserRepository(
-        @Named(MAIN_API) api: DispatchBuddyAPI
-    ): UserRepository{
+        @Named(MAIN_API) api: DispatchBuddyAPI): UserRepository{
         return UserRepositoryImpl(api = api)
     }
 }

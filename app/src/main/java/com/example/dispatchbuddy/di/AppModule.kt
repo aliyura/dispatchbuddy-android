@@ -1,7 +1,6 @@
 package com.example.dispatchbuddy.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.example.dispatchbuddy.common.Constants.BASE_URL
 import com.example.dispatchbuddy.common.Constants.LOGIN_API
 import com.example.dispatchbuddy.common.Constants.LOGIN_BASE_URL
