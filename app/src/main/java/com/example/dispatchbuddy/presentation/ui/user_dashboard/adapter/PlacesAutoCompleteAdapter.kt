@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dispatchbuddy.databinding.LocationResultRvItemBinding
 import com.example.dispatchbuddy.databinding.PlacesAutocompleteRvItemBinding
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 
@@ -14,13 +15,13 @@ class PlacesAutoCompleteAdapter(
 ) : ListAdapter<AutocompletePrediction, PlacesAutoCompleteAdapter.ViewHolder>(PlacesDiffCallBack) {
 
     class ViewHolder(
-        val binding: PlacesAutocompleteRvItemBinding
+        val binding: LocationResultRvItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(placeAutocomplete: AutocompletePrediction, onItemClick: (AutocompletePrediction) -> Unit) {
             with(binding) {
-                placeNameResult.text = placeAutocomplete.getFullText(null)
-                placeNameResult.setOnClickListener {
+                locationButton.text = placeAutocomplete.getPrimaryText(null)
+                locationButton.setOnClickListener {
                     onItemClick.invoke(placeAutocomplete)
                 }
             }
@@ -29,7 +30,7 @@ class PlacesAutoCompleteAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = PlacesAutocompleteRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LocationResultRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

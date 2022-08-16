@@ -138,6 +138,7 @@
                     android:id="@+id/pickup_location_et"
                     style="@style/EditTextInput"
                     android:layout_width="match_parent"
+                    android:focusable="false"
                     android:layout_height="@dimen/height_54dp"
                     android:hint="@string/enter_pick_up_location"
                     />
@@ -172,6 +173,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/delivery_destination_et"
                     style="@style/EditTextInput"
+                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_54dp"
                     android:hint="@string/enter_delivery_destination" />

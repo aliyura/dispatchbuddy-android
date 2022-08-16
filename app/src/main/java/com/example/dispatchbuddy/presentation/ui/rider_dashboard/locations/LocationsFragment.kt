@@ -7,10 +7,13 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -20,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dispatchbuddy.BuildConfig
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
 import com.example.dispatchbuddy.common.Resource
@@ -27,17 +31,24 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.locationResultList
 import com.example.dispatchbuddy.common.preferences.Preferences
-import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.data.remote.dto.models.Locations
 import com.example.dispatchbuddy.databinding.FragmentLocationsBinding
+import com.example.dispatchbuddy.presentation.ui.user_dashboard.adapter.PlacesAutoCompleteAdapter
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.AutocompletePrediction
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.model.RectangularBounds
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
+import com.google.android.libraries.places.api.net.PlacesClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,16 +57,21 @@ import javax.inject.Inject
 class LocationsFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentLocationsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var locationResultAdapter: LocationResultAdapter
+    private lateinit var placesAutoCompleteAdapter: PlacesAutoCompleteAdapter
     lateinit var bottomSheetView: View
+    lateinit var locationResultRV: RecyclerView
+    lateinit var locationSearch: EditText
+    lateinit var save: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private lateinit var googleMap: GoogleMap
-    var locationList = mutableSetOf<String>()
-    private val locationsViewModel : LocationsViewModel by viewModels()
+    private var locationList = mutableSetOf<String>()
+    private val locationsViewModel: LocationsViewModel by viewModels()
+
     @Inject
     lateinit var preferences: Preferences
+    val TAG = "LocationsFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,18 +90,27 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
         MapsInitializer.initialize(requireContext())
 
-        locationResultAdapter = LocationResultAdapter {
-            locationList.add(it.cityName)
-        }
-
+        // Initialize places sdk
+        Places.initialize(requireContext(), BuildConfig.GOOGLE_PLACES_API_KEY)
         bottomSheetView = view.findViewById(R.id.bottom_sheet)
-        setUpBottomSheetRecyclerView()
-        observeCoveredLocationsResponse()
+        initializeViews()
 
-        val save : TextView= bottomSheetView.findViewById(R.id.fragment_save_btn)
+        placesAutoCompleteAdapter = PlacesAutoCompleteAdapter {
+            Log.i(TAG, "Query text item clicked ${it.getFullText(null)}")
+//            locationSearch.setText(it.getPrimaryText(null))
+//            locationResultRV.hideView()
+            locationList.add(it.getPrimaryText(null).toString())
+        }
+        observeCoveredLocationsResponse()
+        onTextChanged()
+
         save.setOnClickListener {
-            if(!locationList.isNullOrEmpty())
-            locationsViewModel.addCoveredLocations(Locations( locationList.toList()), "Bearer ${preferences.getToken()}")
+            Log.d(TAG, "locationList:$locationList ")
+            if (locationList.isNotEmpty())
+                locationsViewModel.addCoveredLocations(
+                    Locations(locationList.toList()),
+                    "Bearer ${preferences.getToken()}"
+                )
             else showShortSnackBar("Select location")
         }
 
@@ -95,10 +120,37 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         requireContext().registerReceiver(broadcastReceiver, filter)
     }
 
-        private fun setUpBottomSheetRecyclerView() {
+    private fun initializeViews() {
+        locationSearch = bottomSheetView.findViewById(R.id.search_location_et)
+        locationResultRV = bottomSheetView.findViewById(R.id.location_result_rv)
+        save = bottomSheetView.findViewById(R.id.fragment_save_btn)
+    }
+
+    private fun onTextChanged() {
+        locationSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0.toString().trim().isNotEmpty() && p0.toString().length != 1) {
+                    if (locationResultRV.visibility == View.GONE) {
+                        locationResultRV.visibility = View.VISIBLE
+                    }
+                } else {
+                    if (locationResultRV.visibility == View.VISIBLE) {
+                        locationResultRV.visibility = View.GONE
+                    }
+                }
+                locationResultRV.showView()
+                autoCompleteSearch(p0.toString())
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+    }
+
+    private fun setUpBottomSheetRecyclerView(placesList: MutableList<AutocompletePrediction>) {
         val locationResultRV: RecyclerView? = bottomSheetView.findViewById(R.id.location_result_rv)
-        locationResultRV?.adapter = locationResultAdapter
-        locationResultAdapter.submitList(locationResultList)
+        locationResultRV?.adapter = placesAutoCompleteAdapter
+        placesAutoCompleteAdapter.submitList(placesList)
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -110,6 +162,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         super.onResume()
         initiateMapLunch()
     }
+
     @SuppressLint("MissingPermission")
     private fun getLocationUpdates() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -312,11 +365,11 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun observeCoveredLocationsResponse() {
-        val loader : ProgressBar =
+        val loader: ProgressBar =
             bottomSheetView.findViewById(R.id.loader)
         lifecycleScope.launch {
-            locationsViewModel.locationsCoveredResponse.collect{
-                when(it) {
+            locationsViewModel.locationsCoveredResponse.collect {
+                when (it) {
                     is Resource.Loading -> {
                         loader.showView()
                     }
@@ -334,6 +387,50 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+    }
+
+    private fun autoCompleteSearch(query: String) {
+        Log.i(TAG, "IM INNN")
+        Log.i(TAG, query)
+        // create a new places client instance
+        val placesClient: PlacesClient = Places.createClient(requireContext())
+        val token = AutocompleteSessionToken.newInstance()
+        // Create a RectangularBounds object.
+        val bounds = RectangularBounds.newInstance(
+            LatLng(-33.880490, 151.184363),
+            LatLng(-33.858754, 151.229596)
+        )
+
+        Log.i(TAG, "$token")
+        // Use the builder to create a FindAutocompletePredictionsRequest.
+        val request =
+            FindAutocompletePredictionsRequest.builder()
+                // Call either setLocationBias() OR setLocationRestriction().
+                .setLocationBias(bounds)
+                //.setLocationRestriction(bounds)
+                .setOrigin(LatLng(-33.8749937, 151.2041382))
+                .setCountries("ng")
+                .setTypeFilter(TypeFilter.CITIES)
+                .setSessionToken(token)
+                .setQuery(query)
+                .build()
+        Log.i(TAG, query)
+        placesClient.findAutocompletePredictions(request)
+            .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
+                Log.i(TAG, "Success")
+                Log.i(TAG, response.toString())
+                for (prediction in response.autocompletePredictions) {
+                    Log.i(TAG, prediction.placeId)
+                    Log.i(TAG, prediction.getPrimaryText(null).toString())
+
+                }
+                Log.i(TAG, "getting response : ${response.autocompletePredictions}")
+                setUpBottomSheetRecyclerView(response.autocompletePredictions)
+            }.addOnFailureListener { exception: Exception? ->
+                if (exception is ApiException) {
+                    Log.e(TAG, "Place not found: " + exception.statusCode)
+                }
+            }
     }
 
 }

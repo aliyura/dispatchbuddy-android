@@ -46,7 +46,8 @@ class RequestFragment : Fragment() {
     private val sectionResponse: ArrayList<RiderSectionResponse> = ArrayList()
     private val allUserRequest: ArrayList<AllUserRequestResponseContent> = ArrayList()
     private lateinit var allRequestAdapter: AllUserRequestAdapter
-    lateinit var requestUserId: String
+    private lateinit var requestUserId: String
+    private lateinit var requestUserStatus: String
     private val riderViewModel: RiderViewModel by viewModels()
     @Inject
     lateinit var preferences: Preferences
@@ -114,6 +115,7 @@ class RequestFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         allRequestAdapter = AllUserRequestAdapter(requireContext(), allUserRequest){
             requestUserId = it.id
+            requestUserStatus = it.status
             incomingRequestDialog()
         }
         recyclerView.adapter = allRequestAdapter
@@ -136,15 +138,28 @@ class RequestFragment : Fragment() {
         val closeButton: MaterialButton = dialogSuccessView.findViewById(R.id.completed_btn)
 
         closeButton.setOnClickListener {
-            closeUserRequest()
+            when (requestUserStatus) {
+                "AC" -> {
+                    closeUserRequest()
+                }
+                "CO" -> {
+                    showShortSnackBar(getString(R.string.ride_closed))
+                }
+                "RJ" -> {
+                    showShortSnackBar(getString(R.string.ride_not_accepted))
+                }
+                "PC" -> {
+                    showShortSnackBar(getString(R.string.ride_not_accepted))
+                }
+            }
             dialog.dismiss()
         }
         acceptButton.setOnClickListener {
-            acceptUserRequest()
+            if (requestUserStatus != "CO") acceptUserRequest() else showShortSnackBar(getString(R.string.ride_closed))
             dialog.dismiss()
         }
         rejectButton.setOnClickListener {
-            showRejectionReasonBottomSheet()
+            if (requestUserStatus != "CO") showRejectionReasonBottomSheet() else showShortSnackBar(getString(R.string.ride_closed))
             dialog.dismiss()
         }
     }

@@ -75,9 +75,9 @@ class ProfileFragment : Fragment() {
                 val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
                 findNavController().navigate(action)
             }
-            fragmentEditProfileDeliveriesLayout.setOnClickListener {
-                findNavController().navigate(R.id.deliveriesFragment)
-            }
+//            fragmentEditProfileDeliveriesLayout.setOnClickListener {
+//                findNavController().navigate(R.id.deliveriesFragment)
+//            }
             fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
@@ -150,7 +150,7 @@ class ProfileFragment : Fragment() {
 
     private fun logOut(){
         logoutDialogLayoutBinding = LogoutDialogLayoutBinding.inflate(layoutInflater)
-        logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut() }
+        logoutDialog = showLogOutDialog(requireContext(), logoutDialogLayoutBinding,resources) { userLogOut(preferences) }
     }
 
     private fun observeImageUploadResponse(){

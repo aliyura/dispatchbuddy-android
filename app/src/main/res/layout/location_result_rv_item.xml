@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/locationsContainer"
     android:paddingEnd="@dimen/padding_6dp"
-    android:paddingStart="@dimen/padding_6dp"
+    android:paddingHorizontal="@dimen/padding_12dp"
     android:layout_marginEnd="@dimen/margin_14dp"
     android:layout_marginBottom="@dimen/margin_16dp"
     android:background="@drawable/locations_bg">
