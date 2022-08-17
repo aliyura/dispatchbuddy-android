@@ -150,6 +150,7 @@
     <string name="ride_closed">This Ride has been closed</string>
     <string name="enter_your_old_password">Enter your old password</string>
     <string name="password_not_matched">Password do not match</string>
+    <string name="request_rider">Request Rider</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

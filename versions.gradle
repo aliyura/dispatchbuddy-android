@@ -32,5 +32,6 @@ ext.versions = [
         core_version             : '1.7.0',
         viewpager_version        : '1.0.0',
         location_versions       : "20.0.0",
-        map_version             : "18.0.2"
+        map_version             : "18.0.2",
+        paging_version          : "3.1.1"
 ]

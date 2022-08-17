@@ -90,6 +90,13 @@ object RiderModule {
     ): CloseUserRequestUseCase{
         return CloseUserRequestUseCase(repository = riderRepository)
     }
+    @Provides
+    @Singleton
+    fun provideGetPagingRequestUseCase(
+        riderRepository: RiderRepository
+    ): GetPagingRequestUseCase{
+        return GetPagingRequestUseCase(repository = riderRepository)
+    }
     //provided Rider Repository
     @Provides
     @Singleton
