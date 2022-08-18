@@ -1,5 +1,10 @@
 package com.example.dispatchbuddy.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.dispatchbuddy.common.Constants
+import com.example.dispatchbuddy.common.PagingSource
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.common.network.apiCall
@@ -7,6 +12,7 @@ import com.example.dispatchbuddy.data.remote.dto.CoveredLocationsResponse
 import com.example.dispatchbuddy.data.remote.dto.models.Locations
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponse
+import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.UserRequestStatusResponse
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
@@ -72,4 +78,18 @@ class RiderRepositoryImpl@Inject constructor(
         emit(Resource.Loading("Loading"))
         emit(apiCall { api.closeUserRequest(id = id, token = token) })
     }
+
+    override suspend fun getPagingRequests(
+        page: Int,
+        token: String
+    ): Flow<PagingData<AllUserRequestResponseContent>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = Constants.PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                PagingSource(api, token)
+            }
+        ).flow
 }

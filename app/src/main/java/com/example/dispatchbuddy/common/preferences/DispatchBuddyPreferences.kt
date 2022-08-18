@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.dispatchbuddy.common.preferences.PreferenceConstants.KEY_TOKEN
 import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_DESTINATION
+import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_EMAIL
 import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_PICK_UP
 import com.example.dispatchbuddy.common.preferences.PreferenceConstants.USER_ID
 import javax.inject.Inject
@@ -60,5 +61,13 @@ class DispatchBuddyPreferences @Inject constructor(
     }
     override fun getDestination(): String {
         return preferences.getString(USER_DESTINATION, "").orEmpty()
+    }
+
+    override fun saveEmail(email: String) {
+        edit { putString(USER_EMAIL, email) }
+    }
+
+    override fun getEmail(): String {
+        return preferences.getString(USER_EMAIL, "").orEmpty()
     }
 }

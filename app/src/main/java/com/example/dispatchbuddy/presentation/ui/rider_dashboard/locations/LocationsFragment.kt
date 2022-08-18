@@ -331,6 +331,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                         loader.hideView()
                         showShortSnackBar(it.error)
                     }
+                    else -> {}
                 }
             }
         }

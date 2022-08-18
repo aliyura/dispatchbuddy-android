@@ -2,14 +2,18 @@ package com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponse
+import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.UserRequestStatusResponse
 import com.example.dispatchbuddy.domain.usecases.riderUseCases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +27,8 @@ class RiderViewModel @Inject constructor(
     private val getAllUserRequestUseCases: GetAllUserRequestUseCases,
     private val rejectUserRequestUseCase: RejectUserRequestUseCase,
     private val acceptUserUseCase: AcceptUserUseCase,
-    private val closeUserRequestUseCase: CloseUserRequestUseCase
+    private val closeUserRequestUseCase: CloseUserRequestUseCase,
+    private val getPagingRequestUseCase: GetPagingRequestUseCase
 ): ViewModel() {
     private val _imageUploadResponse = MutableStateFlow<Resource<GenericResponse<UserProfile>>?>(null)
     val imageUploadResponse: StateFlow<Resource<GenericResponse<UserProfile>>?> get() = _imageUploadResponse
@@ -42,6 +47,9 @@ class RiderViewModel @Inject constructor(
 
     private val _closeUserRequestResponse = MutableStateFlow<Resource<GenericResponse<UserRequestStatusResponse>>?>(null)
     val closeUserRequestResponse: StateFlow<Resource<GenericResponse<UserRequestStatusResponse>>?> get() = _closeUserRequestResponse
+
+    private val _pagingRequestResponse = MutableStateFlow<PagingData<AllUserRequestResponseContent>?>(null)
+    val pagingRequestResponse: StateFlow<PagingData<AllUserRequestResponseContent>?> get() = _pagingRequestResponse
 
     fun uploadImage(dp: MultipartBody.Part, token: String){
         viewModelScope.launch {
@@ -87,6 +95,14 @@ class RiderViewModel @Inject constructor(
         viewModelScope.launch {
             closeUserRequestUseCase(id = id, token = token).collect{
                 _closeUserRequestResponse.value = it
+            }
+        }
+    }
+
+    fun pagingRequest(page: Int, token: String){
+        viewModelScope.launch {
+            getPagingRequestUseCase(page = page, token = token).collect{
+                _pagingRequestResponse.value = it
             }
         }
     }
