@@ -72,8 +72,7 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.editProfileFragment)
             }
             fragmentChangePasswordProfileTv.setOnClickListener {
-                val action = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.resetPasswordFragment)
             }
 //            fragmentEditProfileDeliveriesLayout.setOnClickListener {
 //                findNavController().navigate(R.id.deliveriesFragment)
@@ -178,9 +177,10 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->
                 when(response){
-                    is Resource.Loading ->{}
+                    is Resource.Loading ->{binding.profileProgressBar.showView()}
                     is Resource.Success ->{
                         binding.profileProgressBar.hideView()
+                        saveEmail(response.value.payload.email)
                         with(binding){
                             fragmentProfileNameTv.text = response.value.payload.name
                             fragmentProfileUserTypeTv.text = response.value.payload.accountType
@@ -201,7 +201,7 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
+    private fun saveEmail(email: String) = preferences.saveEmail(email)
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -69,8 +69,13 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$versions.hilt_version"
     annotationProcessor "androidx.room:room-compiler:$versions.room_version"
     kapt "com.google.dagger:hilt-android-compiler:$versions.hilt_version"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hilt_life_cycle_version"
+//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hilt_life_cycle_version"
     kapt "androidx.hilt:hilt-compiler:$versions.hilt_compiler_version"
+//    kapt("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.3.0")
+
+    //Paging
+    implementation "androidx.paging:paging-runtime:$versions.paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging_version"
 
     // Life cycles
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version"

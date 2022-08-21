@@ -3,6 +3,7 @@ package com.example.dispatchbuddy.data.repository
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.common.network.apiCall
+import com.example.dispatchbuddy.data.remote.dto.models.ChangePassword
 import com.example.dispatchbuddy.data.remote.dto.models.UpdateProfile
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
@@ -22,5 +23,13 @@ class ProfileRepositoryImpl @Inject constructor(
     ): Flow<Resource<GenericResponse<UserProfile>>>  = flow {
         emit(apiCall { api.updateProfile(update = updateProfile, token = token) })
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun resetPassword(
+        resetPassword: ChangePassword
+    ): Flow<Resource<GenericResponse<UserProfile>>> =
+        flow {
+            emit(Resource.Loading("Loading"))
+            emit(apiCall { api.changePassword(resetPassword) })
+        }.flowOn(Dispatchers.IO)
 
 }

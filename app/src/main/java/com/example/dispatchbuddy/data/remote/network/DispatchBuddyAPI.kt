@@ -9,6 +9,7 @@ import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.data.remote.dto.models.*
 import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponse
+import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.UserRequestStatusResponse
 import com.example.dispatchbuddy.data.remote.dto.models.riderRequestModel.ContactRiderModel
@@ -78,6 +79,12 @@ interface DispatchBuddyAPI {
 
     @GET("rider/requests")
     suspend fun getAllUserRequest(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): GenericResponse<AllUserRequestResponse>
+
+    @GET("rider/requests")
+    suspend fun pagingGetAllUserRequest(
         @Query("page") page: Int,
         @Header("Authorization") token: String
     ): GenericResponse<AllUserRequestResponse>

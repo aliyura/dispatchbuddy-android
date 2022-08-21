@@ -15,4 +15,7 @@ interface Preferences {
     // get user details
     fun getPickUp(): String
     fun getDestination(): String
+    //save user email and get user email
+    fun saveEmail(email: String)
+    fun getEmail(): String
 }

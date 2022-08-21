@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.BuildConfig
 import com.example.dispatchbuddy.R
-import com.example.dispatchbuddy.common.Constants.AUTOCOMPLETE_REQUEST_CODE
+import com.example.dispatchbuddy.common.Constants.PICKUP_REQUEST_CODE
+import com.example.dispatchbuddy.common.Constants.DELIVERY_REQUEST_CODE
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
-import com.example.dispatchbuddy.common.ViewExtensions.showShortToast
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.common.validation.FieldValidations
@@ -37,8 +37,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     @Inject
     lateinit var preferences: Preferences
-    var queryText: String = "empty"
-    val TAG = "HomeFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,16 +50,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        Log.i(TAG, "Query text $queryText")
-
         binding.deliveryDestinationEt.setOnClickListener {
-            showShortToast("clicked")
-            onSearchCalled()
+            onSearchCalled(DELIVERY_REQUEST_CODE)
         }
         binding.pickupLocationEt.setOnClickListener {
-            showShortToast("clicked")
-            onSearchCalled()
+            onSearchCalled(PICKUP_REQUEST_CODE)
         }
 
         validateFields()
@@ -74,39 +67,49 @@ class HomeFragment : Fragment() {
         Places.initialize(requireContext(), BuildConfig.GOOGLE_PLACES_API_KEY)
     }
 
-    private fun onSearchCalled() {
+    private fun onSearchCalled(requestCode: Int) {
         // Set the fields to specify which types of place data to return.
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
-        // Start the autocomplete intent.
         val intent = Autocomplete.IntentBuilder(
             AutocompleteActivityMode.OVERLAY, fields
-        ).setCountry("NG") //NIGERIA
+        ).setCountry("NG")
             .build(requireContext())
-        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+        startActivityForResult(intent, requestCode)
     }
 
      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+        if (requestCode == PICKUP_REQUEST_CODE) {
             when (resultCode) {
                 RESULT_OK -> {
-                    val place = Autocomplete.getPlaceFromIntent(data)
-                    Log.i(TAG, "Place: " + place.name + ", " + place.id + ", " + place.address)
-                    binding.deliveryDestinationEt.setText(place.name)
-                    binding.pickupLocationEt.setText(place.name)
-                    showShortSnackBar(place.name)
-
+                    val place = data?.let { Autocomplete.getPlaceFromIntent(it).name }
+                        binding.pickupLocationEt.setText(place)
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
-                    val status: Status = Autocomplete.getStatusFromIntent(data)
-                    showShortSnackBar("${status.statusMessage}")
-                    status.statusMessage?.let { Log.i(TAG, it) }
+                    val status = data?.let { Autocomplete.getStatusFromIntent(it).statusMessage }
+                        showShortSnackBar("$status")
                 }
                 RESULT_CANCELED -> {
                     // The user canceled the operation.
                 }
             }
         }
-    }
+         //delivery
+         if (requestCode == DELIVERY_REQUEST_CODE) {
+             when (resultCode) {
+                 RESULT_OK -> {
+                     val place = data?.let { Autocomplete.getPlaceFromIntent(it).name }
+                     binding.deliveryDestinationEt.setText(place)
+                 }
+                 AutocompleteActivity.RESULT_ERROR -> {
+                     val status: String? = data?.let { Autocomplete.getStatusFromIntent(it).statusMessage }
+                     showShortSnackBar("$status")
+                 }
+                 RESULT_CANCELED -> {
+                     // The user canceled the operation.
+                 }
+             }
+         }
+     }
 
     private fun getUserInputs(){
         val pickup = binding.pickupLocationEt.text.toString()

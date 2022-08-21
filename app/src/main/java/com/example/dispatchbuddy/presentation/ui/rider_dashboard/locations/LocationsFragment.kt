@@ -96,16 +96,12 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         initializeViews()
 
         placesAutoCompleteAdapter = PlacesAutoCompleteAdapter {
-            Log.i(TAG, "Query text item clicked ${it.getFullText(null)}")
-//            locationSearch.setText(it.getPrimaryText(null))
-//            locationResultRV.hideView()
             locationList.add(it.getPrimaryText(null).toString())
         }
         observeCoveredLocationsResponse()
         onTextChanged()
 
         save.setOnClickListener {
-            Log.d(TAG, "locationList:$locationList ")
             if (locationList.isNotEmpty())
                 locationsViewModel.addCoveredLocations(
                     Locations(locationList.toList()),
@@ -131,18 +127,16 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().trim().isNotEmpty() && p0.toString().length != 1) {
-                    if (locationResultRV.visibility == View.GONE) {
-                        locationResultRV.visibility = View.VISIBLE
-                    }
+                if (p0.toString().trim().isNotEmpty()) {
+                    locationResultRV.showView()
+
                 } else {
-                    if (locationResultRV.visibility == View.VISIBLE) {
-                        locationResultRV.visibility = View.GONE
-                    }
+                    locationResultRV.hideView()
                 }
-                locationResultRV.showView()
+
                 autoCompleteSearch(p0.toString())
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
     }
@@ -384,15 +378,13 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                         loader.hideView()
                         showShortSnackBar(it.error)
                     }
+                    else -> {}
                 }
             }
         }
     }
 
     private fun autoCompleteSearch(query: String) {
-        Log.i(TAG, "IM INNN")
-        Log.i(TAG, query)
-        // create a new places client instance
         val placesClient: PlacesClient = Places.createClient(requireContext())
         val token = AutocompleteSessionToken.newInstance()
         // Create a RectangularBounds object.
@@ -401,11 +393,9 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
             LatLng(-33.858754, 151.229596)
         )
 
-        Log.i(TAG, "$token")
         // Use the builder to create a FindAutocompletePredictionsRequest.
         val request =
             FindAutocompletePredictionsRequest.builder()
-                // Call either setLocationBias() OR setLocationRestriction().
                 .setLocationBias(bounds)
                 //.setLocationRestriction(bounds)
                 .setOrigin(LatLng(-33.8749937, 151.2041382))
@@ -414,21 +404,14 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 .setSessionToken(token)
                 .setQuery(query)
                 .build()
-        Log.i(TAG, query)
+
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
-                Log.i(TAG, "Success")
-                Log.i(TAG, response.toString())
-                for (prediction in response.autocompletePredictions) {
-                    Log.i(TAG, prediction.placeId)
-                    Log.i(TAG, prediction.getPrimaryText(null).toString())
-
-                }
-                Log.i(TAG, "getting response : ${response.autocompletePredictions}")
                 setUpBottomSheetRecyclerView(response.autocompletePredictions)
             }.addOnFailureListener { exception: Exception? ->
                 if (exception is ApiException) {
                     Log.e(TAG, "Place not found: " + exception.statusCode)
+                    exception.statusMessage?.let { showShortSnackBar(it) }
                 }
             }
     }
