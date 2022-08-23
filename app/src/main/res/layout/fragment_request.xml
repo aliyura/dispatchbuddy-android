@@ -51,17 +51,22 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16dp"
             tools:listitem="@layout/request_rv_header" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_request_child_rv"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_title_tv"
-            tools:listitem="@layout/requests_rv_item"
-            tools:itemCount="3"
-            />
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_request_child_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header_title_tv"
+                tools:listitem="@layout/requests_rv_item"
+                tools:itemCount="3"
+                />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
     <ProgressBar
         android:id="@+id/rider_list_request_progress_bar"
