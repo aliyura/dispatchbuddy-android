@@ -47,6 +47,7 @@ class RiderRepositoryImpl@Inject constructor(
         flow {
             emit(Resource.Loading("Loading"))
             emit(apiCall { api.addCoveredLocations(locations, token) })
+
         }
 
     override suspend fun getAllUserRequest(
