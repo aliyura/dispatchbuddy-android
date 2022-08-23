@@ -8,10 +8,10 @@ import android.content.res.Resources
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.databinding.LogoutDialogLayoutBinding
+import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
 fun getDaysAgo(daysAgo: Int): Date {
@@ -49,4 +49,27 @@ fun showLogOutDialog(context: Context, binding: LogoutDialogLayoutBinding, resou
         dialog.dismiss()
     }
     return dialog
+}
+
+fun uploadImageToFirebase(fileUri: Uri?, fragment: Fragment, context: Context, getUrl: (string: String)-> Unit){
+
+    if (fileUri != null) {
+        val fileName = UUID.randomUUID().toString()
+        val refStorage = FirebaseStorage.getInstance().reference.child("images/$fileName")
+        val dialog = fragment.setProgressDialog(context, "Uploading..")
+        dialog.show()
+        refStorage.putFile(fileUri)
+            .addOnSuccessListener { taskSnapshot ->
+                val result = taskSnapshot.metadata!!.reference!!.downloadUrl
+                result.addOnSuccessListener { imageUrl->
+                    getUrl(imageUrl.toString())
+                    dialog.dismiss()
+                    fragment.showShortSnackBar("Image uploaded successfully")
+                }
+            }
+            .addOnFailureListener { e ->
+                fragment.showShortSnackBar("${e.message}")
+                dialog.dismiss()
+            }
+    }
 }
