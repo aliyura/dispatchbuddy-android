@@ -30,7 +30,9 @@ class RiderRepositoryImpl@Inject constructor(
         token: String
     ): Flow<Resource<GenericResponse<UserProfile>>> = flow{
         emit(Resource.Loading("Loading"))
-        emit(apiCall { api.uploadImage(dp = dp, token = token) })
+        emit(apiCall {
+            api.uploadImage(dp = dp, token = token)
+        })
     }
 
     override suspend fun getUser(
