@@ -18,10 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.*
-import com.example.dispatchbuddy.common.Constants.dummyId
 import com.example.dispatchbuddy.common.Constants.dummyToken
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
@@ -187,7 +185,6 @@ class ProfileFragment : Fragment() {
                         }
                         val fileName = response.value.payload.dp
                         Log.d("fileName", "observeGetUserResponse: $fileName")
-//                        val image = "https://lenos.s3.amazonaws.com/pictures/${fileName}"
 //                        Glide.with(requireContext())
 //                            .load(image)
 //                            .into(binding.fragmentProfileAvatar)

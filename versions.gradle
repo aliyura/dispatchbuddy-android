@@ -31,7 +31,9 @@ ext.versions = [
         coroutines_version       : '1.6.0',
         core_version             : '1.7.0',
         viewpager_version        : '1.0.0',
-        location_versions       : "20.0.0",
-        map_version             : "18.0.2",
-        paging_version          : "3.1.1"
+        location_versions        : "20.0.0",
+        map_version              : "18.0.2",
+        paging_version           : "3.1.1",
+        firebase_database_version : "20.0.5",
+        firebase_storage_version  : "20.0.1"
 ]
