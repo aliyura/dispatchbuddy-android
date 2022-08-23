@@ -322,6 +322,16 @@ class RequestFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        observerRejectUserRequestResponse()
+        observerAcceptUserRequestResponse()
+        observerCloseUserRequestResponse()
+        paginationRV()
+        pagingSetUpObservers()
+        pagingGetRequests()
+    }
+
     private fun observerCloseUserRequestResponse() {
         lifecycleScope.launch {
             riderViewModel.closeUserRequestResponse.collect { response ->

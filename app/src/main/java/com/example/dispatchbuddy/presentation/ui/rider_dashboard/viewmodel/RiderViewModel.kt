@@ -101,7 +101,7 @@ class RiderViewModel @Inject constructor(
 
     fun pagingRequest(page: Int, token: String){
         viewModelScope.launch {
-            getPagingRequestUseCase(page = page, token = token).collect{
+            getPagingRequestUseCase(page = page, token = token).cachedIn(viewModelScope).collect{
                 _pagingRequestResponse.value = it
             }
         }
