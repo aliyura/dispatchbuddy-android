@@ -18,7 +18,7 @@
         android:theme="@style/SplashScreenTheme">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}"/>
+            android:value="AIzaSyAIYBhg3NsE2vOGv2SB8F2NAxBVmpaEuA8"/>
 
         <activity
             android:name=".presentation.ui.rider_dashboard.RiderActivity"
