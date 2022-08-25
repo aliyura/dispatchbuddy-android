@@ -24,8 +24,9 @@ class PagingSource @Inject constructor(
             val pageNumber = params.key ?: 0
             val response = api.pagingGetAllUserRequest(pageNumber, token)
             val data = response.payload.allUserRequestResponseContent
+            val filteredData = data.filter { !it.status.contains("CO") }
             LoadResult.Page(
-                data = data,
+                data = filteredData,
                 prevKey = null,
                 nextKey = if (data.isEmpty()) null else pageNumber + 1
             )
