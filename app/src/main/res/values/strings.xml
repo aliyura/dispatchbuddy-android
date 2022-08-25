@@ -149,7 +149,7 @@
     <string name="ride_not_accepted">You have not Accepted this Ride</string>
     <string name="ride_closed">This Ride has been closed</string>
     <string name="enter_your_old_password">Enter your old password</string>
-    <string name="password_not_matched">Password do not match</string>
+    <string name="password_not_matched">Password should not match</string>
     <string name="request_rider">Request Rider</string>
     <string-array name="Gender">
         <item>Male</item>

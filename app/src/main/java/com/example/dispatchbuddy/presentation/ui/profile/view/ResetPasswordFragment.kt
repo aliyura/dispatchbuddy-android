@@ -83,7 +83,7 @@ class ResetPasswordFragment : Fragment() {
             fragmentResetPasswordBtn.setOnClickListener {
                 val oldPassword = fragmentResetPasswordOldEdt.text.toString()
                 val newPassword = fragmentResetPasswordNewEdt.text.toString()
-                if (oldPassword != newPassword){
+                if (oldPassword == newPassword){
                     showShortSnackBar(getString(R.string.password_not_matched))
                 }else{
                     profileViewModel.resetUserPassword(ChangePassword(username = emailPre.toString(), password = newPassword))

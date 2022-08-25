@@ -60,6 +60,7 @@ class RequestFragment : Fragment() {
     private lateinit var requestUserId: String
     private lateinit var requestUserStatus: String
     private val riderViewModel: RiderViewModel by viewModels()
+
     @Inject
     lateinit var preferences: Preferences
 
@@ -68,7 +69,7 @@ class RequestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentRequestBinding.inflate(inflater,container, false)
+        _binding = FragmentRequestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -90,18 +91,18 @@ class RequestFragment : Fragment() {
         initRefreshListener()
     }
 
-    private fun populateData(list: List<RiderResponse>){
+    private fun populateData(list: List<RiderResponse>) {
         try {
             responseList.clear()
             sectionResponse.clear()
             responseList.addAll(list)
-            val dateList = responseList.groupBy { it.date.subSequence(0,10) }
+            val dateList = responseList.groupBy { it.date.subSequence(0, 10) }
             Log.d("dateList", "populateData: $dateList")
             val distinctDate = dateList.keys.distinct().toList()
             Log.d("distinctDate", "populateData: $distinctDate")
             val dateValues = dateList.values
             Log.d("dateValues", "populateData: $dateValues")
-            for (i in dateValues.indices){
+            for (i in dateValues.indices) {
                 sectionResponse.add(
                     RiderSectionResponse(
                         distinctDate,
@@ -110,11 +111,12 @@ class RequestFragment : Fragment() {
                 )
             }
             requestAdapter.notifyDataSetChanged()
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
-    private fun initRecyclerview(){
+
+    private fun initRecyclerview() {
         val recyclerView = binding.fragmentRequestRv
         recyclerView.apply {
             val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -131,7 +133,7 @@ class RequestFragment : Fragment() {
         allUserRequest.addAll(listOfAllUserRequest)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
-        allRequestAdapter = AllUserRequestAdapter(requireContext(), allUserRequest){
+        allRequestAdapter = AllUserRequestAdapter(requireContext(), allUserRequest) {
             requestUserId = it.id
             requestUserStatus = it.status
             incomingRequestDialog()
@@ -139,22 +141,23 @@ class RequestFragment : Fragment() {
         recyclerView.adapter = allRequestAdapter
         allRequestAdapter.notifyDataSetChanged()
     }
-    private fun observeGetAllRequestResponse(){
+
+    private fun observeGetAllRequestResponse() {
         lifecycleScope.launch {
-            riderViewModel.getAllUserRequestResponse.collect{response ->
-                when(response){
-                    is Resource.Loading ->{
+            riderViewModel.getAllUserRequestResponse.collect { response ->
+                when (response) {
+                    is Resource.Loading -> {
                         binding.riderListRequestProgressBar.showView()
                     }
-                    is Resource.Success ->{
+                    is Resource.Success -> {
                         binding.riderListRequestProgressBar.hideView()
                         closedListData.clear()
-                        if (response.value.payload == null){
+                        if (response.value.payload == null) {
                             binding.fragmentRequestChildRv.hideView()
                             binding.emptyRequestListState.showView()
-                        }else{
-                            for (item in response.value.payload.allUserRequestResponseContent){
-                                if (item.status != "CO"){
+                        } else {
+                            for (item in response.value.payload.allUserRequestResponseContent) {
+                                if (item.status != "CO") {
                                     closedListData.add(item)
                                 }
                             }
@@ -162,7 +165,7 @@ class RequestFragment : Fragment() {
                             initializeRecyclerView(response.value.payload.allUserRequestResponseContent)
                         }
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         binding.riderListRequestProgressBar.hideView()
                         showShortSnackBar(response.error)
                     }
@@ -171,30 +174,33 @@ class RequestFragment : Fragment() {
             }
         }
     }
-    private fun getAllUserRequest(){
-        riderViewModel.getAllUserRequest(0,"Bearer ${preferences.getToken()}")
+
+    private fun getAllUserRequest() {
+        riderViewModel.getAllUserRequest(0, "Bearer ${preferences.getToken()}")
     }
 
     private fun pagingSetUpObservers() {
         lifecycleScope.launch {
-            riderViewModel.pagingRequestResponse.collect{
+            riderViewModel.pagingRequestResponse.collect {
                 if (it == null) {
                     binding.emptyRequestListState.isVisible = true
-                }else{
+                } else {
                     pagingAdapter.submitData(it)
                     pagingAdapter.notifyDataSetChanged()
                 }
             }
         }
     }
-    private fun pagingGetRequests(){
-        riderViewModel.pagingRequest(STARTING_PAGE,"Bearer ${preferences.getToken()}")
+
+    private fun pagingGetRequests() {
+        riderViewModel.pagingRequest(STARTING_PAGE, "Bearer ${preferences.getToken()}")
     }
-    private fun paginationRV(){
+
+    private fun paginationRV() {
         val recyclerView = binding.fragmentRequestChildRv
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            pagingAdapter = PaginationAdapter{
+            pagingAdapter = PaginationAdapter {
                 requestUserId = it.id
                 requestUserStatus = it.status
                 incomingRequestDialog()
@@ -203,21 +209,21 @@ class RequestFragment : Fragment() {
             pagingAdapter.notifyDataSetChanged()
         }
         pagingAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading){
-                if (pagingAdapter.snapshot().isEmpty()){
+            if (loadState.refresh is LoadState.Loading) {
+                if (pagingAdapter.snapshot().isEmpty()) {
                     binding.riderListRequestProgressBar.isVisible = true
                 }
                 binding.emptyRequestListState.isVisible = false
-            }else {
+            } else {
                 binding.riderListRequestProgressBar.isVisible = false
-                val error = when  {
+                val error = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                     loadState.append is LoadState.Error -> loadState.append as LoadState.Error
                     loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
                     else -> null
                 }
                 error?.let {
-                    if (pagingAdapter.snapshot().isEmpty()){
+                    if (pagingAdapter.snapshot().isEmpty()) {
                         binding.emptyRequestListState.isVisible = true
                     }
                 }
@@ -225,7 +231,7 @@ class RequestFragment : Fragment() {
         }
     }
 
-    private fun incomingRequestDialog(){
+    private fun incomingRequestDialog() {
         val dialog = Dialog(requireContext())
         val dialogSuccessView = View.inflate(context, R.layout.incoming_request_dialog_layout, null)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -266,9 +272,10 @@ class RequestFragment : Fragment() {
             dialog.dismiss()
         }
     }
-    private fun showRejectionReasonBottomSheet(){
+
+    private fun showRejectionReasonBottomSheet() {
         val dialog = BottomSheetDialog(requireContext())
-        val dialogView = View.inflate(context,R.layout.fragment_reject_reason_bootom_sheet_dialog, null)
+        val dialogView = View.inflate(context, R.layout.fragment_reject_reason_bootom_sheet_dialog, null)
         val rejectionReason: TextInputEditText? = dialogView.findViewById(R.id.dialog_rejection_reason_edt)
         val saveReasonBtn: MaterialButton = dialogView.findViewById(R.id.dialog_rejection_reason_riders_button)
         val rejectionReasonLayout: TextInputLayout = dialogView.findViewById(R.id.dialog_rejection_reason_layout)
@@ -281,16 +288,16 @@ class RequestFragment : Fragment() {
         dialog.show()
 
         saveReasonBtn.setOnClickListener {
-            rejectUserRequest(requestUserId, rejectionReason?.text.toString(),"Bearer ${preferences.getToken()}")
+            rejectUserRequest(requestUserId, rejectionReason?.text.toString(), "Bearer ${preferences.getToken()}")
             dialog.dismiss()
         }
     }
 
-    private fun observerRejectUserRequestResponse(){
+    private fun observerRejectUserRequestResponse() {
         lifecycleScope.launch {
-            riderViewModel.rejectUserRequestResponse.collect{ response ->
-                when(response){
-                    is Resource.Loading ->{
+            riderViewModel.rejectUserRequestResponse.collect { response ->
+                when (response) {
+                    is Resource.Loading -> {
                         binding.riderListRequestProgressBar.showView()
                     }
                     is Resource.Success -> {
@@ -298,49 +305,7 @@ class RequestFragment : Fragment() {
                         binding.riderListRequestProgressBar.hideView()
                         showShortSnackBar(response.value.message)
                     }
-                    is Resource.Error ->{
-                        binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.error)
-                    }
-                    else -> {}
-                }
-            }
-        }
-    }
-    private fun observerAcceptUserRequestResponse(){
-        lifecycleScope.launch {
-            riderViewModel.acceptUserRequestResponse.collect{ response ->
-                when(response){
-                    is Resource.Loading ->{
-                        binding.riderListRequestProgressBar.showView()
-                    }
-                    is Resource.Success -> {
-                        pagingGetRequests()
-                        binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.value.message)
-                    }
-                    is Resource.Error ->{
-                        binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.error)
-                    }
-                    else -> {}
-                }
-            }
-        }
-    }
-    private fun observerCloseUserRequestResponse(){
-        lifecycleScope.launch {
-            riderViewModel.closeUserRequestResponse.collect{ response ->
-                when(response){
-                    is Resource.Loading ->{
-                        binding.riderListRequestProgressBar.showView()
-                    }
-                    is Resource.Success -> {
-                        pagingGetRequests()
-                        binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.value.message)
-                    }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         binding.riderListRequestProgressBar.hideView()
                         showShortSnackBar(response.error)
                     }
@@ -350,14 +315,60 @@ class RequestFragment : Fragment() {
         }
     }
 
-    private fun acceptUserRequest(){
+    private fun observerAcceptUserRequestResponse() {
+        lifecycleScope.launch {
+            riderViewModel.acceptUserRequestResponse.collect { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        binding.riderListRequestProgressBar.showView()
+                    }
+                    is Resource.Success -> {
+                        pagingGetRequests()
+                        binding.riderListRequestProgressBar.hideView()
+                        showShortSnackBar(response.value.message)
+                    }
+                    is Resource.Error -> {
+                        binding.riderListRequestProgressBar.hideView()
+                        showShortSnackBar(response.error)
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun observerCloseUserRequestResponse() {
+        lifecycleScope.launch {
+            riderViewModel.closeUserRequestResponse.collect { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        binding.riderListRequestProgressBar.showView()
+                    }
+                    is Resource.Success -> {
+                        pagingGetRequests()
+                        binding.riderListRequestProgressBar.hideView()
+                        showShortSnackBar(response.value.message)
+                    }
+                    is Resource.Error -> {
+                        binding.riderListRequestProgressBar.hideView()
+                        showShortSnackBar(response.error)
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun acceptUserRequest() {
         riderViewModel.acceptUserRequest(requestUserId, "Bearer ${preferences.getToken()}")
     }
-    private fun closeUserRequest(){
+
+    private fun closeUserRequest() {
         riderViewModel.closeUserRequest(requestUserId, "Bearer ${preferences.getToken()}")
     }
+
     private fun rejectUserRequest(id: String, rejectReason: String, token: String) {
-        riderViewModel.rejectUserRequest(RejectUserRideModel(id, rejectReason),token)
+        riderViewModel.rejectUserRequest(RejectUserRideModel(id, rejectReason), token)
     }
 
     private fun initRefreshListener() {
@@ -373,7 +384,7 @@ class RequestFragment : Fragment() {
         }
     }
 
-    private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton){
+    private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton) {
         val fieldTypesToValidate = listOf(FieldValidationTracker.FieldType.FULLNAME)
         FieldValidationTracker.populateFieldTypeMap(fieldTypesToValidate)
         binding.apply {
