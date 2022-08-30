@@ -16,13 +16,15 @@ class DeliveriesPaginationAdapter(
         private val onItemClick: (AllUserRequestResponseContent) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(riderResponse: AllUserRequestResponseContent?){
-            binding.riderNameTv.text = riderResponse?.userName
-            binding.riderLocationTv.text = riderResponse?.pickupLocation
-            binding.itemWeightTv.text = riderResponse?.destination
-            binding.chargedAmountTv.text = riderResponse?.userPhoneNumber
-            binding.rateDeliveryBtn.setOnClickListener {
-                if (riderResponse != null) {
-                    onItemClick.invoke(riderResponse)
+            with(binding){
+                riderNameTv.text = riderResponse?.userName
+                riderLocationTv.text = riderResponse?.pickupLocation
+                itemWeightTv.text = riderResponse?.destination
+                chargedAmountTv.text = riderResponse?.userPhoneNumber
+                rateDeliveryBtn.setOnClickListener {
+                    if (riderResponse != null) {
+                        onItemClick.invoke(riderResponse)
+                    }
                 }
             }
         }

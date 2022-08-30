@@ -53,8 +53,8 @@ class DeliveriesFragment : Fragment() {
     }
 
     private fun btnClicks(){
-        binding.fragmentDeliveriesBackArrowIv.setOnClickListener {
-            findNavController().popBackStack()
+        with(binding){
+            fragmentDeliveriesBackArrowIv.setOnClickListener { findNavController().popBackStack() }
         }
     }
 

@@ -81,7 +81,7 @@ class RequestFragment : Fragment() {
         pagingSetUpObservers()
         pagingGetRequests()
         initRefreshListener()
-        binding.fragmentRequestBackArrowIv.setOnClickListener { findNavController().popBackStack() }
+        btnClicks()
     }
 
     private fun populateData(list: List<RiderResponse>){
@@ -116,6 +116,12 @@ class RequestFragment : Fragment() {
             requestAdapter = RequestAdapter(sectionResponse, requireContext())
             recyclerView.adapter = requestAdapter
             requestAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun btnClicks(){
+        with(binding){
+            fragmentRequestBackArrowIv.setOnClickListener { findNavController().popBackStack() }
         }
     }
 
