@@ -58,6 +58,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$versions.room_version"
     kapt "androidx.room:room-compiler:$versions.room_version"
     implementation "androidx.room:room-ktx:$versions.room_version"
+    implementation "androidx.room:room-paging:$versions.room_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit_version"
@@ -126,6 +127,7 @@ dependencies {
     /* Location */
     implementation "com.google.android.gms:play-services-location:$versions.location_versions"
     implementation "com.google.android.gms:play-services-maps:$versions.map_version"
+    implementation "com.google.android.libraries.places:places:$versions.google_places"
 
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 

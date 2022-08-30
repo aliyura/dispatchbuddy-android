@@ -1,9 +1,13 @@
 package com.example.dispatchbuddy.data.remote.dto.models.allRequestModels
 
-
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "All_Requests")
 data class AllUserRequestResponseContent(
+    @PrimaryKey
+    val roomDbId: Int? = null,
     @SerializedName("createdDate")
     val createdDate: String,
     @SerializedName("destination")

@@ -1,13 +1,17 @@
 package com.example.dispatchbuddy.di
 
+import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.dispatchbuddy.common.Constants.BASE_URL
 import com.example.dispatchbuddy.common.Constants.LOGIN_API
 import com.example.dispatchbuddy.common.Constants.LOGIN_BASE_URL
 import com.example.dispatchbuddy.common.Constants.MAIN_API
 import com.example.dispatchbuddy.common.preferences.DispatchBuddyPreferences
 import com.example.dispatchbuddy.common.preferences.Preferences
+import com.example.dispatchbuddy.data.local.DispatchBuddyDB
+import com.example.dispatchbuddy.data.local.DispatchBuddyDao
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import dagger.Module
 import dagger.Provides
@@ -91,6 +95,25 @@ object AppModule {
         @ApplicationContext context: Context
     ): Preferences {
         return DispatchBuddyPreferences(context = context)
+    }
+
+    // Room database
+    @Provides
+    @Singleton
+    fun provideDispatchBuddyDatabase(
+        application: Application
+    ): DispatchBuddyDB{
+        return Room.databaseBuilder(
+            application,
+            DispatchBuddyDB::class.java,
+            "all_products_db",
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDispatchBuddyDao(database: DispatchBuddyDB): DispatchBuddyDao{
+        return database.dao
     }
 
     @Qualifier

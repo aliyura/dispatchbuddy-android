@@ -1,9 +1,13 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard.di
 
 import com.example.dispatchbuddy.common.Constants.MAIN_API
+import com.example.dispatchbuddy.data.local.DispatchBuddyDB
 import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
+import com.example.dispatchbuddy.data.repository.PagingSourceImpl
 import com.example.dispatchbuddy.data.repository.RiderRepositoryImpl
+import com.example.dispatchbuddy.domain.repository.PagingInterface
 import com.example.dispatchbuddy.domain.repository.RiderRepository
+import com.example.dispatchbuddy.domain.usecases.paginationUseCase.PaginationUseCase
 import com.example.dispatchbuddy.domain.usecases.riderUseCases.*
 import dagger.Module
 import dagger.Provides
@@ -97,6 +101,21 @@ object RiderModule {
     ): GetPagingRequestUseCase{
         return GetPagingRequestUseCase(repository = riderRepository)
     }
+    @Provides
+    @Singleton
+    fun provideDeliveriesPagingUseCase(
+        riderRepository: RiderRepository
+    ): DeliveriesPagingUseCase{
+        return DeliveriesPagingUseCase(repository = riderRepository)
+    }
+    // pagination with database
+    @Provides
+    @Singleton
+    fun providePaginationUseCase(
+        repository: PagingInterface
+    ): PaginationUseCase{
+        return PaginationUseCase(repository)
+    }
     //provided Rider Repository
     @Provides
     @Singleton
@@ -104,5 +123,15 @@ object RiderModule {
         @Named(MAIN_API) api: DispatchBuddyAPI
     ): RiderRepository{
         return RiderRepositoryImpl(api = api)
+    }
+
+    //provided pagination Repository
+    @Provides
+    @Singleton
+    fun providePaginationRepository(
+        @Named(MAIN_API) api: DispatchBuddyAPI,
+        database: DispatchBuddyDB
+    ): PagingInterface{
+        return PagingSourceImpl(api = api, database)
     }
 }

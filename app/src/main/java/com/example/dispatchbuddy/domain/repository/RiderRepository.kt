@@ -22,4 +22,6 @@ interface RiderRepository {
     suspend fun acceptUserRequest(id: String, token: String): Flow<Resource<GenericResponse<UserRequestStatusResponse>>>
     suspend fun closeUserRequest(id: String, token: String): Flow<Resource<GenericResponse<UserRequestStatusResponse>>>
     suspend fun getPagingRequests(page: Int, token: String): Flow<PagingData<AllUserRequestResponseContent>>
+    suspend fun getDeliveries(page: Int, token: String): Flow<PagingData<AllUserRequestResponseContent>>
+
 }

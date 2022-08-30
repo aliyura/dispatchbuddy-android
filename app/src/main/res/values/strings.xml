@@ -149,10 +149,17 @@
     <string name="ride_not_accepted">You have not Accepted this Ride</string>
     <string name="ride_closed">This Ride has been closed</string>
     <string name="enter_your_old_password">Enter your old password</string>
-    <string name="password_not_matched">Password do not match</string>
+    <string name="password_not_matched">Password should not match</string>
     <string name="request_rider">Request Rider</string>
+    <string name="you_have_not_made_any_deliveries">You have not made any Deliveries</string>
+    <string name="rate_amp_review"><![CDATA[Rate & Review]]></string>
+    <string name="do_you_enjoy_the_experience">Do you enjoy the experience?</string>
+    <string name="give_us_a_quick_rating_so_we_know_if_you_like_it">Give us a quick rating so we know</string>
+    <string name="if_you_like_it">if you like it.</string>
+    <string name="thank_you_for_rating">Thank you for rating</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
 </resources>

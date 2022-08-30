@@ -4,10 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.dispatchbuddy.common.Constants
-import com.example.dispatchbuddy.common.PagingSource
+import com.example.dispatchbuddy.common.pagination.PaginationSource
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.network.GenericResponse
 import com.example.dispatchbuddy.common.network.apiCall
+import com.example.dispatchbuddy.common.pagination.DeliveriesPaginationSource
 import com.example.dispatchbuddy.data.remote.dto.CoveredLocationsResponse
 import com.example.dispatchbuddy.data.remote.dto.models.Locations
 import com.example.dispatchbuddy.data.remote.dto.models.UserProfile
@@ -92,7 +93,20 @@ class RiderRepositoryImpl@Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                PagingSource(api, token)
+                PaginationSource(api, token)
+            }
+        ).flow
+    override suspend fun getDeliveries(
+        page: Int,
+        token: String
+    ): Flow<PagingData<AllUserRequestResponseContent>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = Constants.PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                DeliveriesPaginationSource(api, token)
             }
         ).flow
 }

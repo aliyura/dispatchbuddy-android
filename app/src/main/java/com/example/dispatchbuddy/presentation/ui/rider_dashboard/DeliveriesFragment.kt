@@ -1,29 +1,26 @@
 package com.example.dispatchbuddy.presentation.ui.rider_dashboard
 
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatchbuddy.R
-import com.example.dispatchbuddy.common.Resource
-import com.example.dispatchbuddy.common.ViewExtensions.hideView
-import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
-import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.deliveriesList
+import com.example.dispatchbuddy.common.Constants
 import com.example.dispatchbuddy.common.preferences.Preferences
-import com.example.dispatchbuddy.data.remote.dto.DeliverySectionResponse
-import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.databinding.FragmentDeliveriesBinding
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.AllUserRequestAdapter
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.ClosedRequestAdapter
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.DeliveriesAdapter
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.*
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel.RiderViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,9 +29,7 @@ class DeliveriesFragment : Fragment() {
     private var _binding: FragmentDeliveriesBinding? = null
     private val binding get() = _binding!!
     private val riderViewModel: RiderViewModel by viewModels()
-    private var closedListData: ArrayList<AllUserRequestResponseContent> = ArrayList()
-    private var allUserRequest: ArrayList<AllUserRequestResponseContent> = ArrayList()
-    private lateinit var closedRequestAdapter: ClosedRequestAdapter
+    private lateinit var deliveriesPaginationAdapter: DeliveriesPaginationAdapter
     @Inject
     lateinit var preferences: Preferences
 
@@ -49,69 +44,108 @@ class DeliveriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getAllUserRequest()
-        observeGetAllRequestResponse()
+
+        rvInit()
+        paginationDeliveriesObserver()
+        pagingSetUpObservers()
+        pagingGetRequests()
+        btnClicks()
     }
 
-    private fun initRecyclerview(){
-        val deliveriesItemList: ArrayList<DeliverySectionResponse> = ArrayList()
-        deliveriesItemList.clear()
-        deliveriesItemList.addAll(deliveriesList)
-        binding.fragmentDeliveriesRv.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            val deliveriesAdapter = DeliveriesAdapter(deliveriesItemList)
-            adapter = deliveriesAdapter
+    private fun btnClicks(){
+        binding.fragmentDeliveriesBackArrowIv.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
-    private fun initializeRecyclerView(closedUserRequest: List<AllUserRequestResponseContent>){
-        val recyclerView = binding.fragmentDeliveriesItemRv
-        closedListData.clear()
-        closedListData.addAll(closedUserRequest)
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
-        closedRequestAdapter = ClosedRequestAdapter( closedListData){}
-        recyclerView.adapter = closedRequestAdapter
-        closedRequestAdapter.notifyDataSetChanged()
-    }
 
-    private fun observeGetAllRequestResponse(){
+    private fun pagingSetUpObservers() {
         lifecycleScope.launch {
-            riderViewModel.getAllUserRequestResponse.collect{response ->
-                when(response){
-                    is Resource.Loading ->{
-                        binding.riderListRequestProgressBar.showView()
+            riderViewModel.pagingRequestResponse.collect{ pagingResponse ->
+                if (pagingResponse == null) {
+                    binding.emptyRequestListState.isVisible = true
+                }else{
+                    deliveriesPaginationAdapter.submitData(pagingResponse)
+                    deliveriesPaginationAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+    private fun pagingGetRequests(){
+        riderViewModel.deliveryRequest(Constants.STARTING_PAGE,"Bearer ${preferences.getToken()}")
+    }
+    private fun rvInit(){
+        val recyclerView = binding.fragmentDeliveriesItemRv
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            deliveriesPaginationAdapter = DeliveriesPaginationAdapter{
+                showRatingDialog()
+            }
+            adapter = deliveriesPaginationAdapter
+            deliveriesPaginationAdapter.notifyDataSetChanged()
+        }
+    }
+    private fun paginationDeliveriesObserver(){
+        deliveriesPaginationAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading){
+                if (deliveriesPaginationAdapter.snapshot().isEmpty()){
+                    binding.riderListRequestProgressBar.isVisible = true
+                }
+                binding.emptyRequestListState.isVisible = false
+            }else {
+                binding.riderListRequestProgressBar.isVisible = false
+                val error = when  {
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                error?.let {
+                    if (deliveriesPaginationAdapter.snapshot().isEmpty()){
+                        binding.emptyRequestListState.isVisible = true
                     }
-                    is Resource.Success ->{
-                        binding.riderListRequestProgressBar.hideView()
-                        allUserRequest.clear()
-
-                        if (response.value.payload == null){
-                            binding.fragmentDeliveriesItemRv.hideView()
-                            binding.emptyRequestListState.showView()
-                        }else{
-                            for (item in response.value.payload.allUserRequestResponseContent){
-                                if (item.status == "CO"){
-                                    allUserRequest.add(item)
-                                }
-                            }
-                            Log.d("ClosedData", "Closed ---> $allUserRequest" )
-                            initializeRecyclerView(allUserRequest)
-                        }
-                    }
-                    is Resource.Error ->{
-                        binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.error)
-                    }
-                    else -> {}
                 }
             }
         }
     }
 
-    private fun getAllUserRequest(){
-        riderViewModel.getAllUserRequest(0,"Bearer ${preferences.getToken()}")
+    private fun showRatingDialog(){
+        val dialog = Dialog(requireContext())
+        val ratingsDialog = View.inflate(context, R.layout.ratings_dialog_layout, null)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
+        val height = (resources.displayMetrics.heightPixels * 0.35).toInt()
+        dialog.window?.setLayout(width, height)
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setContentView(ratingsDialog)
+        val closeDialogBtn: View = ratingsDialog.findViewById(R.id.close)
+        val ratingBar: RatingBar = ratingsDialog.findViewById(R.id.ratingBar)
+        closeDialogBtn.setOnClickListener { dialog.dismiss() }
+        ratingBar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { _, _, _ ->
+                lifecycleScope.launch {
+                    delay(1000L)
+                    showRatingSuccess()
+                    dialog.dismiss()
+                }
+            }
     }
-
+    private fun showRatingSuccess(){
+        val dialog = Dialog(requireContext())
+        val ratingsDialog = View.inflate(context, R.layout.ratings_success_dialog_layout, null)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
+        val height = (resources.displayMetrics.heightPixels * 0.35).toInt()
+        dialog.window?.setLayout(width, height)
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setContentView(ratingsDialog)
+        lifecycleScope.launch {
+            delay(2000L)
+            dialog.dismiss()
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

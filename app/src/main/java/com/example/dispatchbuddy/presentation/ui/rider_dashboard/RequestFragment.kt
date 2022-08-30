@@ -2,7 +2,6 @@ package com.example.dispatchbuddy.presentation.ui.rider_dashboard
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +10,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.filter
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.*
@@ -30,10 +27,8 @@ import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnab
 import com.example.dispatchbuddy.common.validation.validateField
 import com.example.dispatchbuddy.data.remote.dto.RiderResponse
 import com.example.dispatchbuddy.data.remote.dto.RiderSectionResponse
-import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
 import com.example.dispatchbuddy.databinding.FragmentRequestBinding
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.AllUserRequestAdapter
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.PaginationAdapter
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.RequestAdapter
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel.RiderViewModel
@@ -57,6 +52,7 @@ class RequestFragment : Fragment() {
     private lateinit var requestUserId: String
     private lateinit var requestUserStatus: String
     private val riderViewModel: RiderViewModel by viewModels()
+
     @Inject
     lateinit var preferences: Preferences
 
@@ -65,14 +61,13 @@ class RequestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentRequestBinding.inflate(inflater,container, false)
+        _binding = FragmentRequestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-            paginationRV()
-            pagingGetRequests()
+            paginationStateObserver()
             pagingSetUpObservers()
     }
 
@@ -81,10 +76,12 @@ class RequestFragment : Fragment() {
         observerRejectUserRequestResponse()
         observerAcceptUserRequestResponse()
         observerCloseUserRequestResponse()
-        paginationRV()
-        pagingGetRequests()
+        initRV()
+        paginationStateObserver()
         pagingSetUpObservers()
+        pagingGetRequests()
         initRefreshListener()
+        binding.fragmentRequestBackArrowIv.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun populateData(list: List<RiderResponse>){
@@ -137,7 +134,7 @@ class RequestFragment : Fragment() {
     private fun pagingGetRequests(){
         riderViewModel.pagingRequest(STARTING_PAGE,"Bearer ${preferences.getToken()}")
     }
-    private fun paginationRV(){
+    private fun initRV(){
         val recyclerView = binding.fragmentRequestChildRv
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -147,8 +144,9 @@ class RequestFragment : Fragment() {
                 incomingRequestDialog()
             }
             adapter = pagingAdapter
-            pagingAdapter.notifyDataSetChanged()
         }
+    }
+    private fun paginationStateObserver(){
         pagingAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading){
                 if (pagingAdapter.snapshot().isEmpty()){
@@ -241,7 +239,7 @@ class RequestFragment : Fragment() {
                         binding.riderListRequestProgressBar.showView()
                     }
                     is Resource.Success -> {
-                        //pagingGetRequests()
+                        pagingGetRequests()
                         binding.riderListRequestProgressBar.hideView()
                         showShortSnackBar(response.value.message)
                     }
@@ -283,7 +281,7 @@ class RequestFragment : Fragment() {
                         binding.riderListRequestProgressBar.showView()
                     }
                     is Resource.Success -> {
-                        //pagingGetRequests()
+                        pagingGetRequests()
                         binding.riderListRequestProgressBar.hideView()
                         showShortSnackBar(response.value.message)
                     }
@@ -310,9 +308,11 @@ class RequestFragment : Fragment() {
     private fun initRefreshListener() {
         val swipeRefreshLayout = binding.swipeRefreshLayoutId
         swipeRefreshLayout.setOnRefreshListener {
-            onResume()
+            pagingGetRequests()
+            paginationStateObserver()
+            pagingAdapter.notifyDataSetChanged()
             lifecycleScope.launch {
-                delay(100L)
+                delay(2000L)
                 if (swipeRefreshLayout.isRefreshing) {
                     swipeRefreshLayout.isRefreshing = false
                 }
@@ -320,7 +320,7 @@ class RequestFragment : Fragment() {
         }
     }
 
-    private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton){
+    private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton) {
         val fieldTypesToValidate = listOf(FieldValidationTracker.FieldType.FULLNAME)
         FieldValidationTracker.populateFieldTypeMap(fieldTypesToValidate)
         binding.apply {

@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16dp"
+            tools:itemCount="5"
             tools:listitem="@layout/deliveries_rv_item"
             />
     </LinearLayout>
@@ -100,12 +101,13 @@
             android:fontFamily="@font/inter_bold"
             android:gravity="center"
             android:padding="@dimen/padding_10dp"
-            android:text="@string/no_request"
+            android:text="@string/you_have_not_made_any_deliveries"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
