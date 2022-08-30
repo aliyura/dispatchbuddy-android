@@ -175,7 +175,9 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->
                 when(response){
-                    is Resource.Loading ->{}
+                    is Resource.Loading ->{
+                        binding.profileProgressBar.showView()
+                    }
                     is Resource.Success ->{
                         binding.profileProgressBar.hideView()
                         saveEmail(response.value.payload.email)
