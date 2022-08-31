@@ -27,12 +27,26 @@
         android:id="@+id/requestFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.RequestFragment"
         android:label="fragment_request"
-        tools:layout="@layout/fragment_request" />
+        tools:layout="@layout/fragment_request" >
+        <action
+            android:id="@+id/action_requestFragment_to_nav_locations"
+            app:destination="@id/nav_locations"
+            app:popUpTo="@id/nav_locations"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/deliveriesFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.rider_dashboard.DeliveriesFragment"
         android:label="fragment_deliveries"
-        tools:layout="@layout/fragment_deliveries" />
+        tools:layout="@layout/fragment_deliveries" >
+        <action
+            android:id="@+id/action_deliveriesFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.example.dispatchbuddy.presentation.ui.profile.view.ResetPasswordFragment"

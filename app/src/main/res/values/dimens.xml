@@ -94,4 +94,12 @@
     <dimen name="height_54dp">54dp</dimen>
     <dimen name="minHeight">320dp</dimen>
     <dimen name="margin_50dp">50dp</dimen>
+    <dimen name="margin_90dp">90dp</dimen>
+    <dimen name="width300dp">300dp</dimen>
+    <dimen name="margin_28dp">28dp</dimen>
+    <dimen name="height_1dp">1dp</dimen>
+    <dimen name="margin_18dp">18dp</dimen>
+    <dimen name="margin_70dp">70dp</dimen>
+    <dimen name="padding_40dp">40dp</dimen>
+    <dimen name="padding_60dp">60dp</dimen>
 </resources>

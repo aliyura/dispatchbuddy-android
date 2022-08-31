@@ -1,6 +1,5 @@
-package com.example.dispatchbuddy.common
+package com.example.dispatchbuddy.common.pagination
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
@@ -8,7 +7,7 @@ import com.example.dispatchbuddy.data.remote.network.DispatchBuddyAPI
 import javax.inject.Inject
 
 
-class PagingSource @Inject constructor(
+class PaginationSource @Inject constructor(
     private val api: DispatchBuddyAPI,
     private val token: String
     ): PagingSource<Int, AllUserRequestResponseContent>() {
@@ -25,8 +24,9 @@ class PagingSource @Inject constructor(
             val pageNumber = params.key ?: 0
             val response = api.pagingGetAllUserRequest(pageNumber, token)
             val data = response.payload.allUserRequestResponseContent
+            val filteredData = data.filter { !it.status.contains("CO") }
             LoadResult.Page(
-                data = data,
+                data = filteredData,
                 prevKey = null,
                 nextKey = if (data.isEmpty()) null else pageNumber + 1
             )

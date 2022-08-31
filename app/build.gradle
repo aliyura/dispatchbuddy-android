@@ -58,6 +58,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$versions.room_version"
     kapt "androidx.room:room-compiler:$versions.room_version"
     implementation "androidx.room:room-ktx:$versions.room_version"
+    implementation "androidx.room:room-paging:$versions.room_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit_version"

@@ -72,9 +72,9 @@ class ProfileFragment : Fragment() {
             fragmentChangePasswordProfileTv.setOnClickListener {
                 findNavController().navigate(R.id.resetPasswordFragment)
             }
-//            fragmentEditProfileDeliveriesLayout.setOnClickListener {
-//                findNavController().navigate(R.id.deliveriesFragment)
-//            }
+            fragmentEditProfileDeliveriesLayout.setOnClickListener {
+                findNavController().navigate(R.id.deliveriesFragment)
+            }
             fragmentLogoutLayout.setOnClickListener { logoutDialog.show() }
         }
     }
@@ -138,7 +138,7 @@ class ProfileFragment : Fragment() {
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream )
-        riderViewModel.uploadImage(MultipartBody.Part.createFormData("dp",file.name,file.asRequestBody()),"Bearer $dummyToken" )
+        riderViewModel.uploadImage(MultipartBody.Part.createFormData("dp",file.name,file.asRequestBody()),"Bearer ${preferences.getToken()}" )
     }
 
     private fun getUserDetails(){
@@ -175,7 +175,9 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             riderViewModel.getUser.collect{ response ->
                 when(response){
-                    is Resource.Loading ->{binding.profileProgressBar.showView()}
+                    is Resource.Loading ->{
+                        binding.profileProgressBar.showView()
+                    }
                     is Resource.Success ->{
                         binding.profileProgressBar.hideView()
                         saveEmail(response.value.payload.email)

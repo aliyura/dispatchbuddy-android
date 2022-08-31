@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.dispatchbuddy.BuildConfig
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants.PICKUP_REQUEST_CODE
 import com.example.dispatchbuddy.common.Constants.DELIVERY_REQUEST_CODE
