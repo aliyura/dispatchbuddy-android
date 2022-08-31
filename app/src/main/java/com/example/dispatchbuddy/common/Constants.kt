@@ -2,11 +2,15 @@ package com.example.dispatchbuddy.common
 
 object Constants {
     const val PERMISSION_ID = 5
+    const val PICKUP_REQUEST_CODE = 1
+    const val DELIVERY_REQUEST_CODE = 10
     const val REQUEST_CHECK_SETTINGS = 100
     const val GALLERY = 100
     const val GALLERY_PERMISSION_CODE = 101
     const val BASE_URL = "https://api.dispatchbuddy.net/api/"
     const val LOGIN_BASE_URL = "https://api.dispatchbuddy.net/"
+    const val MAPS_API_KEY= "AIzaSyBzkZ6SpWj-Hgsr_hL86TFKu_3FAHy25c0"
+    const val GOOGLE_PLACES_API_KEY= "AIzaSyAIYBhg3NsE2vOGv2SB8F2NAxBVmpaEuA8"
     const val LOGIN_API = "Login Api"
     const val MAIN_API = "Main APi"
     const val FROM_LOGOUT = "fromLogout"

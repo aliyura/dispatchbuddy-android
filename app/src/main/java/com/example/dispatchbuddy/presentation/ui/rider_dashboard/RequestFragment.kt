@@ -2,20 +2,18 @@ package com.example.dispatchbuddy.presentation.ui.rider_dashboard
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.*
 import com.example.dispatchbuddy.common.Constants.STARTING_PAGE
@@ -29,10 +27,8 @@ import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnab
 import com.example.dispatchbuddy.common.validation.validateField
 import com.example.dispatchbuddy.data.remote.dto.RiderResponse
 import com.example.dispatchbuddy.data.remote.dto.RiderSectionResponse
-import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
 import com.example.dispatchbuddy.databinding.FragmentRequestBinding
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.AllUserRequestAdapter
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.PaginationAdapter
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.adapter.RequestAdapter
 import com.example.dispatchbuddy.presentation.ui.rider_dashboard.viewmodel.RiderViewModel
@@ -41,7 +37,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,13 +48,11 @@ class RequestFragment : Fragment() {
     private lateinit var requestAdapter: RequestAdapter
     private val responseList: ArrayList<RiderResponse> = ArrayList()
     private val sectionResponse: ArrayList<RiderSectionResponse> = ArrayList()
-    private val allUserRequest: ArrayList<AllUserRequestResponseContent> = ArrayList()
-    private val closedListData: ArrayList<AllUserRequestResponseContent> = ArrayList()
-    private lateinit var allRequestAdapter: AllUserRequestAdapter
     private lateinit var pagingAdapter: PaginationAdapter
     private lateinit var requestUserId: String
     private lateinit var requestUserStatus: String
     private val riderViewModel: RiderViewModel by viewModels()
+
     @Inject
     lateinit var preferences: Preferences
 
@@ -68,26 +61,27 @@ class RequestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentRequestBinding.inflate(inflater,container, false)
+        _binding = FragmentRequestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        pagingGetRequests()
-        pagingSetUpObservers()
+            paginationStateObserver()
+            pagingSetUpObservers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observerRejectUserRequestResponse()
         observerAcceptUserRequestResponse()
         observerCloseUserRequestResponse()
-        paginationRV()
+        initRV()
+        paginationStateObserver()
         pagingSetUpObservers()
         pagingGetRequests()
         initRefreshListener()
+        btnClicks()
     }
 
     private fun populateData(list: List<RiderResponse>){
@@ -125,63 +119,19 @@ class RequestFragment : Fragment() {
         }
     }
 
-    private fun initializeRecyclerView(listOfAllUserRequest: List<AllUserRequestResponseContent>) {
-        val recyclerView = binding.fragmentRequestChildRv
-        allUserRequest.clear()
-        allUserRequest.addAll(listOfAllUserRequest)
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
-        allRequestAdapter = AllUserRequestAdapter(requireContext(), allUserRequest){
-            requestUserId = it.id
-            requestUserStatus = it.status
-            incomingRequestDialog()
+    private fun btnClicks(){
+        with(binding){
+            fragmentRequestBackArrowIv.setOnClickListener { findNavController().popBackStack() }
         }
-        recyclerView.adapter = allRequestAdapter
-        allRequestAdapter.notifyDataSetChanged()
-    }
-    private fun observeGetAllRequestResponse(){
-        lifecycleScope.launch {
-            riderViewModel.getAllUserRequestResponse.collect{response ->
-                when(response){
-                    is Resource.Loading ->{
-                        binding.riderListRequestProgressBar.showView()
-                    }
-                    is Resource.Success ->{
-                        binding.riderListRequestProgressBar.hideView()
-                        closedListData.clear()
-                        if (response.value.payload == null){
-                            binding.fragmentRequestChildRv.hideView()
-                            binding.emptyRequestListState.showView()
-                        }else{
-                            for (item in response.value.payload.allUserRequestResponseContent){
-                                if (item.status != "CO"){
-                                    closedListData.add(item)
-                                }
-                            }
-                            //initializeRecyclerView(closedListData)
-                            initializeRecyclerView(response.value.payload.allUserRequestResponseContent)
-                        }
-                    }
-                    is Resource.Error ->{
-                        binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.error)
-                    }
-                    else -> {}
-                }
-            }
-        }
-    }
-    private fun getAllUserRequest(){
-        riderViewModel.getAllUserRequest(0,"Bearer ${preferences.getToken()}")
     }
 
     private fun pagingSetUpObservers() {
         lifecycleScope.launch {
-            riderViewModel.pagingRequestResponse.collect{
-                if (it == null) {
+            riderViewModel.pagingRequestResponse.collect{ pagingResponse ->
+                if (pagingResponse == null) {
                     binding.emptyRequestListState.isVisible = true
                 }else{
-                    pagingAdapter.submitData(it)
+                    pagingAdapter.submitData(pagingResponse)
                     pagingAdapter.notifyDataSetChanged()
                 }
             }
@@ -190,7 +140,7 @@ class RequestFragment : Fragment() {
     private fun pagingGetRequests(){
         riderViewModel.pagingRequest(STARTING_PAGE,"Bearer ${preferences.getToken()}")
     }
-    private fun paginationRV(){
+    private fun initRV(){
         val recyclerView = binding.fragmentRequestChildRv
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -200,8 +150,9 @@ class RequestFragment : Fragment() {
                 incomingRequestDialog()
             }
             adapter = pagingAdapter
-            pagingAdapter.notifyDataSetChanged()
         }
+    }
+    private fun paginationStateObserver(){
         pagingAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading){
                 if (pagingAdapter.snapshot().isEmpty()){
@@ -361,19 +312,21 @@ class RequestFragment : Fragment() {
     }
 
     private fun initRefreshListener() {
-        val swipeRefreshLayout = binding.swipeRefreshLayout
+        val swipeRefreshLayout = binding.swipeRefreshLayoutId
         swipeRefreshLayout.setOnRefreshListener {
             pagingGetRequests()
-            val handler = Handler()
-            handler.postDelayed({
+            paginationStateObserver()
+            pagingAdapter.notifyDataSetChanged()
+            lifecycleScope.launch {
+                delay(2000L)
                 if (swipeRefreshLayout.isRefreshing) {
                     swipeRefreshLayout.isRefreshing = false
                 }
-            }, 3000)
+            }
         }
     }
 
-    private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton){
+    private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton) {
         val fieldTypesToValidate = listOf(FieldValidationTracker.FieldType.FULLNAME)
         FieldValidationTracker.populateFieldTypeMap(fieldTypesToValidate)
         binding.apply {

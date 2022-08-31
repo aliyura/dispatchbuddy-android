@@ -21,6 +21,7 @@ class RiderListAdapter(
         val binding: RidersListRvItemBinding,
         private val onItemClick: (RequestRiderContent) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(riderProfile: RequestRiderContent) {
             binding.apply {
                 riderNameTv.text = riderProfile.name

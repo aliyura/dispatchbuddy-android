@@ -11,9 +11,9 @@ import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUser
 import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.RejectUserRideModel
 import com.example.dispatchbuddy.data.remote.dto.models.userRequestStatusModel.UserRequestStatusResponse
+import com.example.dispatchbuddy.domain.usecases.paginationUseCase.PaginationUseCase
 import com.example.dispatchbuddy.domain.usecases.riderUseCases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -28,7 +28,9 @@ class RiderViewModel @Inject constructor(
     private val rejectUserRequestUseCase: RejectUserRequestUseCase,
     private val acceptUserUseCase: AcceptUserUseCase,
     private val closeUserRequestUseCase: CloseUserRequestUseCase,
-    private val getPagingRequestUseCase: GetPagingRequestUseCase
+    private val getPagingRequestUseCase: GetPagingRequestUseCase,
+    private val paginationUseCase: PaginationUseCase,
+    private val deliveriesPagingUseCase: DeliveriesPagingUseCase
 ): ViewModel() {
     private val _imageUploadResponse = MutableStateFlow<Resource<GenericResponse<UserProfile>>?>(null)
     val imageUploadResponse: StateFlow<Resource<GenericResponse<UserProfile>>?> get() = _imageUploadResponse
@@ -50,6 +52,9 @@ class RiderViewModel @Inject constructor(
 
     private val _pagingRequestResponse = MutableStateFlow<PagingData<AllUserRequestResponseContent>?>(null)
     val pagingRequestResponse: StateFlow<PagingData<AllUserRequestResponseContent>?> get() = _pagingRequestResponse
+
+    private val _pagingResponse = MutableStateFlow<PagingData<AllUserRequestResponseContent>?>(null)
+    val pagingResponse: StateFlow<PagingData<AllUserRequestResponseContent>?> get() = _pagingResponse
 
     fun uploadImage(dp: MultipartBody.Part, token: String){
         viewModelScope.launch {
@@ -101,8 +106,25 @@ class RiderViewModel @Inject constructor(
 
     fun pagingRequest(page: Int, token: String){
         viewModelScope.launch {
-            getPagingRequestUseCase(page = page, token = token).collect{
+            getPagingRequestUseCase(page = page, token = token).cachedIn(viewModelScope).collect{
                 _pagingRequestResponse.value = it
+            }
+        }
+    }
+
+    fun deliveryRequest(page: Int, token: String){
+        viewModelScope.launch {
+            deliveriesPagingUseCase(page = page, token = token).cachedIn(viewModelScope).collect{
+                _pagingRequestResponse.value = it
+            }
+        }
+    }
+
+
+    fun paginationRequestDB(page: Int, token: String){
+        viewModelScope.launch {
+            paginationUseCase(page = page, token =token).cachedIn(viewModelScope).collect{
+                _pagingResponse.value = it
             }
         }
     }
