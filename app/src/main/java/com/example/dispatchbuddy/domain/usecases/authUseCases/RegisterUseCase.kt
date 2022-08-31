@@ -10,6 +10,6 @@ import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(val repository: AuthRepository) {
 
-    suspend operator fun invoke (registration: Registration) : Flow<Resource<GenericResponse<UserProfile>>> =
+    suspend operator fun invoke (registration: Registration) : Flow<Resource<GenericResponse<String>>> =
         repository.registerUser(registration)
 }

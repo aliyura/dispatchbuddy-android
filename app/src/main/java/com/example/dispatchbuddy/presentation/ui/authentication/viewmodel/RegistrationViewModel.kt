@@ -16,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(private val registrationUseCase: RegisterUseCase): ViewModel() {
 
-    private val mutableStateFlow = MutableStateFlow<Resource<GenericResponse<UserProfile>>?>(null)
-    val stateFlow: StateFlow<Resource<GenericResponse<UserProfile>>?> get() = mutableStateFlow
+    private val mutableStateFlow = MutableStateFlow<Resource<GenericResponse<String>>?>(null)
+    val stateFlow: StateFlow<Resource<GenericResponse<String>>?> get() = mutableStateFlow
 
     fun registerUser(registration: Registration){
         viewModelScope.launch {

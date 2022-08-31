@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun registerUser(registration: Registration) : Flow<Resource<GenericResponse<UserProfile>>>
+    suspend fun registerUser(registration: Registration) : Flow<Resource<GenericResponse<String>>>
     suspend fun verifyUser(verifyUser: VerifyUser) : Flow<Resource<GenericResponse<UserProfile>>>
     suspend fun validateUser(email: String) : Flow<Resource<GenericResponse<String>>>
     suspend fun loginUser(username: String, password:String, grant_type: String): Flow<Resource<LoginResponse>>

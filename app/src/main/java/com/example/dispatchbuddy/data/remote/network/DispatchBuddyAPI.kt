@@ -21,7 +21,7 @@ import retrofit2.http.*
 interface DispatchBuddyAPI {
 
     @POST("user/signup")
-    suspend fun registerUser(@Body registration: Registration): GenericResponse<UserProfile>
+    suspend fun registerUser(@Body registration: Registration): GenericResponse<String>
 
     @POST("user/verify")
     suspend fun verifyUser(@Body verifyUser: VerifyUser): GenericResponse<UserProfile>
