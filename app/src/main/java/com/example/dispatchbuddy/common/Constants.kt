@@ -15,6 +15,8 @@ object Constants {
     const val MAIN_API = "Main APi"
     const val FROM_LOGOUT = "fromLogout"
     const val dummyId = "62da61914a0ad40de7754454"
+    const val CHANNEL_ID = "channel id"
+    const val NOTIFICATION_ID = 1
     const val STARTING_PAGE = 0
     const val PAGE_SIZE = 20
     const val MAX_SIZE = 100

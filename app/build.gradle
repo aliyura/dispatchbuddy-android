@@ -131,6 +131,9 @@ dependencies {
 
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
+    //work manager
+    implementation "androidx.work:work-runtime-ktx:$versions.work_version"
+
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation "com.google.firebase:firebase-storage-ktx:$versions.firebase_storage_version"

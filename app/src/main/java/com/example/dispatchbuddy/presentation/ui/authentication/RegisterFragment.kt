@@ -114,7 +114,7 @@ class RegisterFragment : Fragment() {
                         binding.loader.hideView()
                         showShortSnackBar(it.value.message)
                         if (it.value.success){
-                            val responseEmail = it.value.payload.email
+                            val responseEmail = binding.fragmentRegisterEmailEdt.text.toString()
                             val action =
                                 RegisterFragmentDirections.actionRegisterFragmentToSmsVerificationFragment(
                                     responseEmail

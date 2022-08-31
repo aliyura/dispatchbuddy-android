@@ -17,7 +17,7 @@ class AuthRepositoryImpl(
     private val loginApi: DispatchBuddyAPI
 ) : AuthRepository {
 
-    override suspend fun registerUser(registration: Registration): Flow<Resource<GenericResponse<UserProfile>>> =
+    override suspend fun registerUser(registration: Registration): Flow<Resource<GenericResponse<String>>> =
         flow {
             emit(Resource.Loading("Loading"))
             emit(
