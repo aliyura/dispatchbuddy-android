@@ -87,7 +87,7 @@ class EmailForChangePasswordFragment : Fragment() {
                         val responseEmail = binding.fragmentEnterEmailForPasswordChangeEt.text.toString()
                         val action =
                             EmailForChangePasswordFragmentDirections.actionEmailForChangePasswordFragmentToSmsVerificationFragment(
-                                responseEmail
+                                responseEmail, "forgotPassword"
                             )
                         findNavController().navigate(action)
                     }

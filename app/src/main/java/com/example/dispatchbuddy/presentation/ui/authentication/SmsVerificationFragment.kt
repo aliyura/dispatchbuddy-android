@@ -161,7 +161,10 @@ class SmsVerificationFragment : Fragment() {
                         binding.loader.hideView()
                         if (it.value.success) {
                             showShortSnackBar(it.value.message)
+                            if (args.fragment == "registration")
                             findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
+                        else findNavController().navigate(R.id.action_smsVerificationFragment_to_changePasswordFragment)
+
                         }
                     }
                     is Resource.Error -> {

@@ -117,7 +117,7 @@ class RegisterFragment : Fragment() {
                             val responseEmail = binding.fragmentRegisterEmailEdt.text.toString()
                             val action =
                                 RegisterFragmentDirections.actionRegisterFragmentToSmsVerificationFragment(
-                                    responseEmail
+                                    responseEmail, "registration"
                                 )
                             findNavController().navigate(action)
                         }

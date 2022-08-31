@@ -51,6 +51,9 @@
         <argument
             android:name="email"
             app:argType="string" />
+        <argument
+            android:name="fragment"
+            app:argType="string" />
         <action
             android:id="@+id/action_smsVerificationFragment_to_loginFragment"
             app:destination="@id/loginFragment"
