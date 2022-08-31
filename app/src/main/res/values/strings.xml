@@ -65,7 +65,7 @@
     <string name="home_fragment">Home Fragment</string>
     <string name="locations_fragment">Locations Fragment</string>
     <string name="verify_code">Verify code</string>
-    <string name="a_code_has_been_sent_to_via_sms">A code has been sent to \n+33 234 556 7888 via SMS</string>
+    <string name="a_code_has_been_sent_to_via_email">A code has been sent to \n %s via email</string>
     <string name="resend_code">Resend code</string>
     <string name="enter_date_of_birth">Enter date of Birth</string>
     <string name="date_of_birth">Date of Birth</string>

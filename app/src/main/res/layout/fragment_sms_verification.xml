@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter"
         android:gravity="center"
-        android:text="@string/a_code_has_been_sent_to_via_sms"
+        android:text="@string/a_code_has_been_sent_to_via_email"
         android:textColor="@color/grey"
         android:lineSpacingExtra="2sp"
         android:textSize="@dimen/text_size_14sp"
