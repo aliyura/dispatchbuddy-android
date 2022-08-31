@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 class EmailForChangePasswordFragment : Fragment() {
     private var _binding: FragmentEmailForChangePasswordBinding? = null
     private val binding get() = _binding!!
-    private val verificationViewModel : VerificationViewModel by viewModels()
+    private val verificationViewModel: VerificationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,16 +75,21 @@ class EmailForChangePasswordFragment : Fragment() {
 
     private fun observeValidationResponse() {
         lifecycleScope.launch {
-            verificationViewModel.validationResponse.collect{
-                when(it) {
+            verificationViewModel.validationResponse.collect {
+                when (it) {
                     is Resource.Loading -> {
                         binding.loader.showView()
                     }
                     is Resource.Success -> {
-                        binding.loader.hideView()
-                        showShortSnackBar(it.value.message)
                         if (it.value.success)
-                        findNavController().navigate(R.id.action_emailForChangePasswordFragment_to_smsVerificationFragment)
+                            binding.loader.hideView()
+                        showShortSnackBar(it.value.message)
+                        val responseEmail = binding.fragmentEnterEmailForPasswordChangeEt.text.toString()
+                        val action =
+                            EmailForChangePasswordFragmentDirections.actionEmailForChangePasswordFragmentToSmsVerificationFragment(
+                                responseEmail, "forgotPassword"
+                            )
+                        findNavController().navigate(action)
                     }
                     is Resource.Error -> {
                         binding.loader.hideView()

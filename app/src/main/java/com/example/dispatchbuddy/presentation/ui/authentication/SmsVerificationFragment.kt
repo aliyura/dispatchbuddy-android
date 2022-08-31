@@ -2,6 +2,7 @@ package com.example.dispatchbuddy.presentation.ui.authentication
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
+import com.example.dispatchbuddy.common.ViewExtensions.hideKeyBoard
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
@@ -28,7 +30,6 @@ import com.example.dispatchbuddy.databinding.FragmentSmsVerificationBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -37,7 +38,7 @@ class SmsVerificationFragment : Fragment() {
     private val binding get() = _binding!!
     val args: SmsVerificationFragmentArgs by navArgs()
     val TAG = "SmsVerificationFragment"
-    private val verificationViewModel : VerificationViewModel by viewModels()
+    private val verificationViewModel: VerificationViewModel by viewModels()
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +81,7 @@ class SmsVerificationFragment : Fragment() {
                 val action = SmsVerificationFragmentDirections.actionSmsVerificationFragmentToRegisterFragment()
                 findNavController().navigate(action)
             }
+            verificationMessage.text = getString(R.string.a_code_has_been_sent_to_via_email, args.email)
 
             configOtpEditText(firstEt, secondEt, thirdEt, fourthEt, fifthEt, sixthEt)
         }
@@ -100,14 +102,19 @@ class SmsVerificationFragment : Fragment() {
                 etList[etList.size - 1].id -> {
                     if (text.isEmpty()) etList[index - 1].requestFocus()
                     else {
-                        Timber.d("configOtpEditText: $etList")
+                        val otp =
+                            etList[0].text.toString() + etList[1].text.toString() + etList[2].text.toString() +
+                                    etList[3].text.toString() + etList[4].text.toString() + etList[5].text.toString()
+                        Log.d("CHECKING", otp)
+                        hideKeyBoard(requireContext(), binding.root)
                         verificationViewModel.verifyUser(
                             VerifyUser(
                                 username = args.email,
-                                otp = etList.toString()
+                                otp = otp
                             )
                         )
-                    }}
+                    }
+                }
 
                 // middle text changes
                 else -> {
@@ -124,8 +131,8 @@ class SmsVerificationFragment : Fragment() {
 
     private fun observeValidationResponse() {
         lifecycleScope.launch {
-            verificationViewModel.validationResponse.collect{
-                when(it) {
+            verificationViewModel.validationResponse.collect {
+                when (it) {
                     is Resource.Loading -> {
                         binding.loader.showView()
                     }
@@ -145,24 +152,19 @@ class SmsVerificationFragment : Fragment() {
 
     private fun observeVerificationResponse() {
         lifecycleScope.launch {
-            verificationViewModel.verificationStateFlow.collect{
-                when(it) {
+            verificationViewModel.verificationStateFlow.collect {
+                when (it) {
                     is Resource.Loading -> {
                         binding.loader.showView()
                     }
                     is Resource.Success -> {
                         binding.loader.hideView()
-                        showShortSnackBar(it.value.message)
-                        findNavController().addOnDestinationChangedListener { _, destination, _ ->
-                            when (destination.id) {
-                                R.id.loginFragment ->{
-                                    findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
-                                }
-                                R.id.changePasswordFragment ->{
-                                    findNavController().navigate(R.id.action_smsVerificationFragment_to_changePasswordFragment)
-                                }
-                                else ->{return@addOnDestinationChangedListener}
-                            }
+                        if (it.value.success) {
+                            showShortSnackBar(it.value.message)
+                            if (args.fragment == "registration")
+                            findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
+                        else findNavController().navigate(R.id.action_smsVerificationFragment_to_changePasswordFragment)
+
                         }
                     }
                     is Resource.Error -> {
