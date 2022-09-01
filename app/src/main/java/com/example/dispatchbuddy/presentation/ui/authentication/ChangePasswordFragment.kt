@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,8 +15,6 @@ import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.handleBackPress
-import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.common.validation.*
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.data.remote.dto.models.ChangePassword
@@ -38,16 +38,25 @@ class ChangePasswordFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_changePasswordFragment_to_smsVerificationFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         validateFields()
         observeChangePasswordResponse()
-        handleBackPress()
         binding.fragmentChangePasswordBtn.setOnClickListener {
             changeUserPassword()
         }
         binding.fragmentLoginBackArrowIv.setOnClickListener {
-            popBackStack()
+            findNavController().navigate(R.id.action_changePasswordFragment_to_smsVerificationFragment)
         }
     }
 

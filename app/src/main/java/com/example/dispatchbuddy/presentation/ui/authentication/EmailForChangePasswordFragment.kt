@@ -14,6 +14,7 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideKeyBoard
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
 import com.example.dispatchbuddy.common.validation.FieldValidations
 import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnableButton
@@ -23,12 +24,16 @@ import com.example.dispatchbuddy.databinding.FragmentLoginBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EmailForChangePasswordFragment : Fragment() {
     private var _binding: FragmentEmailForChangePasswordBinding? = null
     private val binding get() = _binding!!
     private val verificationViewModel: VerificationViewModel by viewModels()
+    @Inject
+    lateinit var preferences: Preferences
+    private lateinit var email: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +53,7 @@ class EmailForChangePasswordFragment : Fragment() {
             fragmentNextBtn.setOnClickListener {
                 hideKeyBoard(requireContext(), it)
                 val userEmail = fragmentEnterEmailForPasswordChangeEt.text.toString()
+                email = userEmail
                 verificationViewModel.validateUser(userEmail)
             }
         }
@@ -81,6 +87,7 @@ class EmailForChangePasswordFragment : Fragment() {
                         binding.loader.showView()
                     }
                     is Resource.Success -> {
+                        saveEmail(email)
                         if (it.value.success)
                             binding.loader.hideView()
                         showShortSnackBar(it.value.message)
@@ -99,5 +106,10 @@ class EmailForChangePasswordFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun saveEmail(email: String) = preferences.saveEmail(email)
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

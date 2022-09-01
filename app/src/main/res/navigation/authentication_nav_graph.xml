@@ -66,6 +66,11 @@
         <action
             android:id="@+id/action_smsVerificationFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            app:popUpTo="@id/emailForChangePasswordFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_smsVerificationFragment_to_emailForChangePasswordFragment"
+            app:destination="@id/emailForChangePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -87,6 +92,11 @@
         <action
             android:id="@+id/action_changePasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            app:popUpTo="@id/smsVerificationFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_changePasswordFragment_to_smsVerificationFragment"
+            app:destination="@id/smsVerificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/emailForChangePasswordFragment"

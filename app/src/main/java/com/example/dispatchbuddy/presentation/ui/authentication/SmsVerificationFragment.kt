@@ -25,11 +25,13 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideKeyBoard
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.data.remote.dto.models.VerifyUser
 import com.example.dispatchbuddy.databinding.FragmentSmsVerificationBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -37,14 +39,15 @@ class SmsVerificationFragment : Fragment() {
     private var _binding: FragmentSmsVerificationBinding? = null
     private val binding get() = _binding!!
     val args: SmsVerificationFragmentArgs by navArgs()
-    val TAG = "SmsVerificationFragment"
     private val verificationViewModel: VerificationViewModel by viewModels()
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
             override fun handleOnBackPressed() {
-                findNavController().popBackStack()
+                findNavController().navigate(R.id.action_smsVerificationFragment_to_emailForChangePasswordFragment)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -75,13 +78,12 @@ class SmsVerificationFragment : Fragment() {
             }
             resendCodeTv.text = resendCode
             resendCodeTv.setOnClickListener {
-                verificationViewModel.validateUser(args.email)
+                verificationViewModel.validateUser(preferences.getEmail())
             }
             fragmentRegisterBackArrowIv.setOnClickListener {
-                val action = SmsVerificationFragmentDirections.actionSmsVerificationFragmentToRegisterFragment()
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
             }
-            verificationMessage.text = getString(R.string.a_code_has_been_sent_to_via_email, args.email)
+            verificationMessage.text = getString(R.string.a_code_has_been_sent_to_via_email, preferences.getEmail())
 
             configOtpEditText(firstEt, secondEt, thirdEt, fourthEt, fifthEt, sixthEt)
         }
@@ -109,7 +111,7 @@ class SmsVerificationFragment : Fragment() {
                         hideKeyBoard(requireContext(), binding.root)
                         verificationViewModel.verifyUser(
                             VerifyUser(
-                                username = args.email,
+                                username = preferences.getEmail(),
                                 otp = otp
                             )
                         )
@@ -164,7 +166,6 @@ class SmsVerificationFragment : Fragment() {
                             if (args.fragment == "registration")
                             findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
                         else findNavController().navigate(R.id.action_smsVerificationFragment_to_changePasswordFragment)
-
                         }
                     }
                     is Resource.Error -> {
@@ -175,5 +176,10 @@ class SmsVerificationFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
