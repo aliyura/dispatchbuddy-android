@@ -78,6 +78,8 @@ fun Fragment.handleBackPress(){
         }
     })
 }
+
+
 fun Fragment.userLogOut(preferences: Preferences){
     preferences.deleteTokenInfo()
     preferences.deleteUserId()
