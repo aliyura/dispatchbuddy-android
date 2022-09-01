@@ -47,7 +47,7 @@ class SmsVerificationFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_smsVerificationFragment_to_emailForChangePasswordFragment)
+                handleBackNavigation()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -81,11 +81,18 @@ class SmsVerificationFragment : Fragment() {
                 verificationViewModel.validateUser(preferences.getEmail())
             }
             fragmentRegisterBackArrowIv.setOnClickListener {
-                findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
+                handleBackNavigation()
             }
             verificationMessage.text = getString(R.string.a_code_has_been_sent_to_via_email, preferences.getEmail())
 
             configOtpEditText(firstEt, secondEt, thirdEt, fourthEt, fifthEt, sixthEt)
+        }
+    }
+    private fun handleBackNavigation(){
+        if (args.fragment == "registration"){
+            findNavController().navigate(R.id.action_smsVerificationFragment_to_loginFragment)
+        }else{
+            findNavController().navigate(R.id.action_smsVerificationFragment_to_emailForChangePasswordFragment)
         }
     }
 
