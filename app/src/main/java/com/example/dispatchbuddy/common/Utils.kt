@@ -2,15 +2,20 @@ package com.example.dispatchbuddy.common
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
 import android.provider.OpenableColumns
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.databinding.LogoutDialogLayoutBinding
+import com.example.dispatchbuddy.databinding.SuccessDialogLayoutBinding
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
@@ -46,6 +51,28 @@ fun showLogOutDialog(context: Context, binding: LogoutDialogLayoutBinding, resou
         dialog.dismiss()
     }
     binding.logoutDialogNoTextView.setOnClickListener {
+        dialog.dismiss()
+    }
+    return dialog
+}
+
+fun showSuccessDialog(
+    context: Context,
+    resources: Resources,
+    updateUI:() -> Unit
+): Dialog{
+    val dialog = Dialog(context)
+    val dialogSuccessView = View.inflate(context, R.layout.success_dialog_layout, null)
+    dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
+    val height = (resources.displayMetrics.heightPixels * 0.35).toInt()
+    dialog.window?.setLayout(width, height)
+    dialog.setCancelable(false)
+    dialog.setCanceledOnTouchOutside(false)
+    dialog.setContentView(dialogSuccessView)
+    val closeButton: View = dialogSuccessView.findViewById(R.id.close_icon_btn)
+    closeButton.setOnClickListener {
+        updateUI.invoke()
         dialog.dismiss()
     }
     return dialog
