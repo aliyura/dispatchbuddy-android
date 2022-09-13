@@ -8,12 +8,13 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_83dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8dp"
         android:layout_marginEnd="@dimen/margin_8dp"
         android:layout_marginBottom="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_16dp"
         app:cardElevation="@dimen/margin_8dp"
+        android:paddingVertical="@dimen/padding_10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:clickable="true"
@@ -27,13 +28,24 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/rider_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/text_size_14sp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/rider_name_tv"
+                tools:text="sat sep 10 2022" />
+            <TextView
                 android:id="@+id/rider_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semibold"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/text_size_14sp"
-                app:layout_constraintBottom_toTopOf="@+id/rider_location_tv"
+                app:layout_constraintTop_toBottomOf="@id/rider_date_tv"
                 app:layout_constraintStart_toStartOf="@+id/rider_location_tv"
                 tools:text="Uche Okoro" />
 
@@ -44,7 +56,7 @@
                 android:fontFamily="@font/inter"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/text_size_14sp"
-                app:layout_constraintBottom_toTopOf="@+id/item_weight_tv"
+                app:layout_constraintTop_toBottomOf="@id/rider_name_tv"
                 app:layout_constraintStart_toStartOf="@+id/item_weight_tv"
                 tools:text="Ikeja, Lagos" />
 
@@ -52,11 +64,12 @@
                 android:id="@+id/item_weight_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_12dp"
                 android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
                 android:fontFamily="@font/inter"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/text_size_14sp"
+                app:layout_constraintTop_toBottomOf="@+id/rider_location_tv"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="3kg" />
@@ -69,20 +82,22 @@
                 android:fontFamily="@font/inter"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/text_size_14sp"
-                app:layout_constraintBottom_toTopOf="@+id/rate_delivery_btn"
+                app:layout_constraintBottom_toTopOf="@+id/rider_name_tv"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/rider_date_tv"
                 tools:text="N3,500" />
 
             <LinearLayout
                 android:id="@+id/rate_delivery_btn"
                 android:layout_width="@dimen/width_71dp"
                 android:layout_height="@dimen/height_42dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
                 android:layout_marginEnd="@dimen/margin_12dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
                 android:background="@drawable/outlined_card_button_background"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charged_amount_tv">
 
                 <ImageView
                     android:layout_width="@dimen/width_16dp"
