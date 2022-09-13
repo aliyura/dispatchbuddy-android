@@ -159,6 +159,7 @@
     <string name="give_us_a_quick_rating_so_we_know_if_you_like_it">Give us a quick rating so we know</string>
     <string name="if_you_like_it">if you like it.</string>
     <string name="thank_you_for_rating">Thank you for rating</string>
+    <string name="request_successful">Request Successful</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

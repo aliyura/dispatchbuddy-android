@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatchbuddy.data.remote.dto.models.allRequestModels.AllUserRequestResponseContent
 import com.example.dispatchbuddy.databinding.DeliveriesRvItemBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DeliveriesPaginationAdapter(
     private val onItemClick: (AllUserRequestResponseContent) -> Unit
@@ -26,6 +28,10 @@ class DeliveriesPaginationAdapter(
                         onItemClick.invoke(riderResponse)
                     }
                 }
+                val dateString = riderResponse?.createdDate
+                val myDate: Date = SimpleDateFormat("yyyy-M-d", Locale.ENGLISH).parse(dateString!!)!!
+                val newDate = myDate.toString().substring(0,10) +" "+ myDate.toString().substring(29,34)
+                binding.riderDateTv.text = newDate
             }
         }
     }

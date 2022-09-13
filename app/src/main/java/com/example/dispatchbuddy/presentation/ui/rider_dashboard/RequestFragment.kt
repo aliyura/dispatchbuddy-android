@@ -52,7 +52,7 @@ class RequestFragment : Fragment() {
     private lateinit var requestUserId: String
     private lateinit var requestUserStatus: String
     private val riderViewModel: RiderViewModel by viewModels()
-
+    private lateinit var successDialog: Dialog
     @Inject
     lateinit var preferences: Preferences
 
@@ -82,6 +82,7 @@ class RequestFragment : Fragment() {
         pagingGetRequests()
         initRefreshListener()
         btnClicks()
+        updateUIonRiderAction()
     }
 
     private fun populateData(list: List<RiderResponse>){
@@ -246,8 +247,9 @@ class RequestFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         pagingGetRequests()
+                        updateUI()
+                        successDialog.show()
                         binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.value.message)
                     }
                     is Resource.Error ->{
                         binding.riderListRequestProgressBar.hideView()
@@ -266,9 +268,13 @@ class RequestFragment : Fragment() {
                         binding.riderListRequestProgressBar.showView()
                     }
                     is Resource.Success -> {
-                        pagingGetRequests()
                         binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.value.message)
+                        if(response.value.message != "You already have an active ride"){
+                            pagingGetRequests()
+                            successDialog.show()
+                        }else{
+                            showShortSnackBar(response.value.message)
+                        }
                     }
                     is Resource.Error ->{
                         binding.riderListRequestProgressBar.hideView()
@@ -287,9 +293,9 @@ class RequestFragment : Fragment() {
                         binding.riderListRequestProgressBar.showView()
                     }
                     is Resource.Success -> {
-                        pagingGetRequests()
+                        updateUI()
+                        successDialog.show()
                         binding.riderListRequestProgressBar.hideView()
-                        showShortSnackBar(response.value.message)
                     }
                     is Resource.Error ->{
                         binding.riderListRequestProgressBar.hideView()
@@ -324,6 +330,14 @@ class RequestFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun updateUI(){
+        pagingGetRequests()
+        paginationStateObserver()
+        pagingAdapter.notifyDataSetChanged()
+    }
+    private fun updateUIonRiderAction(){
+        successDialog = showSuccessDialog(requireContext(), resources){ updateUI()}
     }
 
     private fun validateFields(rejectReasonLayout: TextInputLayout, saveReason: MaterialButton) {

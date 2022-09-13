@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal|center_vertical"
-    android:elevation="5dp"
+    android:elevation="10dp"
     android:paddingHorizontal="20dp"
     android:paddingVertical="20dp"
+    app:cardCornerRadius="@dimen/margin_10dp"
     android:background="@drawable/success_dialog_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -20,31 +21,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <View
+            android:id="@+id/close_icon_btn"
+            android:layout_width="@dimen/width_20dp"
+            android:layout_height="@dimen/height_20dp"
+            android:background="@drawable/close_icon"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
             android:id="@+id/like"
             android:layout_width="50dp"
             android:layout_height="@dimen/height_50dp"
             android:layout_marginTop="@dimen/margin_70dp"
-            android:background="@drawable/ic_like"
+            android:background="@drawable/ic_success_56"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/thank_you_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_32dp"
-            android:layout_marginBottom="@dimen/margin_70dp"
-            android:fontFamily="@font/inter_bold"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_60dp"
-            android:text="@string/thank_you_for_rating"
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/text_size_14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/like" />
 
         <TextView
             android:id="@+id/thank_you_tv2"
@@ -53,9 +47,9 @@
             android:layout_marginTop="@dimen/margin_32dp"
             android:layout_marginBottom="@dimen/margin_70dp"
             android:fontFamily="@font/inter_bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:paddingHorizontal="@dimen/padding_60dp"
-            android:text="@string/thank_you_for_rating"
+            android:text="@string/request_successful"
             android:textColor="@color/textColor"
             android:textSize="@dimen/text_size_14sp"
             android:textStyle="bold"
@@ -64,4 +58,4 @@
             app:layout_constraintTop_toBottomOf="@+id/like" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
