@@ -152,7 +152,7 @@
                         style="@style/EditTextInput"
                         android:id="@+id/fragment_register_phoneNumber_edt"
                         android:layout_width="match_parent"
-                        android:inputType="number"
+                        android:inputType="phone"
                         android:layout_height="@dimen/height_48dp"
                         android:hint="@string/enter_your_phone_number"
                         />
