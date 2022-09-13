@@ -16,6 +16,7 @@ import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
 import com.example.dispatchbuddy.common.popBackStack
+import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.FieldType
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.populateFieldTypeMap
 import com.example.dispatchbuddy.common.validation.FieldValidations.verifyDateOfBirth
@@ -34,6 +35,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -42,6 +44,9 @@ class RegisterFragment : Fragment() {
     private val TAG = "RegisterFragment"
     var email: String = ""
     private val registrationViewModel: RegistrationViewModel by viewModels()
+
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,6 +120,7 @@ class RegisterFragment : Fragment() {
                         showShortSnackBar(it.value.message)
                         if (it.value.success){
                             val responseEmail = binding.fragmentRegisterEmailEdt.text.toString()
+                            preferences.saveEmail(responseEmail)
                             val action =
                                 RegisterFragmentDirections.actionRegisterFragmentToSmsVerificationFragment(
                                     responseEmail, "registration"
