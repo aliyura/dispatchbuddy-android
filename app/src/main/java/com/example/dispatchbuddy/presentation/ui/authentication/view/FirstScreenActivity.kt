@@ -1,12 +1,11 @@
-package com.example.dispatchbuddy.presentation.ui.authentication
+package com.example.dispatchbuddy.presentation.ui.authentication.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.dispatchbuddy.common.preferences.Preferences
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.RiderActivity
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.view.RiderActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject

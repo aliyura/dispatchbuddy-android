@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.user_dashboard.HomeFragment">
+        tools:context=".presentation.ui.user_dashboard.view.HomeFragment">
 
         <TextView
             android:id="@+id/trusted_delivery_partner_tv"

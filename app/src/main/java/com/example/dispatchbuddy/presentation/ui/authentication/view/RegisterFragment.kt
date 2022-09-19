@@ -1,21 +1,18 @@
-package com.example.dispatchbuddy.presentation.ui.authentication
+package com.example.dispatchbuddy.presentation.ui.authentication.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView
-import com.example.dispatchbuddy.common.popBackStack
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.FieldType
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker.populateFieldTypeMap
@@ -31,7 +28,6 @@ import com.example.dispatchbuddy.databinding.FragmentRegisterBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.RegistrationViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*

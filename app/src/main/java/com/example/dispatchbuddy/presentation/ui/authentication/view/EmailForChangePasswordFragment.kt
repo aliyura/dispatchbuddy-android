@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.authentication
+package com.example.dispatchbuddy.presentation.ui.authentication.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,7 +20,6 @@ import com.example.dispatchbuddy.common.validation.FieldValidations
 import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnableButton
 import com.example.dispatchbuddy.common.validation.validateField
 import com.example.dispatchbuddy.databinding.FragmentEmailForChangePasswordBinding
-import com.example.dispatchbuddy.databinding.FragmentLoginBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.VerificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

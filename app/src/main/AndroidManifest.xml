@@ -9,7 +9,7 @@
 
 
     <application
-        android:name=".BaseApplication"
+        android:name=".presentation.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,20 +21,20 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".presentation.ui.rider_dashboard.RiderActivity"
+            android:name=".presentation.ui.rider_dashboard.view.RiderActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.user_dashboard.UserActivity"
+            android:name=".presentation.ui.user_dashboard.view.UserActivity"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".presentation.ui.authentication.AuthenticationActivity"
+            android:name=".presentation.ui.authentication.view.AuthenticationActivity"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".presentation.ui.authentication.FirstScreenActivity"
+            android:name=".presentation.ui.authentication.view.FirstScreenActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

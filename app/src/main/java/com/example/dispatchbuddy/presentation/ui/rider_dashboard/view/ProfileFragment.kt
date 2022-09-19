@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.rider_dashboard
+package com.example.dispatchbuddy.presentation.ui.rider_dashboard.view
 
 import android.Manifest
 import android.app.Activity

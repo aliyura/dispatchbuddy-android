@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.authentication
+package com.example.dispatchbuddy.presentation.ui.authentication.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Resource
@@ -23,7 +22,7 @@ import com.example.dispatchbuddy.common.validation.observeFieldsValidationToEnab
 import com.example.dispatchbuddy.common.validation.validateField
 import com.example.dispatchbuddy.databinding.FragmentLoginBinding
 import com.example.dispatchbuddy.presentation.ui.authentication.viewmodel.LoginViewModel
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.RiderActivity
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.view.RiderActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

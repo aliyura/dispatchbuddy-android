@@ -2,7 +2,7 @@ package com.example.dispatchbuddy.common
 
 import android.os.Handler
 import android.os.Looper
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.ProfileFragment
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.view.ProfileFragment
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okio.BufferedSink
