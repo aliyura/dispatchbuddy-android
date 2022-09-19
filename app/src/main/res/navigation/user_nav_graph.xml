@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.HomeFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.view.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/ridersListFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.RidersListFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.view.RidersListFragment"
         android:label="fragment_riders_list"
         tools:layout="@layout/fragment_riders_list" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <dialog
         android:id="@+id/successDialogFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.SuccessDialogFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.user_dashboard.view.SuccessDialogFragment"
         android:label="fragment_success_dialog"
         tools:layout="@layout/fragment_success_dialog" >
         <argument

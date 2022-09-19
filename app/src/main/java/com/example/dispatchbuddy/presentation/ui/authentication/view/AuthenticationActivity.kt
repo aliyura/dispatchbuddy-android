@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.authentication
+package com.example.dispatchbuddy.presentation.ui.authentication.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

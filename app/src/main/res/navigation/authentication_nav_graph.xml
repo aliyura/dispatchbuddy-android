@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.WelcomeFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.LoginFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.RegisterFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/smsVerificationFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.SmsVerificationFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.SmsVerificationFragment"
         android:label="fragment_sms_verification"
         tools:layout="@layout/fragment_sms_verification" >
         <argument
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.SettingsFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.ChangePasswordFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" >
         <action
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailForChangePasswordFragment"
-        android:name="com.example.dispatchbuddy.presentation.ui.authentication.EmailForChangePasswordFragment"
+        android:name="com.example.dispatchbuddy.presentation.ui.authentication.view.EmailForChangePasswordFragment"
         android:label="fragment_email_for_change_password"
         tools:layout="@layout/fragment_email_for_change_password" >
         <action
