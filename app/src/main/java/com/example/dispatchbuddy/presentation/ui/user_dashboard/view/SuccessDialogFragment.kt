@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.user_dashboard
+package com.example.dispatchbuddy.presentation.ui.user_dashboard.view
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

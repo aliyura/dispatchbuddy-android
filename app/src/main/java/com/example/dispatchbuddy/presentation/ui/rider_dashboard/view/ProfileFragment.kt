@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.rider_dashboard
+package com.example.dispatchbuddy.presentation.ui.rider_dashboard.view
 
 import android.Manifest
 import android.app.Activity
@@ -20,7 +20,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.*
-import com.example.dispatchbuddy.common.Constants.dummyToken
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.ViewExtensions.showView

@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.rider_dashboard
+package com.example.dispatchbuddy.presentation.ui.rider_dashboard.view
 
 import android.app.Dialog
 import android.os.Bundle

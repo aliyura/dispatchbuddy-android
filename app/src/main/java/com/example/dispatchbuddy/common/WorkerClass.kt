@@ -9,7 +9,7 @@ import androidx.work.*
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants.CHANNEL_ID
 import com.example.dispatchbuddy.common.Constants.NOTIFICATION_ID
-import com.example.dispatchbuddy.presentation.ui.rider_dashboard.RiderActivity
+import com.example.dispatchbuddy.presentation.ui.rider_dashboard.view.RiderActivity
 
 class WorkerClass(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 

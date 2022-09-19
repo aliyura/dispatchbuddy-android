@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".presentation.ui.rider_dashboard.ProfileFragment">
+    tools:context=".presentation.ui.rider_dashboard.view.ProfileFragment">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_profile_toolbar"
         android:layout_width="match_parent"

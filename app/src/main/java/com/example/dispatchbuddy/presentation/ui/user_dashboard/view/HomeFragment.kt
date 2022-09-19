@@ -1,4 +1,4 @@
-package com.example.dispatchbuddy.presentation.ui.user_dashboard
+package com.example.dispatchbuddy.presentation.ui.user_dashboard.view
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
