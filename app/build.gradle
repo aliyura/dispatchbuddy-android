@@ -23,7 +23,7 @@ android {
 
         Properties properties = new Properties()
         properties.load(project.rootProject.file('gradle.properties').newDataInputStream())
-        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"] // TO use in manifest file
+        manifestPlaceholders = [MAPS_API_KEY: "AIzaSyBzkZ6SpWj-Hgsr_hL86TFKu_3FAHy25c0"] // TO use in manifest file
         buildConfigField(
                 "String",
                 "GOOGLE_PLACES_API_KEY",

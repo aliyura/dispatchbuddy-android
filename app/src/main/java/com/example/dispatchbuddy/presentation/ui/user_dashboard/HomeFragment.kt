@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
         val intent = Autocomplete.IntentBuilder(
             AutocompleteActivityMode.OVERLAY, fields
-        ).setCountry("NG")
+        ).setCountries(listOf("NG", "US"))
             .build(requireContext())
         startActivityForResult(intent, requestCode)
     }

@@ -399,7 +399,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 .setLocationBias(bounds)
                 //.setLocationRestriction(bounds)
                 .setOrigin(LatLng(-33.8749937, 151.2041382))
-                .setCountries("ng")
+                .setCountries("ng", "us")
                 .setTypeFilter(TypeFilter.CITIES)
                 .setSessionToken(token)
                 .setQuery(query)
