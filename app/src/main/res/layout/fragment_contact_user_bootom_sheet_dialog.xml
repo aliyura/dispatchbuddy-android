@@ -105,65 +105,12 @@
                 style="@style/EditTextInput"
                 android:id="@+id/dialog_phoneNumber_edt"
                 android:layout_width="match_parent"
-                android:inputType="number"
+                android:inputType="phone"
                 android:layout_height="@dimen/height_48dp"
                 android:hint="@string/enter_your_phone_number"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/Item_Name"-->
-<!--            android:layout_marginTop="@dimen/margin_16dp"-->
-<!--            android:fontFamily="@font/inter"-->
-<!--            android:textSize="@dimen/text_size_14sp"-->
-<!--            android:textColor="@color/accent_color"-->
-<!--            />-->
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            style="@style/EditTextInputLayout"-->
-<!--            android:id="@+id/dialog_itemName_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:endIconMode="clear_text"-->
-<!--            android:layout_marginTop="@dimen/margin_8dp"-->
-<!--            app:hintTextColor="@color/hint_text_color"-->
-<!--            >-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                style="@style/EditTextInput"-->
-<!--                android:id="@+id/dialog_itemName_edt"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/height_48dp"-->
-<!--                android:hint="@string/enter_your_item_name"-->
-<!--                />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/Item_weight"-->
-<!--            android:layout_marginTop="@dimen/margin_16dp"-->
-<!--            android:fontFamily="@font/inter"-->
-<!--            android:textSize="@dimen/text_size_14sp"-->
-<!--            android:textColor="@color/accent_color"-->
-<!--            />-->
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            style="@style/EditTextInputLayout"-->
-<!--            android:id="@+id/dialog_itemWeight_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:endIconMode="clear_text"-->
-<!--            android:layout_marginTop="@dimen/margin_8dp"-->
-<!--            app:hintTextColor="@color/hint_text_color"-->
-<!--            >-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                style="@style/EditTextInput"-->
-<!--                android:id="@+id/dialog_itemWeight_edt"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/height_48dp"-->
-<!--                android:hint="@string/enter_your_item_weight"-->
-<!--                />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/dialog_contact_riders_button"
             style="@style/DefaultButton"
