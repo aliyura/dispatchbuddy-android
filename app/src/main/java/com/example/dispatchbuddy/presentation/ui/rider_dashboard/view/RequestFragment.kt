@@ -294,7 +294,7 @@ class RequestFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         updateUI()
-                        successDialog.show()
+//                        successDialog.show()
                         binding.riderListRequestProgressBar.hideView()
                     }
                     is Resource.Error ->{

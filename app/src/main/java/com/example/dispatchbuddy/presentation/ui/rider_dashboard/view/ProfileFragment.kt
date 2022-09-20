@@ -9,12 +9,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -132,8 +132,8 @@ class ProfileFragment : Fragment() {
             showShortSnackBar("Select an Image")
             return
         }
-        val parcelFileDescriptor = context?.contentResolver?.openFileDescriptor(selectedImage!!, "r", null)?:  return
-        val file = File(requireActivity().cacheDir, requireActivity().contentResolver.getFileName(selectedImage!!))
+        val parcelFileDescriptor = context?.contentResolver?.openFileDescriptor(selectedImage, "r", null)?:  return
+        val file = File(requireActivity().cacheDir, requireActivity().contentResolver.getFileName(selectedImage))
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream )

@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.dispatchbuddy.BuildConfig
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants.PICKUP_REQUEST_CODE
 import com.example.dispatchbuddy.common.Constants.DELIVERY_REQUEST_CODE
-import com.example.dispatchbuddy.common.Constants.GOOGLE_PLACES_API_KEY
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
 import com.example.dispatchbuddy.common.preferences.Preferences
 import com.example.dispatchbuddy.common.validation.FieldValidationTracker
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         }
 
        // Initialize places sdk
-        Places.initialize(requireContext(), GOOGLE_PLACES_API_KEY)
+        Places.initialize(requireContext(), BuildConfig.GOOGLE_PLACES_API_KEY)
     }
 
     private fun onSearchCalled(requestCode: Int) {
@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
         val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
         val intent = Autocomplete.IntentBuilder(
             AutocompleteActivityMode.OVERLAY, fields
-        ).setCountry("NG")
+        ).setCountries(listOf("NG", "US"))
             .build(requireContext())
         startActivityForResult(intent, requestCode)
     }

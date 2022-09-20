@@ -11,6 +11,7 @@ plugins {
 android {
     compileSdk 32
 
+
     defaultConfig {
         applicationId "com.example.dispatchbuddy"
         minSdk 21
@@ -19,6 +20,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('secure.properties').newDataInputStream())
+        manifestPlaceholders = [MAPS_API_KEY: "AIzaSyBzkZ6SpWj-Hgsr_hL86TFKu_3FAHy25c0"] // TO use in manifest file
+        buildConfigField(
+                "String",
+                "GOOGLE_PLACES_API_KEY",
+                "${properties.getProperty('GOOGLE_PLACES_API_KEY')}"
+        )
     }
 
     buildTypes {

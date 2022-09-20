@@ -31,23 +31,24 @@ object FieldValidations {
     fun verifyPassword(password: String): Boolean {
         val regex = Regex(
             "^" +
-                "(?=.*[@#$%^&+=])" + // at least 1 special character
-                "(?=\\S+$)" + // no white spaces
-                ".{6,}" + // at least 6 characters
-                "$"
+                    "(?=.*[@#$%^&+=])" + // at least 1 special character
+                    "(?=\\S+$)" + // no white spaces
+                    ".{6,}" + // at least 6 characters
+                    "$"
         )
         return password.isNotBlank() && password.matches(regex)
     }
 
     // Function to verify the phone-number of the intended user
     fun verifyPhoneNumber(number: String): Boolean {
-        val regex = Regex("^(234|0)(8([01])|(9([01]))|([7])([0]))\\d{8}$")
+        val regex =
+            Regex("(^(\\+)?234[( ]?[0-9]{3}\\)? ?[0-9]{3}[\\- ]?[0-9]{4})|(^[0-9]{4}[\\- ]?[0-9]{3}[\\- ]?[0-9]{4})|(^01 ?[0-9]{3} ?[0-9]{4})|(^\\+234 1 [0-9]{3} [0-9]{4})\n")
         return number.isNotBlank() && number.matches(regex)
     }
 
     // Function to verify date of birth of intended user
-    fun verifyDateOfBirth(dateOfBirth : String) : Boolean {
-        val regex = Regex("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}\$")
+    fun verifyDateOfBirth(dateOfBirth: String): Boolean {
+        val regex = Regex("^(0?[1-9]|[12][0-9]|3[01])[/\\-](0?[1-9]|1[012])[/\\-]\\d{4}\$")
         return dateOfBirth.isNotBlank() && dateOfBirth.matches(regex)
     }
 
@@ -59,7 +60,7 @@ object FieldValidations {
         return gender.isNotBlank()
     }
 
-    fun verifyCheckBox(isChecked: Boolean): Boolean{
+    fun verifyCheckBox(isChecked: Boolean): Boolean {
         return isChecked
     }
 

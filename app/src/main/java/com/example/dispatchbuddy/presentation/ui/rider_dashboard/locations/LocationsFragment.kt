@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatchbuddy.BuildConfig
 import com.example.dispatchbuddy.R
 import com.example.dispatchbuddy.common.Constants
-import com.example.dispatchbuddy.common.Constants.GOOGLE_PLACES_API_KEY
 import com.example.dispatchbuddy.common.Resource
 import com.example.dispatchbuddy.common.ViewExtensions.hideView
 import com.example.dispatchbuddy.common.ViewExtensions.showShortSnackBar
@@ -92,7 +91,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         MapsInitializer.initialize(requireContext())
 
         // Initialize places sdk
-        Places.initialize(requireContext(), GOOGLE_PLACES_API_KEY)
+        Places.initialize(requireContext(), BuildConfig.GOOGLE_PLACES_API_KEY)
         bottomSheetView = view.findViewById(R.id.bottom_sheet)
         initializeViews()
 
@@ -400,7 +399,7 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
                 .setLocationBias(bounds)
                 //.setLocationRestriction(bounds)
                 .setOrigin(LatLng(-33.8749937, 151.2041382))
-                .setCountries("ng")
+                .setCountries("ng", "us")
                 .setTypeFilter(TypeFilter.CITIES)
                 .setSessionToken(token)
                 .setQuery(query)
