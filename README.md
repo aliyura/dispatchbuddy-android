@@ -83,3 +83,6 @@ android {
 [viewbinding]:https://developer.android.com/topic/libraries/view-binding
 [delegates]:https://kotlinlang.org/docs/reference/delegated-properties.html
 [results]:https://developer.android.com/training/basics/intents/result
+
+## Unit Tests
+Some unit tests are under the `app/src/test` and `app/src/androidTest` directories, to run them, click the test package and right click and select `Run all tests in...`
